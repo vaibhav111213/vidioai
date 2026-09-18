@@ -4,64 +4,98 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>VibeNest AI</title>
+  <title>VibeNest</title>
 
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     body {
       background: #f5f5f7;
-      color: #222;
+      color: #171717;
     }
 
-    /* NAVBAR */
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
     .navbar {
       height: 65px;
-      background: white;
-      border-bottom: 1px solid #ddd;
+      background: #ffffff;
+      border-bottom: 1px solid #dddddd;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       padding: 0 25px;
+
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 100;
     }
 
     .logo {
       font-size: 23px;
-      font-weight: bold;
+      font-weight: 700;
       cursor: pointer;
     }
 
     .nav-buttons {
       display: flex;
-      gap: 8px;
+      gap: 6px;
     }
 
     .nav-btn {
       border: none;
       background: transparent;
-      padding: 10px 16px;
+
+      padding: 10px 15px;
+
       border-radius: 8px;
-      cursor: pointer;
+
       font-size: 14px;
+
+      transition: 0.2s;
     }
 
-    .nav-btn:hover,
-    .nav-btn.active {
+    .nav-btn:hover {
       background: #eeeeee;
     }
 
-    /* MAIN */
+    .nav-btn.active {
+      background: #111111;
+      color: white;
+    }
+
+
+    /* =========================
+       MAIN
+    ========================= */
+
     .container {
+      width: 100%;
       max-width: 1250px;
+
       margin: auto;
+
       padding: 35px 20px;
     }
 
@@ -83,20 +117,91 @@
     }
 
     .heading p {
-      color: #777;
+      color: #777777;
     }
 
-    /* EDITOR */
+
+    /* =========================
+       HOME
+    ========================= */
+
+    .hero {
+      background: white;
+
+      border: 1px solid #dddddd;
+      border-radius: 18px;
+
+      padding: 80px 30px;
+
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 45px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      max-width: 620px;
+
+      margin: auto;
+
+      color: #777777;
+
+      line-height: 1.6;
+
+      font-size: 17px;
+    }
+
+    .hero-buttons {
+      margin-top: 30px;
+    }
+
+    .hero-btn {
+      border: 1px solid #222222;
+
+      background: white;
+
+      padding: 13px 22px;
+
+      border-radius: 8px;
+
+      margin: 5px;
+    }
+
+    .hero-btn:hover {
+      background: #eeeeee;
+    }
+
+    .hero-btn.dark {
+      background: #111111;
+      color: white;
+    }
+
+    .hero-btn.dark:hover {
+      background: #333333;
+    }
+
+
+    /* =========================
+       EDITOR
+    ========================= */
+
     .editor-layout {
       display: grid;
-      grid-template-columns: 260px 1fr 260px;
+
+      grid-template-columns: 240px 1fr 240px;
+
       gap: 20px;
     }
 
     .panel {
       background: white;
-      border: 1px solid #ddd;
+
+      border: 1px solid #dddddd;
+
       border-radius: 12px;
+
       padding: 18px;
     }
 
@@ -106,57 +211,141 @@
 
     .tool {
       width: 100%;
-      padding: 12px;
+
+      padding: 11px;
+
       margin-bottom: 9px;
-      border: 1px solid #ddd;
+
+      border: 1px solid #dddddd;
+
       background: white;
+
       border-radius: 8px;
-      cursor: pointer;
+
       text-align: left;
+
+      transition: 0.2s;
     }
 
     .tool:hover {
       background: #f1f1f1;
     }
 
+    .tool.danger:hover {
+      background: #ffecec;
+    }
+
+    .property-group {
+      margin-bottom: 18px;
+    }
+
+    .property-group label {
+      display: block;
+
+      font-size: 13px;
+
+      font-weight: bold;
+
+      margin-bottom: 7px;
+    }
+
+    .property-group input,
+    .property-group select {
+      width: 100%;
+
+      padding: 9px;
+
+      border: 1px solid #cccccc;
+
+      border-radius: 7px;
+
+      background: white;
+    }
+
     .canvas {
       min-height: 600px;
-      background: #e9e9e9;
+
+      background: #e8e8e8;
+
       border-radius: 12px;
+
       display: flex;
+
       justify-content: center;
+
       align-items: center;
+
+      padding: 25px;
     }
 
     .design {
       width: 450px;
       height: 500px;
+
+      max-width: 100%;
+
       background: white;
-      box-shadow: 0 10px 30px rgba(0,0,0,.12);
+
+      box-shadow:
+        0 10px 30px rgba(0,0,0,0.12);
+
       display: flex;
+
       justify-content: center;
+
       align-items: center;
+
       text-align: center;
+
       padding: 30px;
+
+      position: relative;
+
+      overflow: hidden;
     }
 
     .design-text {
       font-size: 30px;
+
       font-weight: bold;
+
+      word-break: break-word;
+
+      transition: 0.2s;
     }
 
-    /* AI VIDEO */
+    #imagePreview {
+      max-width: 90%;
+      max-height: 80%;
+
+      object-fit: contain;
+
+      display: none;
+
+      position: absolute;
+    }
+
+
+    /* =========================
+       VIDEO GENERATOR
+    ========================= */
+
     .video-layout {
       display: grid;
+
       grid-template-columns: 420px 1fr;
+
       gap: 25px;
     }
 
     .generator-card,
     .preview-card {
       background: white;
-      border: 1px solid #ddd;
+
+      border: 1px solid #dddddd;
+
       border-radius: 15px;
+
       padding: 22px;
     }
 
@@ -166,190 +355,255 @@
     }
 
     .small-text {
-      color: #777;
+      color: #777777;
+
       font-size: 14px;
+
       margin-bottom: 20px;
     }
 
     .label {
       display: block;
+
       font-size: 14px;
+
       font-weight: bold;
-      margin-bottom: 8px;
+
       margin-top: 18px;
+
+      margin-bottom: 8px;
     }
 
     textarea {
       width: 100%;
+
       min-height: 145px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
+
       padding: 14px;
+
+      border: 1px solid #cccccc;
+
+      border-radius: 10px;
+
       resize: vertical;
+
       outline: none;
+
       font-size: 15px;
+
+      line-height: 1.5;
     }
 
-    textarea:focus,
-    select:focus {
-      border-color: #555;
-    }
-
-    select {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background: white;
-      outline: none;
+    textarea:focus {
+      border-color: #555555;
     }
 
     .settings-row {
       display: grid;
+
       grid-template-columns: 1fr 1fr;
+
       gap: 12px;
+    }
+
+    select {
+      width: 100%;
+
+      padding: 12px;
+
+      border: 1px solid #cccccc;
+
+      border-radius: 8px;
+
+      background: white;
+
+      outline: none;
+    }
+
+    select:focus {
+      border-color: #555555;
     }
 
     .generate-btn {
       width: 100%;
+
       margin-top: 25px;
+
       padding: 14px;
+
       border: none;
+
       border-radius: 9px;
-      background: #111;
+
+      background: #111111;
+
       color: white;
+
       font-size: 16px;
+
       font-weight: bold;
-      cursor: pointer;
+
+      transition: 0.2s;
     }
 
     .generate-btn:hover {
-      background: #333;
+      background: #333333;
     }
 
     .generate-btn:disabled {
-      background: #999;
+      background: #999999;
+
       cursor: not-allowed;
     }
 
-    /* VIDEO PREVIEW */
+
+    /* =========================
+       VIDEO PREVIEW
+    ========================= */
+
     .video-preview {
       width: 100%;
+
       max-width: 650px;
+
       height: 470px;
-      background: #111;
+
+      background: #111111;
+
       border-radius: 12px;
+
       margin: auto;
+
       display: flex;
+
       align-items: center;
+
       justify-content: center;
+
       color: white;
+
       text-align: center;
-      position: relative;
+
       overflow: hidden;
+
+      position: relative;
+    }
+
+    .video-preview video {
+      width: 100%;
+
+      height: 100%;
+
+      object-fit: contain;
+
+      background: #111111;
     }
 
     .preview-content {
       padding: 30px;
     }
 
-    .preview-content .play {
+    .play-icon {
       width: 65px;
+
       height: 65px;
+
       background: white;
-      color: #111;
+
+      color: #111111;
+
       border-radius: 50%;
+
       display: flex;
+
       justify-content: center;
+
       align-items: center;
-      margin: auto auto 20px;
-      font-size: 25px;
+
+      margin: 0 auto 20px;
+
+      font-size: 24px;
     }
 
     .preview-prompt {
-      font-size: 18px;
+      font-size: 17px;
+
       line-height: 1.5;
     }
 
+
+    /* =========================
+       PROGRESS
+    ========================= */
+
     .progress {
       display: none;
+
       margin-top: 20px;
     }
 
     .progress-bar {
       width: 100%;
+
       height: 8px;
-      background: #ddd;
+
+      background: #dddddd;
+
       border-radius: 20px;
+
       overflow: hidden;
     }
 
     .progress-fill {
       width: 0%;
+
       height: 100%;
-      background: #111;
-      transition: width .3s;
+
+      background: #111111;
+
+      transition: width 0.25s;
     }
 
     .status {
-      font-size: 14px;
       margin-top: 8px;
-      color: #666;
+
+      font-size: 13px;
+
+      color: #666666;
     }
+
+
+    /* =========================
+       DOWNLOAD
+    ========================= */
 
     .download-btn {
       display: none;
+
       margin: 20px auto 0;
+
       padding: 12px 22px;
+
       border: none;
+
       border-radius: 8px;
-      background: #111;
-      color: white;
-      cursor: pointer;
-    }
 
-    /* HOME */
-    .hero {
-      background: white;
-      border-radius: 18px;
-      padding: 70px 30px;
-      text-align: center;
-      border: 1px solid #ddd;
-    }
+      background: #111111;
 
-    .hero h1 {
-      font-size: 45px;
-      margin-bottom: 15px;
-    }
-
-    .hero p {
-      color: #777;
-      font-size: 17px;
-      max-width: 600px;
-      margin: auto;
-      line-height: 1.6;
-    }
-
-    .hero-buttons {
-      margin-top: 30px;
-    }
-
-    .hero-btn {
-      padding: 13px 20px;
-      margin: 5px;
-      border-radius: 8px;
-      border: 1px solid #222;
-      background: white;
-      cursor: pointer;
-    }
-
-    .hero-btn.dark {
-      background: #111;
       color: white;
     }
 
-    /* RESPONSIVE */
+    .download-btn:hover {
+      background: #333333;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
     @media (max-width: 900px) {
+
       .editor-layout,
       .video-layout {
         grid-template-columns: 1fr;
@@ -358,79 +612,145 @@
       .canvas {
         min-height: 450px;
       }
+
     }
 
+
     @media (max-width: 600px) {
-      .nav-buttons {
-        gap: 2px;
+
+      .navbar {
+        padding: 0 12px;
+      }
+
+      .logo {
+        font-size: 19px;
       }
 
       .nav-btn {
         padding: 8px;
+
         font-size: 12px;
+      }
+
+      .hero {
+        padding: 55px 20px;
       }
 
       .hero h1 {
         font-size: 32px;
       }
 
+      .heading h1 {
+        font-size: 27px;
+      }
+
       .settings-row {
         grid-template-columns: 1fr;
       }
+
+      .video-preview {
+        height: 400px;
+      }
+
     }
+
   </style>
 </head>
 
+
 <body>
 
-  <!-- NAVBAR -->
+
+  <!-- =========================
+       NAVBAR
+  ========================= -->
+
   <nav class="navbar">
 
-    <div class="logo" onclick="showPage('home')">
+    <div
+      class="logo"
+      onclick="showPage('home')">
+
       VibeNest
+
     </div>
 
+
     <div class="nav-buttons">
-      <button class="nav-btn active" onclick="showPage('home')">
+
+      <button
+        class="nav-btn active"
+        onclick="showPage('home')">
+
         Home
+
       </button>
 
-      <button class="nav-btn" onclick="showPage('editor')">
+
+      <button
+        class="nav-btn"
+        onclick="showPage('editor')">
+
         Editor
+
       </button>
 
-      <button class="nav-btn" onclick="showPage('video')">
+
+      <button
+        class="nav-btn"
+        onclick="showPage('video')">
+
         AI Video
+
       </button>
+
     </div>
 
   </nav>
 
 
+
   <main class="container">
 
-    <!-- HOME -->
-    <section id="home" class="page active">
+
+    <!-- =========================
+         HOME
+    ========================= -->
+
+    <section
+      id="home"
+      class="page active">
 
       <div class="hero">
 
-        <h1>Create Something Amazing</h1>
+        <h1>
+          Create Something Amazing
+        </h1>
 
         <p>
-          Design graphics, create content and generate creative videos
-          from simple ideas.
+          Design graphics, create content
+          and turn your ideas into videos
+          with VibeNest.
         </p>
+
 
         <div class="hero-buttons">
 
-          <button class="hero-btn dark"
-                  onclick="showPage('editor')">
+          <button
+            class="hero-btn dark"
+            onclick="showPage('editor')">
+
             Open Editor
+
           </button>
 
-          <button class="hero-btn"
-                  onclick="showPage('video')">
+
+          <button
+            class="hero-btn"
+            onclick="showPage('video')">
+
             Try AI Video
+
           </button>
 
         </div>
@@ -440,71 +760,192 @@
     </section>
 
 
-    <!-- EDITOR -->
-    <section id="editor" class="page">
+
+    <!-- =========================
+         EDITOR
+    ========================= -->
+
+    <section
+      id="editor"
+      class="page">
 
       <div class="heading">
 
-        <h1>Design Editor</h1>
+        <h1>
+          Design Editor
+        </h1>
 
-        <p>Create your own design.</p>
+        <p>
+          Create and customize your design.
+        </p>
 
       </div>
 
+
       <div class="editor-layout">
+
+
+        <!-- TOOLS -->
 
         <div class="panel">
 
-          <h3>Tools</h3>
+          <h3>
+            Tools
+          </h3>
 
-          <button class="tool"
-                  onclick="addText()">
+
+          <button
+            class="tool"
+            onclick="addText()">
+
             ＋ Add Text
+
           </button>
 
-          <button class="tool"
-                  onclick="changeTextSize()">
+
+          <button
+            class="tool"
+            onclick="changeTextSize()">
+
             A Change Text Size
+
           </button>
 
-          <button class="tool"
-                  onclick="changeBackground()">
-            🎨 Background
+
+          <button
+            class="tool"
+            onclick="changeBackground()">
+
+            🎨 Change Background
+
           </button>
 
-          <button class="tool"
-                  onclick="alert('Image upload can be connected here.')">
+
+          <button
+            class="tool"
+            onclick="document.getElementById('imageInput').click()">
+
             🖼 Add Image
+
           </button>
 
-          <button class="tool"
-                  onclick="clearDesign()">
-            🗑 Clear
+
+          <input
+            type="file"
+            id="imageInput"
+            accept="image/*"
+            style="display:none"
+            onchange="addImage(event)">
+
+
+          <button
+            class="tool danger"
+            onclick="clearDesign()">
+
+            🗑 Clear Design
+
           </button>
 
         </div>
 
 
+
+        <!-- CANVAS -->
+
         <div class="canvas">
 
-          <div class="design" id="design">
+          <div
+            class="design"
+            id="design">
 
-            <div class="design-text" id="designText">
+            <div
+              class="design-text"
+              id="designText">
+
               Your Design
+
             </div>
+
+
+            <img
+              id="imagePreview"
+              alt="Uploaded image">
 
           </div>
 
         </div>
 
 
+
+        <!-- PROPERTIES -->
+
         <div class="panel">
 
-          <h3>Properties</h3>
+          <h3>
+            Properties
+          </h3>
 
-          <p style="color:#777;font-size:14px;">
-            Select an element to edit its properties.
-          </p>
+
+          <div class="property-group">
+
+            <label>
+              Text
+            </label>
+
+            <input
+              type="text"
+              id="textInput"
+              value="Your Design"
+              oninput="updateText()">
+
+          </div>
+
+
+          <div class="property-group">
+
+            <label>
+              Text Color
+            </label>
+
+            <input
+              type="color"
+              id="textColor"
+              value="#171717"
+              onchange="updateTextColor()">
+
+          </div>
+
+
+          <div class="property-group">
+
+            <label>
+              Font Size
+            </label>
+
+            <input
+              type="number"
+              id="fontSize"
+              value="30"
+              min="8"
+              max="150"
+              onchange="updateFontSize()">
+
+          </div>
+
+
+          <div class="property-group">
+
+            <label>
+              Background
+            </label>
+
+            <input
+              type="color"
+              id="backgroundColor"
+              value="#ffffff"
+              onchange="updateBackground()">
+
+          </div>
 
         </div>
 
@@ -513,12 +954,20 @@
     </section>
 
 
-    <!-- AI VIDEO -->
-    <section id="video" class="page">
+
+    <!-- =========================
+         AI VIDEO
+    ========================= -->
+
+    <section
+      id="video"
+      class="page">
 
       <div class="heading">
 
-        <h1>AI Video Generator</h1>
+        <h1>
+          AI Video Generator
+        </h1>
 
         <p>
           Turn your idea into a creative video.
@@ -529,10 +978,14 @@
 
       <div class="video-layout">
 
+
         <!-- GENERATOR -->
+
         <div class="generator-card">
 
-          <h2>Create Video</h2>
+          <h2>
+            Create Video
+          </h2>
 
           <p class="small-text">
             Describe the video you want to create.
@@ -543,13 +996,15 @@
             Video Prompt
           </label>
 
+
           <textarea
             id="prompt"
-            placeholder="Example: A cinematic sunset over mountains, clouds moving slowly, realistic camera movement..."
-          ></textarea>
+            maxlength="1000"
+            placeholder="Example: A cinematic sunset over mountains, clouds moving slowly, realistic camera movement..."></textarea>
 
 
           <div class="settings-row">
+
 
             <div>
 
@@ -557,12 +1012,19 @@
                 Duration
               </label>
 
+
               <select id="duration">
 
-                <option value="5">5 seconds</option>
+                <option value="5">
+                  5 seconds
+                </option>
 
-                <option value="10" selected>
+                <option
+                  value="10"
+                  selected>
+
                   10 seconds
+
                 </option>
 
                 <option value="15">
@@ -578,11 +1040,13 @@
             </div>
 
 
+
             <div>
 
               <label class="label">
                 Aspect Ratio
               </label>
+
 
               <select id="ratio">
 
@@ -605,44 +1069,71 @@
           </div>
 
 
+
           <label class="label">
             Video Style
           </label>
 
+
           <select id="style">
 
-            <option>Cinematic</option>
+            <option>
+              Cinematic
+            </option>
 
-            <option>Realistic</option>
+            <option>
+              Realistic
+            </option>
 
-            <option>Anime</option>
+            <option>
+              Anime
+            </option>
 
-            <option>3D Animation</option>
+            <option>
+              3D Animation
+            </option>
 
-            <option>Cartoon</option>
+            <option>
+              Cartoon
+            </option>
 
-            <option>Fantasy</option>
+            <option>
+              Fantasy
+            </option>
 
           </select>
+
 
 
           <label class="label">
             Camera Movement
           </label>
 
+
           <select id="camera">
 
-            <option>Slow Zoom</option>
+            <option>
+              Slow Zoom
+            </option>
 
-            <option>Static Camera</option>
+            <option>
+              Static Camera
+            </option>
 
-            <option>Camera Pan</option>
+            <option>
+              Camera Pan
+            </option>
 
-            <option>Tracking Shot</option>
+            <option>
+              Tracking Shot
+            </option>
 
-            <option>Drone Shot</option>
+            <option>
+              Drone Shot
+            </option>
 
           </select>
+
 
 
           <button
@@ -655,7 +1146,10 @@
           </button>
 
 
-          <div class="progress" id="progress">
+
+          <div
+            class="progress"
+            id="progress">
 
             <div class="progress-bar">
 
@@ -666,8 +1160,13 @@
 
             </div>
 
-            <div class="status" id="status">
+
+            <div
+              class="status"
+              id="status">
+
               Preparing video...
+
             </div>
 
           </div>
@@ -675,27 +1174,37 @@
         </div>
 
 
+
         <!-- PREVIEW -->
+
         <div class="preview-card">
 
-          <h2>Preview</h2>
+          <h2>
+            Preview
+          </h2>
 
           <p class="small-text">
-            Your generated video will appear here.
+            Your video will appear here.
           </p>
 
 
-          <div class="video-preview" id="videoPreview">
+          <div
+            class="video-preview"
+            id="videoPreview">
+
 
             <div class="preview-content">
 
-              <div class="play">
+              <div class="play-icon">
                 ▶
               </div>
 
+
               <div class="preview-prompt">
+
                 Enter a prompt and click
                 <b>Generate Video</b>
+
               </div>
 
             </div>
@@ -705,8 +1214,7 @@
 
           <button
             class="download-btn"
-            id="downloadBtn"
-            onclick="downloadVideo()">
+            id="downloadBtn">
 
             ↓ Download Video
 
@@ -718,126 +1226,394 @@
 
     </section>
 
+
   </main>
+
 
 
   <script>
 
-    /* PAGE NAVIGATION */
+
+    /* =========================
+       PAGE NAVIGATION
+    ========================= */
 
     function showPage(pageName) {
 
-      const pages = document.querySelectorAll(".page");
+      const pages =
+        document.querySelectorAll(".page");
 
-      pages.forEach(page => {
+      pages.forEach(function(page) {
+
         page.classList.remove("active");
+
       });
 
-      document
-        .getElementById(pageName)
-        .classList.add("active");
+
+      const selectedPage =
+        document.getElementById(pageName);
+
+      if (selectedPage) {
+
+        selectedPage.classList.add("active");
+
+      }
 
 
-      const buttons = document.querySelectorAll(".nav-btn");
+      const buttons =
+        document.querySelectorAll(".nav-btn");
 
-      buttons.forEach(button => {
+      buttons.forEach(function(button) {
+
         button.classList.remove("active");
+
       });
+
 
       if (pageName === "home") {
         buttons[0].classList.add("active");
       }
 
-      if (pageName === "editor") {
+      else if (pageName === "editor") {
         buttons[1].classList.add("active");
       }
 
-      if (pageName === "video") {
+      else if (pageName === "video") {
         buttons[2].classList.add("active");
       }
 
     }
 
 
-    /* SIMPLE EDITOR */
+
+    /* =========================
+       EDITOR
+    ========================= */
 
     function addText() {
 
-      const text = prompt(
-        "Enter your text:"
-      );
+      const text =
+        prompt("Enter your text:");
 
-      if (text) {
-
-        document.getElementById(
-          "designText"
-        ).textContent = text;
-
+      if (!text) {
+        return;
       }
 
+
+      document.getElementById(
+        "designText"
+      ).textContent = text;
+
+
+      document.getElementById(
+        "textInput"
+      ).value = text;
+
     }
+
+
+
+    function updateText() {
+
+      const text =
+        document.getElementById(
+          "textInput"
+        ).value;
+
+
+      document.getElementById(
+        "designText"
+      ).textContent = text;
+
+    }
+
 
 
     function changeTextSize() {
 
-      const element =
-        document.getElementById("designText");
-
-      const current =
-        parseInt(
-          window.getComputedStyle(element).fontSize
+      const input =
+        document.getElementById(
+          "fontSize"
         );
 
-      element.style.fontSize =
-        (current + 5) + "px";
+      let size =
+        parseInt(input.value);
+
+
+      size += 5;
+
+
+      if (size > 150) {
+        size = 150;
+      }
+
+
+      input.value = size;
+
+
+      updateFontSize();
 
     }
 
 
+
+    function updateFontSize() {
+
+      let size =
+        parseInt(
+          document.getElementById(
+            "fontSize"
+          ).value
+        );
+
+
+      if (isNaN(size)) {
+        size = 30;
+      }
+
+
+      if (size < 8) {
+        size = 8;
+      }
+
+
+      if (size > 150) {
+        size = 150;
+      }
+
+
+      document.getElementById(
+        "fontSize"
+      ).value = size;
+
+
+      document.getElementById(
+        "designText"
+      ).style.fontSize =
+        size + "px";
+
+    }
+
+
+
+    function updateTextColor() {
+
+      const color =
+        document.getElementById(
+          "textColor"
+        ).value;
+
+
+      document.getElementById(
+        "designText"
+      ).style.color = color;
+
+    }
+
+
+
     function changeBackground() {
 
-      const design =
-        document.getElementById("design");
-
       const backgrounds = [
+
         "#ffffff",
         "#eeeeee",
         "#dfe7fd",
         "#fce1e4",
         "#e4f7e7",
-        "#fff1cc"
+        "#fff1cc",
+        "#e5e5e5"
+
       ];
 
-      const current =
-        design.dataset.bgIndex || 0;
 
-      const next =
-        (parseInt(current) + 1) %
-        backgrounds.length;
+      const design =
+        document.getElementById(
+          "design"
+        );
+
+
+      let index =
+        parseInt(
+          design.dataset.bgIndex || "0"
+        );
+
+
+      index++;
+
+
+      if (index >= backgrounds.length) {
+        index = 0;
+      }
+
+
+      design.dataset.bgIndex =
+        index;
+
 
       design.style.background =
-        backgrounds[next];
+        backgrounds[index];
 
-      design.dataset.bgIndex = next;
+
+      document.getElementById(
+        "backgroundColor"
+      ).value =
+        backgrounds[index];
 
     }
+
+
+
+    function updateBackground() {
+
+      const color =
+        document.getElementById(
+          "backgroundColor"
+        ).value;
+
+
+      document.getElementById(
+        "design"
+      ).style.background = color;
+
+    }
+
+
+
+    function addImage(event) {
+
+      const file =
+        event.target.files[0];
+
+
+      if (!file) {
+        return;
+      }
+
+
+      if (!file.type.startsWith("image/")) {
+
+        alert(
+          "Please select an image file."
+        );
+
+        return;
+
+      }
+
+
+      const image =
+        document.getElementById(
+          "imagePreview"
+        );
+
+
+      const text =
+        document.getElementById(
+          "designText"
+        );
+
+
+      image.src =
+        URL.createObjectURL(file);
+
+
+      image.style.display =
+        "block";
+
+
+      text.style.zIndex = "2";
+
+    }
+
 
 
     function clearDesign() {
 
+      const design =
+        document.getElementById(
+          "design"
+        );
+
+
+      const text =
+        document.getElementById(
+          "designText"
+        );
+
+
+      const image =
+        document.getElementById(
+          "imagePreview"
+        );
+
+
+      text.textContent =
+        "Your Design";
+
+
+      text.style.fontSize =
+        "30px";
+
+
+      text.style.color =
+        "#171717";
+
+
+      design.style.background =
+        "#ffffff";
+
+
+      image.style.display =
+        "none";
+
+
+      image.removeAttribute("src");
+
+
       document.getElementById(
-        "designText"
-      ).textContent = "Your Design";
+        "textInput"
+      ).value =
+        "Your Design";
+
+
+      document.getElementById(
+        "fontSize"
+      ).value =
+        "30";
+
+
+      document.getElementById(
+        "textColor"
+      ).value =
+        "#171717";
+
+
+      document.getElementById(
+        "backgroundColor"
+      ).value =
+        "#ffffff";
+
+
+      document.getElementById(
+        "imageInput"
+      ).value = "";
 
     }
 
 
-    /* AI VIDEO GENERATOR */
+
+    /* =========================
+       AI VIDEO GENERATOR
+    ========================= */
 
     function generateVideo() {
 
       const prompt =
-        document.getElementById("prompt").value.trim();
+        document.getElementById(
+          "prompt"
+        ).value.trim();
+
 
       if (!prompt) {
 
@@ -851,44 +1627,80 @@
 
 
       const duration =
-        document.getElementById("duration").value;
+        document.getElementById(
+          "duration"
+        ).value;
+
 
       const ratio =
-        document.getElementById("ratio").value;
+        document.getElementById(
+          "ratio"
+        ).value;
+
 
       const style =
-        document.getElementById("style").value;
+        document.getElementById(
+          "style"
+        ).value;
+
 
       const camera =
-        document.getElementById("camera").value;
+        document.getElementById(
+          "camera"
+        ).value;
 
 
       const button =
-        document.getElementById("generateBtn");
+        document.getElementById(
+          "generateBtn"
+        );
+
 
       const progress =
-        document.getElementById("progress");
+        document.getElementById(
+          "progress"
+        );
+
 
       const fill =
-        document.getElementById("progressFill");
+        document.getElementById(
+          "progressFill"
+        );
+
 
       const status =
-        document.getElementById("status");
+        document.getElementById(
+          "status"
+        );
+
 
       const preview =
-        document.getElementById("videoPreview");
+        document.getElementById(
+          "videoPreview"
+        );
+
 
       const download =
-        document.getElementById("downloadBtn");
+        document.getElementById(
+          "downloadBtn"
+        );
 
 
-      button.disabled = true;
+      button.disabled =
+        true;
+
 
       button.textContent =
         "Generating...";
 
+
       progress.style.display =
         "block";
+
+
+      fill.style.width =
+        "0%";
+
 
       download.style.display =
         "none";
@@ -898,77 +1710,134 @@
 
 
       const messages = [
+
         "Understanding your prompt...",
+
         "Creating scenes...",
+
         "Generating motion...",
-        "Adding camera movement...",
+
+        "Applying camera movement...",
+
         "Rendering video...",
+
         "Almost finished..."
+
       ];
 
 
       const interval =
-        setInterval(() => {
+        setInterval(function() {
 
           percentage += 5;
+
 
           fill.style.width =
             percentage + "%";
 
 
-          const index =
+          const messageIndex =
             Math.min(
-              Math.floor(percentage / 20),
+              Math.floor(
+                percentage / 20
+              ),
               messages.length - 1
             );
 
+
           status.textContent =
-            messages[index];
+            messages[messageIndex];
 
 
           if (percentage >= 100) {
 
             clearInterval(interval);
 
-            button.disabled = false;
+
+            button.disabled =
+              false;
+
 
             button.textContent =
               "✨ Generate Video";
+
 
             status.textContent =
               "Video ready!";
 
 
+            /*
+              REAL PLAYABLE SAMPLE VIDEO
+
+              Replace this URL later with
+              the URL returned by your AI API.
+            */
+
+            const videoURL =
+              "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4";
+
+
             preview.innerHTML = `
 
-              <div class="preview-content">
+              <video
+                id="generatedVideo"
+                controls
+                playsinline
+                preload="metadata">
 
-                <div class="play">
-                  ▶
-                </div>
+                <source
+                  src="${videoURL}"
+                  type="video/mp4">
 
-                <div class="preview-prompt">
+                Your browser does not support video playback.
 
-                  <b>${escapeHTML(prompt)}</b>
-
-                  <br><br>
-
-                  <small>
-                    ${duration}s •
-                    ${ratio} •
-                    ${style} •
-                    ${camera}
-                  </small>
-
-                </div>
-
-              </div>
+              </video>
 
             `;
 
 
+            const video =
+              document.getElementById(
+                "generatedVideo"
+              );
+
+
+            /*
+              Automatically start playback
+              when the video is ready.
+            */
+
+            video.addEventListener(
+              "canplay",
+              function() {
+
+                video.play().catch(
+                  function() {
+                    /*
+                      Browser may block
+                      autoplay. User can
+                      press Play manually.
+                    */
+                  }
+                );
+
+              },
+              { once: true }
+            );
+
+
             download.style.display =
               "block";
+
+
+            download.onclick =
+              function() {
+
+                downloadVideo(
+                  videoURL
+                );
+
+              };
 
           }
 
@@ -977,25 +1846,42 @@
     }
 
 
-    function escapeHTML(text) {
 
-      const div =
-        document.createElement("div");
+    /* =========================
+       DOWNLOAD VIDEO
+    ========================= */
 
-      div.textContent = text;
+    function downloadVideo(url) {
 
-      return div.innerHTML;
+      const link =
+        document.createElement(
+          "a"
+        );
 
-    }
+
+      link.href = url;
+
+      link.download =
+        "vibenest-video.mp4";
+
+      link.target =
+        "_blank";
 
 
-    function downloadVideo() {
+      document.body.appendChild(
+        link
+      );
 
-      alert(
-        "The real video download will work after connecting an AI video-generation API."
+
+      link.click();
+
+
+      document.body.removeChild(
+        link
       );
 
     }
+
 
   </script>
 
