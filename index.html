@@ -1,1033 +1,1003 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VidioAI - Video Editor</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
+  <title>VibeNest AI</title>
 
-body {
-    background: #101010;
-    color: white;
-    min-height: 100vh;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-header {
-    height: 65px;
-    padding: 0 30px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #161616;
-    border-bottom: 1px solid #292929;
-}
+    body {
+      background: #f5f5f7;
+      color: #222;
+    }
 
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-}
+    /* NAVBAR */
+    .navbar {
+      height: 65px;
+      background: white;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 25px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
 
-.logo span {
-    color: #8b5cf6;
-}
+    .logo {
+      font-size: 23px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-.header-right {
-    color: #aaa;
-}
+    .nav-buttons {
+      display: flex;
+      gap: 8px;
+    }
 
-.container {
-    max-width: 1250px;
-    margin: 25px auto;
-    padding: 0 20px;
-}
+    .nav-btn {
+      border: none;
+      background: transparent;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
 
-.title {
-    margin-bottom: 20px;
-}
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: #eeeeee;
+    }
 
-.title h1 {
-    font-size: 30px;
-    margin-bottom: 7px;
-}
+    /* MAIN */
+    .container {
+      max-width: 1250px;
+      margin: auto;
+      padding: 35px 20px;
+    }
 
-.title p {
-    color: #999;
-}
+    .page {
+      display: none;
+    }
 
-.editor {
-    display: grid;
-    grid-template-columns: 1fr 310px;
-    gap: 20px;
-}
+    .page.active {
+      display: block;
+    }
 
-.preview-section,
-.controls {
-    background: #191919;
-    border: 1px solid #292929;
-    border-radius: 12px;
-    padding: 20px;
-}
+    .heading {
+      margin-bottom: 25px;
+    }
 
-.preview {
-    background: #050505;
-    min-height: 500px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
-}
+    .heading h1 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
 
-video {
-    width: 100%;
-    max-height: 480px;
-    object-fit: contain;
-}
+    .heading p {
+      color: #777;
+    }
 
-.empty {
-    text-align: center;
-    color: #888;
-}
+    /* EDITOR */
+    .editor-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr 260px;
+      gap: 20px;
+    }
 
-.empty h2 {
-    color: white;
-    margin-bottom: 8px;
-}
+    .panel {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 18px;
+    }
 
-.upload-btn {
-    display: inline-block;
-    margin-top: 18px;
-    background: #8b5cf6;
-    padding: 12px 22px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-}
+    .panel h3 {
+      margin-bottom: 15px;
+    }
 
-.upload-btn:hover {
-    background: #7442df;
-}
+    .tool {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 9px;
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: left;
+    }
 
-input[type="file"] {
-    display: none;
-}
+    .tool:hover {
+      background: #f1f1f1;
+    }
 
-.text-overlay {
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 32px;
-    font-weight: bold;
-    color: white;
-    text-shadow: 2px 2px 5px black;
-    display: none;
-    pointer-events: none;
-    text-align: center;
-    width: 90%;
-}
+    .canvas {
+      min-height: 600px;
+      background: #e9e9e9;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-.timeline {
-    margin-top: 18px;
-}
+    .design {
+      width: 450px;
+      height: 500px;
+      background: white;
+      box-shadow: 0 10px 30px rgba(0,0,0,.12);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 30px;
+    }
 
-.timeline-label {
-    display: flex;
-    justify-content: space-between;
-    color: #aaa;
-    font-size: 13px;
-    margin-bottom: 7px;
-}
+    .design-text {
+      font-size: 30px;
+      font-weight: bold;
+    }
 
-.timeline input {
-    width: 100%;
-}
+    /* AI VIDEO */
+    .video-layout {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 25px;
+    }
 
-.controls h2 {
-    font-size: 20px;
-    margin-bottom: 20px;
-}
+    .generator-card,
+    .preview-card {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 15px;
+      padding: 22px;
+    }
 
-.control {
-    margin-bottom: 20px;
-}
+    .generator-card h2,
+    .preview-card h2 {
+      margin-bottom: 8px;
+    }
 
-.control label {
-    display: block;
-    color: #aaa;
-    font-size: 13px;
-    margin-bottom: 8px;
-}
+    .small-text {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
 
-button,
-select,
-input[type="text"] {
-    width: 100%;
-    padding: 11px;
-    border: none;
-    border-radius: 7px;
-    background: #292929;
-    color: white;
-}
+    .label {
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      margin-top: 18px;
+    }
 
-button {
-    cursor: pointer;
-}
+    textarea {
+      width: 100%;
+      min-height: 145px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 14px;
+      resize: vertical;
+      outline: none;
+      font-size: 15px;
+    }
 
-button:hover {
-    background: #383838;
-}
+    textarea:focus,
+    select:focus {
+      border-color: #555;
+    }
 
-input[type="range"] {
-    width: 100%;
-    accent-color: #8b5cf6;
-}
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: white;
+      outline: none;
+    }
 
-input[type="text"] {
-    outline: none;
-}
+    .settings-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
 
-.export {
-    background: #8b5cf6;
-    font-weight: bold;
-    margin-top: 5px;
-}
+    .generate-btn {
+      width: 100%;
+      margin-top: 25px;
+      padding: 14px;
+      border: none;
+      border-radius: 9px;
+      background: #111;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-.export:hover {
-    background: #7442df;
-}
+    .generate-btn:hover {
+      background: #333;
+    }
 
-.status {
-    text-align: center;
-    color: #999;
-    font-size: 12px;
-    margin-top: 12px;
-}
+    .generate-btn:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
 
-@media (max-width: 850px) {
-    .editor {
+    /* VIDEO PREVIEW */
+    .video-preview {
+      width: 100%;
+      max-width: 650px;
+      height: 470px;
+      background: #111;
+      border-radius: 12px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .preview-content {
+      padding: 30px;
+    }
+
+    .preview-content .play {
+      width: 65px;
+      height: 65px;
+      background: white;
+      color: #111;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: auto auto 20px;
+      font-size: 25px;
+    }
+
+    .preview-prompt {
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    .progress {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #ddd;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: #111;
+      transition: width .3s;
+    }
+
+    .status {
+      font-size: 14px;
+      margin-top: 8px;
+      color: #666;
+    }
+
+    .download-btn {
+      display: none;
+      margin: 20px auto 0;
+      padding: 12px 22px;
+      border: none;
+      border-radius: 8px;
+      background: #111;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* HOME */
+    .hero {
+      background: white;
+      border-radius: 18px;
+      padding: 70px 30px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    .hero h1 {
+      font-size: 45px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      color: #777;
+      font-size: 17px;
+      max-width: 600px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    .hero-buttons {
+      margin-top: 30px;
+    }
+
+    .hero-btn {
+      padding: 13px 20px;
+      margin: 5px;
+      border-radius: 8px;
+      border: 1px solid #222;
+      background: white;
+      cursor: pointer;
+    }
+
+    .hero-btn.dark {
+      background: #111;
+      color: white;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .editor-layout,
+      .video-layout {
         grid-template-columns: 1fr;
+      }
+
+      .canvas {
+        min-height: 450px;
+      }
     }
 
-    .preview {
-        min-height: 350px;
+    @media (max-width: 600px) {
+      .nav-buttons {
+        gap: 2px;
+      }
+
+      .nav-btn {
+        padding: 8px;
+        font-size: 12px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .settings-row {
+        grid-template-columns: 1fr;
+      }
     }
-}
-</style>
+  </style>
 </head>
 
 <body>
 
-<header>
-    <div class="logo">
-        Vidio<span>AI</span>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+
+    <div class="logo" onclick="showPage('home')">
+      VibeNest
     </div>
 
-    <div class="header-right">
-        Video Editor
+    <div class="nav-buttons">
+      <button class="nav-btn active" onclick="showPage('home')">
+        Home
+      </button>
+
+      <button class="nav-btn" onclick="showPage('editor')">
+        Editor
+      </button>
+
+      <button class="nav-btn" onclick="showPage('video')">
+        AI Video
+      </button>
     </div>
-</header>
+
+  </nav>
 
 
-<div class="container">
+  <main class="container">
 
-    <div class="title">
-        <h1>Video Editor</h1>
-        <p>Upload your video and start editing.</p>
-    </div>
+    <!-- HOME -->
+    <section id="home" class="page active">
 
+      <div class="hero">
 
-    <div class="editor">
+        <h1>Create Something Amazing</h1>
 
-        <!-- VIDEO PREVIEW -->
+        <p>
+          Design graphics, create content and generate creative videos
+          from simple ideas.
+        </p>
 
-        <div class="preview-section">
+        <div class="hero-buttons">
 
-            <div class="preview" id="preview">
+          <button class="hero-btn dark"
+                  onclick="showPage('editor')">
+            Open Editor
+          </button>
 
-                <div class="empty" id="emptyScreen">
+          <button class="hero-btn"
+                  onclick="showPage('video')">
+            Try AI Video
+          </button>
 
-                    <h2>Upload a video</h2>
+        </div>
 
-                    <p>Select a video from your computer.</p>
+      </div>
 
-                    <label class="upload-btn">
-
-                        Choose Video
-
-                        <input
-                            type="file"
-                            id="videoInput"
-                            accept="video/*"
-                        >
-
-                    </label>
-
-                </div>
+    </section>
 
 
-                <video
-                    id="video"
-                    controls
-                    style="display:none;"
-                ></video>
+    <!-- EDITOR -->
+    <section id="editor" class="page">
 
+      <div class="heading">
 
-                <div
-                    class="text-overlay"
-                    id="textOverlay"
-                ></div>
+        <h1>Design Editor</h1>
 
-            </div>
+        <p>Create your own design.</p>
 
+      </div>
 
-            <div class="timeline">
+      <div class="editor-layout">
 
-                <div class="timeline-label">
+        <div class="panel">
 
-                    <span id="currentTime">
-                        0:00
-                    </span>
+          <h3>Tools</h3>
 
-                    <span id="duration">
-                        0:00
-                    </span>
+          <button class="tool"
+                  onclick="addText()">
+            ＋ Add Text
+          </button>
 
-                </div>
+          <button class="tool"
+                  onclick="changeTextSize()">
+            A Change Text Size
+          </button>
 
-                <input
-                    type="range"
-                    id="timeline"
-                    min="0"
-                    max="100"
-                    value="0"
-                    step="0.01"
-                >
+          <button class="tool"
+                  onclick="changeBackground()">
+            🎨 Background
+          </button>
 
-            </div>
+          <button class="tool"
+                  onclick="alert('Image upload can be connected here.')">
+            🖼 Add Image
+          </button>
+
+          <button class="tool"
+                  onclick="clearDesign()">
+            🗑 Clear
+          </button>
 
         </div>
 
 
-        <!-- CONTROLS -->
+        <div class="canvas">
 
-        <div class="controls">
+          <div class="design" id="design">
 
-            <h2>Editing Tools</h2>
-
-
-            <div class="control">
-
-                <label>Playback</label>
-
-                <button id="playButton">
-                    ▶ Play / Pause
-                </button>
-
+            <div class="design-text" id="designText">
+              Your Design
             </div>
 
-
-            <div class="control">
-
-                <label>Trim Start</label>
-
-                <input
-                    type="range"
-                    id="trimStart"
-                    min="0"
-                    max="100"
-                    value="0"
-                    step="0.1"
-                >
-
-                <div class="timeline-label">
-                    <span>Start</span>
-                    <span id="startValue">0.0s</span>
-                </div>
-
-            </div>
-
-
-            <div class="control">
-
-                <label>Trim End</label>
-
-                <input
-                    type="range"
-                    id="trimEnd"
-                    min="0"
-                    max="100"
-                    value="100"
-                    step="0.1"
-                >
-
-                <div class="timeline-label">
-                    <span>End</span>
-                    <span id="endValue">0.0s</span>
-                </div>
-
-            </div>
-
-
-            <div class="control">
-
-                <label>Volume</label>
-
-                <input
-                    type="range"
-                    id="volume"
-                    min="0"
-                    max="1"
-                    value="1"
-                    step="0.01"
-                >
-
-            </div>
-
-
-            <div class="control">
-
-                <button id="muteButton">
-                    🔇 Mute / Unmute
-                </button>
-
-            </div>
-
-
-            <div class="control">
-
-                <label>Speed</label>
-
-                <select id="speed">
-
-                    <option value="0.5">0.5x</option>
-                    <option value="0.75">0.75x</option>
-                    <option value="1" selected>1x</option>
-                    <option value="1.25">1.25x</option>
-                    <option value="1.5">1.5x</option>
-                    <option value="2">2x</option>
-
-                </select>
-
-            </div>
-
-
-            <div class="control">
-
-                <label>Brightness</label>
-
-                <input
-                    type="range"
-                    id="brightness"
-                    min="50"
-                    max="150"
-                    value="100"
-                >
-
-            </div>
-
-
-            <div class="control">
-
-                <label>Contrast</label>
-
-                <input
-                    type="range"
-                    id="contrast"
-                    min="50"
-                    max="150"
-                    value="100"
-                >
-
-            </div>
-
-
-            <div class="control">
-
-                <label>Saturation</label>
-
-                <input
-                    type="range"
-                    id="saturation"
-                    min="0"
-                    max="200"
-                    value="100"
-                >
-
-            </div>
-
-
-            <div class="control">
-
-                <label>Video Format</label>
-
-                <select id="aspectRatio">
-
-                    <option value="16/9">
-                        YouTube - 16:9
-                    </option>
-
-                    <option value="9/16">
-                        Reels / Shorts - 9:16
-                    </option>
-
-                    <option value="1/1">
-                        Square - 1:1
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="control">
-
-                <label>Add Text</label>
-
-                <input
-                    type="text"
-                    id="textInput"
-                    placeholder="Type text..."
-                >
-
-            </div>
-
-
-            <div class="control">
-
-                <button id="textButton">
-                    📝 Show / Hide Text
-                </button>
-
-            </div>
-
-
-            <button
-                class="export"
-                id="exportButton"
-            >
-                ⬇ Export Video
-            </button>
-
-
-            <div
-                class="status"
-                id="status"
-            >
-                Upload a video to begin.
-
-            </div>
+          </div>
 
         </div>
 
-    </div>
 
-</div>
+        <div class="panel">
 
+          <h3>Properties</h3>
 
-<script>
+          <p style="color:#777;font-size:14px;">
+            Select an element to edit its properties.
+          </p>
 
-const videoInput =
-    document.getElementById("videoInput");
+        </div>
 
-const video =
-    document.getElementById("video");
+      </div>
 
-const emptyScreen =
-    document.getElementById("emptyScreen");
-
-const timeline =
-    document.getElementById("timeline");
-
-const currentTime =
-    document.getElementById("currentTime");
-
-const duration =
-    document.getElementById("duration");
-
-const trimStart =
-    document.getElementById("trimStart");
-
-const trimEnd =
-    document.getElementById("trimEnd");
-
-const startValue =
-    document.getElementById("startValue");
-
-const endValue =
-    document.getElementById("endValue");
-
-const volume =
-    document.getElementById("volume");
-
-const speed =
-    document.getElementById("speed");
-
-const brightness =
-    document.getElementById("brightness");
-
-const contrast =
-    document.getElementById("contrast");
-
-const saturation =
-    document.getElementById("saturation");
-
-const aspectRatio =
-    document.getElementById("aspectRatio");
-
-const textInput =
-    document.getElementById("textInput");
-
-const textOverlay =
-    document.getElementById("textOverlay");
-
-const preview =
-    document.getElementById("preview");
-
-const status =
-    document.getElementById("status");
-
-const playButton =
-    document.getElementById("playButton");
-
-const muteButton =
-    document.getElementById("muteButton");
-
-const textButton =
-    document.getElementById("textButton");
-
-const exportButton =
-    document.getElementById("exportButton");
+    </section>
 
 
-let videoURL = null;
+    <!-- AI VIDEO -->
+    <section id="video" class="page">
+
+      <div class="heading">
+
+        <h1>AI Video Generator</h1>
+
+        <p>
+          Turn your idea into a creative video.
+        </p>
+
+      </div>
 
 
-/* UPLOAD */
+      <div class="video-layout">
 
-videoInput.addEventListener("change", function () {
+        <!-- GENERATOR -->
+        <div class="generator-card">
 
-    const file = this.files[0];
+          <h2>Create Video</h2>
 
-    if (!file) return;
+          <p class="small-text">
+            Describe the video you want to create.
+          </p>
 
-    if (videoURL) {
-        URL.revokeObjectURL(videoURL);
+
+          <label class="label">
+            Video Prompt
+          </label>
+
+          <textarea
+            id="prompt"
+            placeholder="Example: A cinematic sunset over mountains, clouds moving slowly, realistic camera movement..."
+          ></textarea>
+
+
+          <div class="settings-row">
+
+            <div>
+
+              <label class="label">
+                Duration
+              </label>
+
+              <select id="duration">
+
+                <option value="5">5 seconds</option>
+
+                <option value="10" selected>
+                  10 seconds
+                </option>
+
+                <option value="15">
+                  15 seconds
+                </option>
+
+                <option value="30">
+                  30 seconds
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div>
+
+              <label class="label">
+                Aspect Ratio
+              </label>
+
+              <select id="ratio">
+
+                <option value="9:16">
+                  9:16 Vertical
+                </option>
+
+                <option value="16:9">
+                  16:9 Landscape
+                </option>
+
+                <option value="1:1">
+                  1:1 Square
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <label class="label">
+            Video Style
+          </label>
+
+          <select id="style">
+
+            <option>Cinematic</option>
+
+            <option>Realistic</option>
+
+            <option>Anime</option>
+
+            <option>3D Animation</option>
+
+            <option>Cartoon</option>
+
+            <option>Fantasy</option>
+
+          </select>
+
+
+          <label class="label">
+            Camera Movement
+          </label>
+
+          <select id="camera">
+
+            <option>Slow Zoom</option>
+
+            <option>Static Camera</option>
+
+            <option>Camera Pan</option>
+
+            <option>Tracking Shot</option>
+
+            <option>Drone Shot</option>
+
+          </select>
+
+
+          <button
+            class="generate-btn"
+            id="generateBtn"
+            onclick="generateVideo()">
+
+            ✨ Generate Video
+
+          </button>
+
+
+          <div class="progress" id="progress">
+
+            <div class="progress-bar">
+
+              <div
+                class="progress-fill"
+                id="progressFill">
+              </div>
+
+            </div>
+
+            <div class="status" id="status">
+              Preparing video...
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- PREVIEW -->
+        <div class="preview-card">
+
+          <h2>Preview</h2>
+
+          <p class="small-text">
+            Your generated video will appear here.
+          </p>
+
+
+          <div class="video-preview" id="videoPreview">
+
+            <div class="preview-content">
+
+              <div class="play">
+                ▶
+              </div>
+
+              <div class="preview-prompt">
+                Enter a prompt and click
+                <b>Generate Video</b>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <button
+            class="download-btn"
+            id="downloadBtn"
+            onclick="downloadVideo()">
+
+            ↓ Download Video
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    /* PAGE NAVIGATION */
+
+    function showPage(pageName) {
+
+      const pages = document.querySelectorAll(".page");
+
+      pages.forEach(page => {
+        page.classList.remove("active");
+      });
+
+      document
+        .getElementById(pageName)
+        .classList.add("active");
+
+
+      const buttons = document.querySelectorAll(".nav-btn");
+
+      buttons.forEach(button => {
+        button.classList.remove("active");
+      });
+
+      if (pageName === "home") {
+        buttons[0].classList.add("active");
+      }
+
+      if (pageName === "editor") {
+        buttons[1].classList.add("active");
+      }
+
+      if (pageName === "video") {
+        buttons[2].classList.add("active");
+      }
+
     }
 
-    videoURL =
-        URL.createObjectURL(file);
 
-    video.src = videoURL;
+    /* SIMPLE EDITOR */
 
-    emptyScreen.style.display =
-        "none";
+    function addText() {
 
-    video.style.display =
+      const text = prompt(
+        "Enter your text:"
+      );
+
+      if (text) {
+
+        document.getElementById(
+          "designText"
+        ).textContent = text;
+
+      }
+
+    }
+
+
+    function changeTextSize() {
+
+      const element =
+        document.getElementById("designText");
+
+      const current =
+        parseInt(
+          window.getComputedStyle(element).fontSize
+        );
+
+      element.style.fontSize =
+        (current + 5) + "px";
+
+    }
+
+
+    function changeBackground() {
+
+      const design =
+        document.getElementById("design");
+
+      const backgrounds = [
+        "#ffffff",
+        "#eeeeee",
+        "#dfe7fd",
+        "#fce1e4",
+        "#e4f7e7",
+        "#fff1cc"
+      ];
+
+      const current =
+        design.dataset.bgIndex || 0;
+
+      const next =
+        (parseInt(current) + 1) %
+        backgrounds.length;
+
+      design.style.background =
+        backgrounds[next];
+
+      design.dataset.bgIndex = next;
+
+    }
+
+
+    function clearDesign() {
+
+      document.getElementById(
+        "designText"
+      ).textContent = "Your Design";
+
+    }
+
+
+    /* AI VIDEO GENERATOR */
+
+    function generateVideo() {
+
+      const prompt =
+        document.getElementById("prompt").value.trim();
+
+      if (!prompt) {
+
+        alert(
+          "Please describe the video you want to create."
+        );
+
+        return;
+
+      }
+
+
+      const duration =
+        document.getElementById("duration").value;
+
+      const ratio =
+        document.getElementById("ratio").value;
+
+      const style =
+        document.getElementById("style").value;
+
+      const camera =
+        document.getElementById("camera").value;
+
+
+      const button =
+        document.getElementById("generateBtn");
+
+      const progress =
+        document.getElementById("progress");
+
+      const fill =
+        document.getElementById("progressFill");
+
+      const status =
+        document.getElementById("status");
+
+      const preview =
+        document.getElementById("videoPreview");
+
+      const download =
+        document.getElementById("downloadBtn");
+
+
+      button.disabled = true;
+
+      button.textContent =
+        "Generating...";
+
+      progress.style.display =
         "block";
 
-    status.textContent =
-        "Video loaded successfully.";
-
-});
+      download.style.display =
+        "none";
 
 
-/* VIDEO INFORMATION */
-
-video.addEventListener(
-    "loadedmetadata",
-    function () {
-
-        const d =
-            video.duration;
-
-        timeline.max = d;
-
-        trimStart.max = d;
-
-        trimEnd.max = d;
-
-        trimEnd.value = d;
-
-        duration.textContent =
-            formatTime(d);
-
-        endValue.textContent =
-            d.toFixed(1) + "s";
-
-    }
-);
+      let percentage = 0;
 
 
-/* FORMAT TIME */
-
-function formatTime(seconds) {
-
-    if (
-        !seconds ||
-        isNaN(seconds)
-    ) {
-        return "0:00";
-    }
-
-    const minutes =
-        Math.floor(seconds / 60);
-
-    const secondsPart =
-        Math.floor(seconds % 60);
-
-    return (
-        minutes +
-        ":" +
-        String(secondsPart).padStart(2, "0")
-    );
-
-}
+      const messages = [
+        "Understanding your prompt...",
+        "Creating scenes...",
+        "Generating motion...",
+        "Adding camera movement...",
+        "Rendering video...",
+        "Almost finished..."
+      ];
 
 
-/* PLAY */
+      const interval =
+        setInterval(() => {
 
-playButton.addEventListener(
-    "click",
-    function () {
+          percentage += 5;
 
-        if (!video.src) {
+          fill.style.width =
+            percentage + "%";
+
+
+          const index =
+            Math.min(
+              Math.floor(percentage / 20),
+              messages.length - 1
+            );
+
+          status.textContent =
+            messages[index];
+
+
+          if (percentage >= 100) {
+
+            clearInterval(interval);
+
+            button.disabled = false;
+
+            button.textContent =
+              "✨ Generate Video";
 
             status.textContent =
-                "Upload a video first.";
-
-            return;
-
-        }
-
-        if (video.paused) {
-
-            video.play();
-
-            playButton.textContent =
-                "⏸ Pause";
-
-        } else {
-
-            video.pause();
-
-            playButton.textContent =
-                "▶ Play";
-
-        }
-
-    }
-);
+              "Video ready!";
 
 
-/* VIDEO TIME */
+            preview.innerHTML = `
 
-video.addEventListener(
-    "timeupdate",
-    function () {
+              <div class="preview-content">
 
-        timeline.value =
-            video.currentTime;
+                <div class="play">
+                  ▶
+                </div>
 
-        currentTime.textContent =
-            formatTime(video.currentTime);
+                <div class="preview-prompt">
 
-        if (
-            video.currentTime >=
-            Number(trimEnd.value)
-        ) {
+                  <b>${escapeHTML(prompt)}</b>
 
-            video.pause();
+                  <br><br>
 
-            playButton.textContent =
-                "▶ Play";
+                  <small>
+                    ${duration}s •
+                    ${ratio} •
+                    ${style} •
+                    ${camera}
+                  </small>
 
-        }
+                </div>
+
+              </div>
+
+            `;
+
+
+            download.style.display =
+              "block";
+
+          }
+
+        }, 120);
 
     }
-);
 
 
-/* TIMELINE */
+    function escapeHTML(text) {
 
-timeline.addEventListener(
-    "input",
-    function () {
+      const div =
+        document.createElement("div");
 
-        video.currentTime =
-            Number(this.value);
+      div.textContent = text;
 
-    }
-);
-
-
-/* TRIM START */
-
-trimStart.addEventListener(
-    "input",
-    function () {
-
-        let start =
-            Number(this.value);
-
-        let end =
-            Number(trimEnd.value);
-
-        if (start >= end) {
-
-            start =
-                Math.max(0, end - 0.1);
-
-            this.value =
-                start;
-
-        }
-
-        startValue.textContent =
-            start.toFixed(1) + "s";
-
-        video.currentTime =
-            start;
+      return div.innerHTML;
 
     }
-);
 
 
-/* TRIM END */
+    function downloadVideo() {
 
-trimEnd.addEventListener(
-    "input",
-    function () {
-
-        let end =
-            Number(this.value);
-
-        let start =
-            Number(trimStart.value);
-
-        if (end <= start) {
-
-            end =
-                Math.min(
-                    video.duration,
-                    start + 0.1
-                );
-
-            this.value =
-                end;
-
-        }
-
-        endValue.textContent =
-            end.toFixed(1) + "s";
+      alert(
+        "The real video download will work after connecting an AI video-generation API."
+      );
 
     }
-);
 
-
-/* VOLUME */
-
-volume.addEventListener(
-    "input",
-    function () {
-
-        video.volume =
-            Number(this.value);
-
-        video.muted =
-            false;
-
-    }
-);
-
-
-/* MUTE */
-
-muteButton.addEventListener(
-    "click",
-    function () {
-
-        video.muted =
-            !video.muted;
-
-        if (video.muted) {
-
-            this.textContent =
-                "🔊 Unmute";
-
-        } else {
-
-            this.textContent =
-                "🔇 Mute";
-
-        }
-
-    }
-);
-
-
-/* SPEED */
-
-speed.addEventListener(
-    "change",
-    function () {
-
-        video.playbackRate =
-            Number(this.value);
-
-    }
-);
-
-
-/* FILTERS */
-
-function updateFilters() {
-
-    video.style.filter =
-        "brightness(" +
-        brightness.value +
-        "%) " +
-
-        "contrast(" +
-        contrast.value +
-        "%) " +
-
-        "saturate(" +
-        saturation.value +
-        "%)";
-
-}
-
-brightness.addEventListener(
-    "input",
-    updateFilters
-);
-
-contrast.addEventListener(
-    "input",
-    updateFilters
-);
-
-saturation.addEventListener(
-    "input",
-    updateFilters
-);
-
-
-/* ASPECT RATIO */
-
-aspectRatio.addEventListener(
-    "change",
-    function () {
-
-        preview.style.aspectRatio =
-            this.value;
-
-    }
-);
-
-
-/* TEXT */
-
-textInput.addEventListener(
-    "input",
-    function () {
-
-        textOverlay.textContent =
-            this.value;
-
-    }
-);
-
-
-textButton.addEventListener(
-    "click",
-    function () {
-
-        if (
-            textOverlay.style.display ===
-            "block"
-        ) {
-
-            textOverlay.style.display =
-                "none";
-
-        } else {
-
-            textOverlay.style.display =
-                "block";
-
-        }
-
-    }
-);
-
-
-/* EXPORT */
-
-exportButton.addEventListener(
-    "click",
-    function () {
-
-        if (!video.src) {
-
-            status.textContent =
-                "Please upload a video first.";
-
-            return;
-
-        }
-
-
-        /*
-         * For this first version,
-         * export means downloading
-         * the uploaded video.
-         */
-
-        status.textContent =
-            "Preparing download...";
-
-
-        const link =
-            document.createElement("a");
-
-
-        link.href =
-            video.src;
-
-
-        link.download =
-            "vidioai-video.webm";
-
-
-        document.body.appendChild(link);
-
-
-        link.click();
-
-
-        document.body.removeChild(link);
-
-
-        status.textContent =
-            "Download started!";
-
-
-    }
-);
-
-</script>
+  </script>
 
 </body>
 </html>
-```
