@@ -3,15 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>VibeNest — AI Reel Maker</title>
+<title>VibeNest — Create Without Limits</title>
 
 <style>
-
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
+}
+
+:root{
+    --bg:#070812;
+    --panel:#101322;
+    --panel2:#15182a;
+    --text:#f7f7fb;
+    --muted:#9297ad;
+    --line:rgba(255,255,255,.09);
+    --purple:#8b5cf6;
+    --blue:#4f8cff;
+    --pink:#ec4899;
+    --green:#22c55e;
 }
 
 html{
@@ -20,6 +31,3043 @@ html{
 
 body{
     font-family:Inter,Arial,sans-serif;
-    background:#08090d;
-    color:#fff;
+    background:
+        radial-gradient(circle at 10% 10%,rgba(124,58,237,.16),transparent 30%),
+        radial-gradient(circle at 90% 20%,rgba(59,130,246,.12),transparent 30%),
+        var(--bg);
+    color:var(--text);
     min-height:100vh;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    height:72px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 5%;
+    background:rgba(7,8,18,.78);
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--line);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:22px;
+    font-weight:800;
+}
+
+.logo-mark{
+    width:38px;
+    height:38px;
+    display:grid;
+    place-items:center;
+    border-radius:12px;
+    background:linear-gradient(135deg,var(--purple),var(--blue),var(--pink));
+    box-shadow:0 0 25px rgba(139,92,246,.35);
+}
+
+.nav-links{
+    display:flex;
+    gap:8px;
+}
+
+.nav-btn{
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    padding:11px 16px;
+    border-radius:10px;
+    transition:.2s;
+}
+
+.nav-btn:hover,
+.nav-btn.active{
+    color:white;
+    background:rgba(255,255,255,.07);
+}
+
+.nav-actions{
+    display:flex;
+    gap:10px;
+}
+
+.small-btn{
+    padding:10px 15px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.04);
+    color:white;
+    border-radius:10px;
+}
+
+.mobile-menu{
+    display:none;
+}
+
+/* ================= COMMON ================= */
+
+.page{
+    display:none;
+    animation:fade .35s ease;
+}
+
+.page.active{
+    display:block;
+}
+
+@keyframes fade{
+    from{opacity:0;transform:translateY(8px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+.container{
+    width:min(1200px,92%);
+    margin:auto;
+}
+
+.gradient-text{
+    background:linear-gradient(90deg,#a78bfa,#60a5fa,#f472b6);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.section-title{
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+.section-subtitle{
+    color:var(--muted);
+    margin-bottom:30px;
+}
+
+.card{
+    background:linear-gradient(
+        145deg,
+        rgba(255,255,255,.065),
+        rgba(255,255,255,.025)
+    );
+    border:1px solid var(--line);
+    border-radius:20px;
+    box-shadow:0 20px 60px rgba(0,0,0,.2);
+}
+
+/* ================= HOME ================= */
+
+.hero{
+    min-height:calc(100vh - 72px);
+    display:grid;
+    place-items:center;
+    text-align:center;
+    padding:80px 20px;
+}
+
+.hero-content{
+    max-width:900px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 14px;
+    border:1px solid rgba(139,92,246,.3);
+    background:rgba(139,92,246,.1);
+    border-radius:999px;
+    color:#c4b5fd;
+    font-size:14px;
+    margin-bottom:24px;
+}
+
+.hero h1{
+    font-size:clamp(48px,8vw,92px);
+    line-height:.98;
+    letter-spacing:-4px;
+    margin-bottom:25px;
+}
+
+.hero p{
+    max-width:650px;
+    margin:auto;
+    color:var(--muted);
+    font-size:18px;
+    line-height:1.7;
+}
+
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    margin-top:35px;
+    flex-wrap:wrap;
+}
+
+.primary-btn{
+    border:0;
+    color:white;
+    font-weight:700;
+    padding:14px 23px;
+    border-radius:12px;
+    background:linear-gradient(135deg,var(--purple),var(--blue));
+    box-shadow:0 10px 35px rgba(99,102,241,.25);
+    transition:.2s;
+}
+
+.primary-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 15px 40px rgba(99,102,241,.35);
+}
+
+.secondary-btn{
+    border:1px solid var(--line);
+    color:white;
+    background:rgba(255,255,255,.05);
+    padding:14px 23px;
+    border-radius:12px;
+}
+
+.feature-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    padding-bottom:80px;
+}
+
+.feature{
+    padding:25px;
+}
+
+.feature-icon{
+    font-size:28px;
+    margin-bottom:16px;
+}
+
+.feature h3{
+    margin-bottom:8px;
+}
+
+.feature p{
+    color:var(--muted);
+    line-height:1.5;
+    font-size:14px;
+}
+
+/* ================= EDITOR ================= */
+
+.editor-page,
+.ai-page,
+.remove-page{
+    padding:55px 0 80px;
+}
+
+.editor-layout{
+    display:grid;
+    grid-template-columns:300px 1fr;
+    gap:20px;
+}
+
+.sidebar{
+    padding:20px;
+    height:max-content;
+}
+
+.sidebar h3{
+    margin-bottom:18px;
+}
+
+.tool-list{
+    display:grid;
+    gap:10px;
+}
+
+.tool-btn{
+    width:100%;
+    text-align:left;
+    padding:13px;
+    border-radius:12px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.035);
+    color:white;
+}
+
+.tool-btn:hover{
+    background:rgba(139,92,246,.12);
+    border-color:rgba(139,92,246,.35);
+}
+
+.control-group{
+    margin-top:22px;
+}
+
+.control-group label{
+    display:block;
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:8px;
+}
+
+.control-group input,
+.control-group textarea,
+.control-group select{
+    width:100%;
+    border:1px solid var(--line);
+    background:#0b0e1b;
+    color:white;
+    border-radius:10px;
+    padding:11px;
+    outline:none;
+}
+
+.control-group textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+.color-input{
+    height:42px;
+    padding:4px!important;
+}
+
+.canvas-area{
+    min-height:650px;
+    padding:30px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.design-canvas{
+    width:min(420px,100%);
+    aspect-ratio:9/16;
+    position:relative;
+    overflow:hidden;
+    border-radius:20px;
+    background:
+        linear-gradient(135deg,#24104d,#101b45);
+    box-shadow:0 25px 80px rgba(0,0,0,.45);
+}
+
+.design-content{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+    text-align:center;
+}
+
+.design-text{
+    font-size:38px;
+    font-weight:800;
+    word-break:break-word;
+}
+
+.design-image{
+    max-width:85%;
+    max-height:45%;
+    object-fit:contain;
+    border-radius:15px;
+    margin-top:20px;
+}
+
+/* ================= AI VIDEO ================= */
+
+.ai-header{
+    text-align:center;
+    max-width:750px;
+    margin:0 auto 35px;
+}
+
+.ai-header h1{
+    font-size:48px;
+    margin-bottom:12px;
+}
+
+.ai-header p{
+    color:var(--muted);
+    line-height:1.6;
+}
+
+.ai-layout{
+    display:grid;
+    grid-template-columns:430px 1fr;
+    gap:25px;
+}
+
+.ai-controls{
+    padding:25px;
+}
+
+.ai-controls h3{
+    margin-bottom:20px;
+}
+
+.form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    color:#b6bacb;
+    font-size:13px;
+    margin-bottom:8px;
+}
+
+.form-group textarea,
+.form-group input,
+.form-group select{
+    width:100%;
+    background:#0a0d19;
+    color:white;
+    border:1px solid var(--line);
+    border-radius:11px;
+    padding:12px;
+    outline:none;
+}
+
+.form-group textarea{
+    min-height:130px;
+    resize:vertical;
+}
+
+.preset-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+}
+
+.preset{
+    border:1px solid var(--line);
+    color:#c8cada;
+    background:rgba(255,255,255,.035);
+    padding:8px 10px;
+    border-radius:8px;
+    font-size:12px;
+}
+
+.preset:hover{
+    border-color:var(--purple);
+    color:white;
+}
+
+.generate-btn{
+    width:100%;
+    padding:15px;
+    border:0;
+    border-radius:12px;
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
+    color:white;
+    font-weight:800;
+    margin-top:5px;
+}
+
+.generate-btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.ai-preview{
+    min-height:700px;
+    padding:25px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+}
+
+.preview-title{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+.preview-title span{
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* PHONE */
+
+.phone{
+    width:290px;
+    height:590px;
+    padding:10px;
+    border:7px solid #202332;
+    border-radius:38px;
+    background:#05060b;
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.6),
+        0 0 0 1px rgba(255,255,255,.08);
+    position:relative;
+}
+
+.phone-notch{
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:100px;
+    height:23px;
+    background:#202332;
+    border-radius:0 0 15px 15px;
+    z-index:5;
+}
+
+.phone-screen{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    border-radius:27px;
+    position:relative;
+    background:
+        radial-gradient(circle at 30% 30%,#6328a5,transparent 40%),
+        linear-gradient(145deg,#090b18,#1c2450);
+}
+
+.phone-screen video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.reel-overlay{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:18px;
+    background:linear-gradient(
+        transparent 45%,
+        rgba(0,0,0,.7)
+    );
+}
+
+.reel-user{
+    font-weight:700;
+    margin-bottom:7px;
+}
+
+.reel-caption{
+    font-size:13px;
+    line-height:1.4;
+    max-width:200px;
+}
+
+.reel-actions{
+    position:absolute;
+    right:10px;
+    bottom:75px;
+    display:grid;
+    gap:14px;
+    text-align:center;
+}
+
+.reel-action{
+    font-size:21px;
+}
+
+.reel-action small{
+    display:block;
+    font-size:9px;
+}
+
+.empty-preview{
+    text-align:center;
+    color:var(--muted);
+    padding:30px;
+}
+
+.empty-preview .big{
+    font-size:50px;
+    margin-bottom:15px;
+}
+
+.video-result{
+    display:none;
+    width:100%;
+    max-width:700px;
+}
+
+.video-result video{
+    width:100%;
+    max-height:600px;
+    border-radius:16px;
+    background:black;
+}
+
+.result-actions{
+    display:flex;
+    gap:10px;
+    margin-top:12px;
+    justify-content:center;
+}
+
+.progress-box{
+    display:none;
+    width:100%;
+    max-width:500px;
+}
+
+.progress-text{
+    display:flex;
+    justify-content:space-between;
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:8px;
+}
+
+.progress{
+    height:8px;
+    border-radius:20px;
+    background:#202334;
+    overflow:hidden;
+}
+
+.progress-bar{
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,var(--purple),var(--blue),var(--pink));
+    transition:width .4s;
+}
+
+/* ================= MODE SELECTOR ================= */
+
+.mode-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:8px;
+    margin-bottom:22px;
+}
+
+.mode{
+    padding:12px 6px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:rgba(255,255,255,.03);
+    color:#aaa;
+    text-align:center;
+    font-size:12px;
+}
+
+.mode.active{
+    border-color:var(--purple);
+    background:rgba(139,92,246,.14);
+    color:white;
+}
+
+.mode strong{
+    display:block;
+    font-size:14px;
+    margin-bottom:4px;
+}
+
+/* ================= BACKGROUND REMOVER ================= */
+
+.remove-layout{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+}
+
+.upload-box{
+    min-height:400px;
+    padding:35px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    border:2px dashed rgba(255,255,255,.15);
+    border-radius:18px;
+}
+
+.upload-box:hover{
+    border-color:var(--purple);
+}
+
+.upload-icon{
+    font-size:55px;
+    margin-bottom:15px;
+}
+
+.file-input{
+    display:none;
+}
+
+.remove-preview{
+    min-height:400px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:25px;
+    background:
+        linear-gradient(45deg,#202333 25%,transparent 25%),
+        linear-gradient(-45deg,#202333 25%,transparent 25%),
+        linear-gradient(45deg,transparent 75%,#202333 75%),
+        linear-gradient(-45deg,transparent 75%,#202333 75%);
+    background-size:30px 30px;
+    background-position:0 0,0 15px,15px -15px,-15px 0;
+    border-radius:18px;
+}
+
+.remove-preview img{
+    max-width:100%;
+    max-height:500px;
+    object-fit:contain;
+}
+
+.remove-controls{
+    margin-top:20px;
+}
+
+.remove-controls p{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.6;
+    margin-bottom:15px;
+}
+
+/* ================= CAPTION ================= */
+
+.caption-box{
+    margin-top:20px;
+    padding:20px;
+    display:none;
+}
+
+.caption-box h3{
+    margin-bottom:12px;
+}
+
+.caption-text{
+    color:#c7cad8;
+    line-height:1.6;
+    white-space:pre-wrap;
+}
+
+.hashtags{
+    color:#9f8cff;
+    margin-top:12px;
+}
+
+/* ================= RECENT ================= */
+
+.recent{
+    padding:60px 0;
+}
+
+.recent-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.project-card{
+    padding:18px;
+}
+
+.project-thumb{
+    aspect-ratio:16/9;
+    border-radius:12px;
+    background:linear-gradient(135deg,#25115a,#0c315d);
+    display:grid;
+    place-items:center;
+    font-size:35px;
+    margin-bottom:12px;
+}
+
+.project-card p{
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:9999;
+    padding:14px 18px;
+    border-radius:12px;
+    background:#171a2a;
+    border:1px solid var(--line);
+    box-shadow:0 15px 40px rgba(0,0,0,.4);
+    transform:translateY(100px);
+    opacity:0;
+    transition:.3s;
+}
+
+.toast.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    padding:35px 5%;
+    border-top:1px solid var(--line);
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:950px){
+
+    .feature-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .ai-layout,
+    .editor-layout,
+    .remove-layout{
+        grid-template-columns:1fr;
+    }
+
+    .ai-preview{
+        min-height:650px;
+    }
+
+    .sidebar{
+        order:2;
+    }
+
+    .mode-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .recent-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:650px){
+
+    .navbar{
+        padding:0 18px;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+    .nav-actions{
+        display:none;
+    }
+
+    .mobile-menu{
+        display:block;
+        border:1px solid var(--line);
+        background:transparent;
+        color:white;
+        padding:8px 10px;
+        border-radius:8px;
+    }
+
+    .nav-links.mobile-open{
+        display:flex;
+        position:absolute;
+        top:72px;
+        left:0;
+        right:0;
+        padding:15px;
+        background:#0b0d18;
+        border-bottom:1px solid var(--line);
+        flex-direction:column;
+    }
+
+    .hero h1{
+        font-size:52px;
+        letter-spacing:-2px;
+    }
+
+    .hero p{
+        font-size:15px;
+    }
+
+    .feature-grid,
+    .recent-grid{
+        grid-template-columns:1fr;
+    }
+
+    .ai-header h1{
+        font-size:36px;
+    }
+
+    .form-row{
+        grid-template-columns:1fr;
+    }
+
+    .mode-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .canvas-area{
+        padding:15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <a class="logo" href="#" onclick="showPage('home')">
+        <span class="logo-mark">✦</span>
+        VibeNest
+    </a>
+
+    <div class="nav-links" id="navLinks">
+        <button class="nav-btn active" onclick="showPage('home')">Home</button>
+        <button class="nav-btn" onclick="showPage('editor')">Editor</button>
+        <button class="nav-btn" onclick="showPage('ai')">AI Video</button>
+        <button class="nav-btn" onclick="showPage('remove')">Remove BG</button>
+    </div>
+
+    <div class="nav-actions">
+        <button class="small-btn" onclick="showPage('editor')">Create</button>
+    </div>
+
+    <button class="mobile-menu" onclick="toggleMenu()">☰</button>
+
+</nav>
+
+
+<!-- ================= HOME ================= -->
+
+<section id="home" class="page active">
+
+    <div class="hero">
+
+        <div class="hero-content">
+
+            <div class="badge">
+                ✨ Your creative space
+            </div>
+
+            <h1>
+                Create.<br>
+                <span class="gradient-text">Share.</span>
+                Vibe.
+            </h1>
+
+            <p>
+                Create social media content, AI videos and Instagram Reels
+                from one simple creative workspace.
+            </p>
+
+            <div class="hero-buttons">
+                <button class="primary-btn" onclick="showPage('ai')">
+                    ✦ Create AI Reel
+                </button>
+
+                <button class="secondary-btn" onclick="showPage('editor')">
+                    Open Editor
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container">
+
+        <div class="feature-grid">
+
+            <div class="feature card">
+                <div class="feature-icon">🎬</div>
+                <h3>AI Video</h3>
+                <p>Create short videos from a simple text prompt.</p>
+            </div>
+
+            <div class="feature card">
+                <div class="feature-icon">📱</div>
+                <h3>Instagram Reels</h3>
+                <p>Generate content in a vertical 9:16 format.</p>
+            </div>
+
+            <div class="feature card">
+                <div class="feature-icon">✂️</div>
+                <h3>Background Remover</h3>
+                <p>Remove simple backgrounds from uploaded images.</p>
+            </div>
+
+            <div class="feature card">
+                <div class="feature-icon">✨</div>
+                <h3>Creative Editor</h3>
+                <p>Add text, images, colors and custom designs.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= EDITOR ================= -->
+
+<section id="editor" class="page editor-page">
+
+    <div class="container">
+
+        <h1 class="section-title">
+            Creative <span class="gradient-text">Editor</span>
+        </h1>
+
+        <p class="section-subtitle">
+            Quickly design a social post or Reel.
+        </p>
+
+        <div class="editor-layout">
+
+            <aside class="sidebar card">
+
+                <h3>Tools</h3>
+
+                <div class="tool-list">
+
+                    <button class="tool-btn" onclick="addText()">
+                        T&nbsp; Add Text
+                    </button>
+
+                    <button class="tool-btn" onclick="changeTextSize()">
+                        ↕&nbsp; Change Text Size
+                    </button>
+
+                    <button class="tool-btn" onclick="changeBackground()">
+                        🎨&nbsp; Change Background
+                    </button>
+
+                    <button class="tool-btn" onclick="document.getElementById('editorImage').click()">
+                        🖼️ Add Image
+                    </button>
+
+                    <button class="tool-btn" onclick="showPage('remove')">
+                        ✂️ Remove Background
+                    </button>
+
+                    <button class="tool-btn" onclick="clearDesign()">
+                        🗑️ Clear Design
+                    </button>
+
+                </div>
+
+                <input
+                    id="editorImage"
+                    type="file"
+                    accept="image/*"
+                    style="display:none"
+                    onchange="addEditorImage(event)"
+                >
+
+                <div class="control-group">
+
+                    <label>Text</label>
+
+                    <input
+                        id="editorText"
+                        value="Your Vibe"
+                        oninput="updateEditorText()"
+                    >
+
+                </div>
+
+                <div class="control-group">
+
+                    <label>Text Color</label>
+
+                    <input
+                        class="color-input"
+                        id="textColor"
+                        type="color"
+                        value="#ffffff"
+                        onchange="updateTextColor()"
+                    >
+
+                </div>
+
+                <div class="control-group">
+
+                    <label>Font</label>
+
+                    <select id="fontSelect" onchange="updateFont()">
+                        <option value="Arial">Arial</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Verdana">Verdana</option>
+                        <option value="Impact">Impact</option>
+                        <option value="monospace">Monospace</option>
+                    </select>
+
+                </div>
+
+                <div class="control-group">
+
+                    <label>Background</label>
+
+                    <input
+                        class="color-input"
+                        id="bgColor"
+                        type="color"
+                        value="#24104d"
+                        onchange="updateCanvasBackground()"
+                    >
+
+                </div>
+
+            </aside>
+
+
+            <main class="canvas-area card">
+
+                <div id="designCanvas" class="design-canvas">
+
+                    <div class="design-content">
+
+                        <div
+                            id="designText"
+                            class="design-text"
+                        >
+                            Your Vibe
+                        </div>
+
+                        <img
+                            id="designImage"
+                            class="design-image"
+                            style="display:none"
+                        >
+
+                    </div>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= AI VIDEO ================= -->
+
+<section id="ai" class="page ai-page">
+
+    <div class="container">
+
+        <div class="ai-header">
+
+            <div class="badge">
+                ✦ VibeNest AI
+            </div>
+
+            <h1>
+                Make your next
+                <span class="gradient-text">Reel.</span>
+            </h1>
+
+            <p>
+                Describe your idea and create a short-form video.
+                Choose your platform, style and camera movement.
+            </p>
+
+        </div>
+
+
+        <div class="ai-layout">
+
+            <!-- CONTROLS -->
+
+            <div class="ai-controls card">
+
+                <h3>Video Settings</h3>
+
+                <!-- MODE -->
+
+                <label style="display:block;color:#aaa;font-size:13px;margin-bottom:8px">
+                    Format
+                </label>
+
+                <div class="mode-grid">
+
+                    <button
+                        class="mode active"
+                        data-ratio="9:16"
+                        onclick="selectMode(this,'Instagram Reel','9:16')"
+                    >
+                        <strong>📱</strong>
+                        Reel
+                    </button>
+
+                    <button
+                        class="mode"
+                        data-ratio="9:16"
+                        onclick="selectMode(this,'YouTube Short','9:16')"
+                    >
+                        <strong>▶</strong>
+                        Shorts
+                    </button>
+
+                    <button
+                        class="mode"
+                        data-ratio="16:9"
+                        onclick="selectMode(this,'YouTube Video','16:9')"
+                    >
+                        <strong>▰</strong>
+                        YouTube
+                    </button>
+
+                    <button
+                        class="mode"
+                        data-ratio="1:1"
+                        onclick="selectMode(this,'Instagram Post','1:1')"
+                    >
+                        <strong>▣</strong>
+                        Post
+                    </button>
+
+                    <button
+                        class="mode"
+                        data-ratio="16:9"
+                        onclick="selectMode(this,'Landscape','16:9')"
+                    >
+                        <strong>◫</strong>
+                        Custom
+                    </button>
+
+                </div>
+
+
+                <!-- PROMPT -->
+
+                <div class="form-group">
+
+                    <label>What should the video show?</label>
+
+                    <textarea
+                        id="prompt"
+                        placeholder="Example: A cinematic car driving through a mountain road during sunset, realistic, smooth camera movement..."
+                    ></textarea>
+
+                </div>
+
+
+                <!-- PROMPTS -->
+
+                <div class="form-group">
+
+                    <label>Quick ideas</label>
+
+                    <div class="preset-row">
+
+                        <button class="preset" onclick="usePrompt('A cinematic sunset over a peaceful mountain road')">
+                            🌄 Mountain
+                        </button>
+
+                        <button class="preset" onclick="usePrompt('A futuristic city at night with glowing neon lights')">
+                            🌃 Cyber city
+                        </button>
+
+                        <button class="preset" onclick="usePrompt('Ocean waves hitting a beautiful beach during golden hour')">
+                            🌊 Ocean
+                        </button>
+
+                        <button class="preset" onclick="usePrompt('A luxury sports car driving on a mountain road at sunset')">
+                            🚗 Car
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>Duration</label>
+
+                        <select id="duration">
+                            <option value="5">5 seconds</option>
+                            <option value="10" selected>10 seconds</option>
+                            <option value="15">15 seconds</option>
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Ratio</label>
+
+                        <select id="ratio">
+
+                            <option value="9:16" selected>
+                                9:16 Vertical
+                            </option>
+
+                            <option value="16:9">
+                                16:9 Landscape
+                            </option>
+
+                            <option value="1:1">
+                                1:1 Square
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>Style</label>
+
+                        <select id="style">
+
+                            <option value="cinematic">
+                                Cinematic
+                            </option>
+
+                            <option value="realistic">
+                                Realistic
+                            </option>
+
+                            <option value="anime">
+                                Anime
+                            </option>
+
+                            <option value="3d">
+                                3D
+                            </option>
+
+                            <option value="vintage">
+                                Vintage
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Camera</label>
+
+                        <select id="camera">
+
+                            <option value="smooth cinematic movement">
+                                Smooth
+                            </option>
+
+                            <option value="slow zoom in">
+                                Zoom In
+                            </option>
+
+                            <option value="slow zoom out">
+                                Zoom Out
+                            </option>
+
+                            <option value="tracking shot">
+                                Tracking
+                            </option>
+
+                            <option value="drone camera movement">
+                                Drone
+                            </option>
+
+                            <option value="static camera">
+                                Static
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Resolution</label>
+
+                    <select id="resolution">
+
+                        <option value="720p">
+                            720p
+                        </option>
+
+                        <option value="1080p">
+                            1080p
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    id="generateBtn"
+                    class="generate-btn"
+                    onclick="generateVideo()"
+                >
+                    ✦ Generate Video
+                </button>
+
+                <div
+                    style="color:#73788d;font-size:11px;text-align:center;margin-top:10px"
+                >
+                    AI generation uses your VibeNest API.
+                </div>
+
+            </div>
+
+
+            <!-- PREVIEW -->
+
+            <div class="ai-preview card">
+
+                <div class="preview-title">
+
+                    <strong id="previewTitle">
+                        Instagram Reel Preview
+                    </strong>
+
+                    <span id="previewRatio">
+                        9:16
+                    </span>
+
+                </div>
+
+
+                <div id="phonePreview" class="phone">
+
+                    <div class="phone-notch"></div>
+
+                    <div class="phone-screen">
+
+                        <div id="emptyPreview" class="empty-preview">
+
+                            <div class="big">🎬</div>
+
+                            <p>
+                                Your generated Reel
+                                will appear here.
+                            </p>
+
+                        </div>
+
+
+                        <video
+                            id="previewVideo"
+                            controls
+                            playsinline
+                            style="display:none"
+                        ></video>
+
+
+                        <div
+                            id="reelOverlay"
+                            class="reel-overlay"
+                            style="display:none"
+                        >
+
+                            <div class="reel-actions">
+
+                                <div class="reel-action">
+                                    ❤️
+                                    <small>Like</small>
+                                </div>
+
+                                <div class="reel-action">
+                                    💬
+                                    <small>Comment</small>
+                                </div>
+
+                                <div class="reel-action">
+                                    ↗️
+                                    <small>Share</small>
+                                </div>
+
+                            </div>
+
+                            <div class="reel-user">
+                                @vibenest
+                            </div>
+
+                            <div
+                                id="reelCaption"
+                                class="reel-caption"
+                            >
+                                Create something amazing ✨
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PROGRESS -->
+
+                <div
+                    id="progressBox"
+                    class="progress-box"
+                >
+
+                    <div class="progress-text">
+
+                        <span id="progressStatus">
+                            Preparing...
+                        </span>
+
+                        <span id="progressPercent">
+                            0%
+                        </span>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div
+                            id="progressBar"
+                            class="progress-bar"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- VIDEO RESULT -->
+
+                <div
+                    id="videoResult"
+                    class="video-result"
+                >
+
+                    <video
+                        id="resultVideo"
+                        controls
+                        playsinline
+                    ></video>
+
+                    <div class="result-actions">
+
+                        <button
+                            class="primary-btn"
+                            onclick="downloadVideo()"
+                        >
+                            ↓ Download
+                        </button>
+
+                        <button
+                            class="secondary-btn"
+                            onclick="generateCaption()"
+                        >
+                            ✨ Caption
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CAPTION -->
+
+        <div
+            id="captionBox"
+            class="caption-box card"
+        >
+
+            <h3>Ready-to-post caption</h3>
+
+            <div
+                id="captionText"
+                class="caption-text"
+            ></div>
+
+            <div
+                id="hashtags"
+                class="hashtags"
+            ></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= BACKGROUND REMOVER ================= -->
+
+<section id="remove" class="page remove-page">
+
+    <div class="container">
+
+        <h1 class="section-title">
+            Background <span class="gradient-text">Remover</span>
+        </h1>
+
+        <p class="section-subtitle">
+            Upload an image and remove a simple background directly in
+            your browser.
+        </p>
+
+
+        <div class="remove-layout">
+
+            <div class="upload-box card">
+
+                <div>
+
+                    <div class="upload-icon">
+                        ✂️
+                    </div>
+
+                    <h2>
+                        Remove Image Background
+                    </h2>
+
+                    <p
+                        style="color:var(--muted);margin:12px 0 20px"
+                    >
+                        Upload PNG, JPG or WEBP.
+                    </p>
+
+                    <label
+                        for="removeFile"
+                        class="primary-btn"
+                    >
+                        Choose Image
+                    </label>
+
+                    <input
+                        id="removeFile"
+                        class="file-input"
+                        type="file"
+                        accept="image/png,image/jpeg,image/webp"
+                        onchange="loadRemoveImage(event)"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <div
+                    id="removePreview"
+                    class="remove-preview card"
+                >
+
+                    <span style="color:var(--muted)">
+                        Image preview
+                    </span>
+
+                </div>
+
+                <div class="remove-controls card" style="padding:20px">
+
+                    <p>
+                        This browser version works best on images with a
+                        relatively simple or similarly colored background.
+                    </p>
+
+                    <div style="display:flex;gap:10px;flex-wrap:wrap">
+
+                        <button
+                            class="primary-btn"
+                            onclick="removeBackground()"
+                        >
+                            ✂️ Remove Background
+                        </button>
+
+                        <button
+                            class="secondary-btn"
+                            onclick="downloadRemovedImage()"
+                        >
+                            ↓ Download PNG
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <canvas id="removeCanvas" style="display:none"></canvas>
+
+    </div>
+
+</section>
+
+
+<!-- ================= RECENT ================= -->
+
+<section class="recent">
+
+    <div class="container">
+
+        <h2 class="section-title">
+            Your <span class="gradient-text">Workspace</span>
+        </h2>
+
+        <p class="section-subtitle">
+            Quick access to your creative tools.
+        </p>
+
+        <div class="recent-grid">
+
+            <div class="project-card card">
+
+                <div class="project-thumb">
+                    📱
+                </div>
+
+                <h3>Instagram Reel</h3>
+
+                <p>
+                    Create a vertical 9:16 AI video.
+                </p>
+
+                <button
+                    class="small-btn"
+                    style="margin-top:12px"
+                    onclick="showPage('ai')"
+                >
+                    Open
+                </button>
+
+            </div>
+
+
+            <div class="project-card card">
+
+                <div class="project-thumb">
+                    🎨
+                </div>
+
+                <h3>Design Editor</h3>
+
+                <p>
+                    Make social media graphics.
+                </p>
+
+                <button
+                    class="small-btn"
+                    style="margin-top:12px"
+                    onclick="showPage('editor')"
+                >
+                    Open
+                </button>
+
+            </div>
+
+
+            <div class="project-card card">
+
+                <div class="project-thumb">
+                    ✂️
+                </div>
+
+                <h3>Background Remover</h3>
+
+                <p>
+                    Prepare transparent images.
+                </p>
+
+                <button
+                    class="small-btn"
+                    style="margin-top:12px"
+                    onclick="showPage('remove')"
+                >
+                    Open
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+    © 2026 VibeNest · Create your vibe.
+</footer>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+
+/* =========================================================
+   VIBENEST CONFIG
+========================================================= */
+
+/*
+   IMPORTANT:
+   Your FAL key is NOT stored here.
+
+   Your frontend talks to Cloudflare Worker.
+*/
+
+const API_URL =
+    "https://vibenest-api.vaibhavkhotkar2006.workers.dev";
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function showPage(page){
+
+    document.querySelectorAll(".page")
+        .forEach(p => p.classList.remove("active"));
+
+    const target = document.getElementById(page);
+
+    if(target){
+        target.classList.add("active");
+    }
+
+    document.querySelectorAll(".nav-btn")
+        .forEach(btn => btn.classList.remove("active"));
+
+    const buttons =
+        document.querySelectorAll(".nav-btn");
+
+    buttons.forEach(btn => {
+
+        if(
+            btn.textContent
+                .toLowerCase()
+                .includes(
+                    page === "ai"
+                        ? "ai video"
+                        : page
+                )
+        ){
+            btn.classList.add("active");
+        }
+
+    });
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+    document
+        .getElementById("navLinks")
+        .classList.remove("mobile-open");
+}
+
+
+function toggleMenu(){
+
+    document
+        .getElementById("navLinks")
+        .classList.toggle("mobile-open");
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function toast(message){
+
+    const el =
+        document.getElementById("toast");
+
+    el.textContent = message;
+
+    el.classList.add("show");
+
+    setTimeout(() => {
+        el.classList.remove("show");
+    },3000);
+}
+
+
+/* =========================================================
+   EDITOR
+========================================================= */
+
+let textSize = 38;
+
+
+function addText(){
+
+    const text =
+        prompt(
+            "Enter your text:",
+            "Your Vibe"
+        );
+
+    if(text !== null){
+
+        document
+            .getElementById("editorText")
+            .value = text;
+
+        updateEditorText();
+
+    }
+
+}
+
+
+function updateEditorText(){
+
+    document
+        .getElementById("designText")
+        .textContent =
+        document
+            .getElementById("editorText")
+            .value;
+
+}
+
+
+function changeTextSize(){
+
+    textSize += 5;
+
+    if(textSize > 65){
+        textSize = 25;
+    }
+
+    document
+        .getElementById("designText")
+        .style.fontSize =
+        textSize + "px";
+
+}
+
+
+function changeBackground(){
+
+    const colors = [
+        "#24104d",
+        "#071e3d",
+        "#3b102f",
+        "#102a24",
+        "#25180b",
+        "#111827"
+    ];
+
+    const random =
+        colors[
+            Math.floor(
+                Math.random() *
+                colors.length
+            )
+        ];
+
+    document
+        .getElementById("designCanvas")
+        .style.background =
+        random;
+
+    document
+        .getElementById("bgColor")
+        .value = random;
+
+}
+
+
+function updateCanvasBackground(){
+
+    const color =
+        document
+            .getElementById("bgColor")
+            .value;
+
+    document
+        .getElementById("designCanvas")
+        .style.background =
+        color;
+
+}
+
+
+function updateTextColor(){
+
+    document
+        .getElementById("designText")
+        .style.color =
+        document
+            .getElementById("textColor")
+            .value;
+
+}
+
+
+function updateFont(){
+
+    document
+        .getElementById("designText")
+        .style.fontFamily =
+        document
+            .getElementById("fontSelect")
+            .value;
+
+}
+
+
+function addEditorImage(event){
+
+    const file =
+        event.target.files[0];
+
+    if(!file) return;
+
+    const url =
+        URL.createObjectURL(file);
+
+    const img =
+        document.getElementById("designImage");
+
+    img.src = url;
+    img.style.display = "block";
+
+    toast("Image added.");
+
+}
+
+
+function clearDesign(){
+
+    document
+        .getElementById("editorText")
+        .value = "Your Vibe";
+
+    updateEditorText();
+
+    document
+        .getElementById("designImage")
+        .style.display = "none";
+
+    document
+        .getElementById("designCanvas")
+        .style.background =
+        "linear-gradient(135deg,#24104d,#101b45)";
+
+    toast("Design cleared.");
+
+}
+
+
+/* =========================================================
+   AI VIDEO MODE
+========================================================= */
+
+let selectedMode = "Instagram Reel";
+let selectedRatio = "9:16";
+let generatedVideoUrl = "";
+
+
+function selectMode(button,name,ratio){
+
+    document
+        .querySelectorAll(".mode")
+        .forEach(m =>
+            m.classList.remove("active")
+        );
+
+    button.classList.add("active");
+
+    selectedMode = name;
+    selectedRatio = ratio;
+
+    document
+        .getElementById("ratio")
+        .value = ratio;
+
+    document
+        .getElementById("previewTitle")
+        .textContent =
+        name + " Preview";
+
+    document
+        .getElementById("previewRatio")
+        .textContent =
+        ratio;
+
+    updatePhoneShape();
+
+}
+
+
+function updatePhoneShape(){
+
+    const phone =
+        document.getElementById("phonePreview");
+
+    if(selectedRatio === "16:9"){
+
+        phone.style.width = "620px";
+        phone.style.height = "380px";
+        phone.style.borderRadius = "25px";
+
+    }else if(selectedRatio === "1:1"){
+
+        phone.style.width = "440px";
+        phone.style.height = "440px";
+        phone.style.borderRadius = "28px";
+
+    }else{
+
+        phone.style.width = "290px";
+        phone.style.height = "590px";
+        phone.style.borderRadius = "38px";
+
+    }
+
+}
+
+
+function usePrompt(text){
+
+    document
+        .getElementById("prompt")
+        .value = text;
+
+    toast("Prompt added.");
+
+}
+
+
+/* =========================================================
+   AI VIDEO GENERATION
+========================================================= */
+
+async function generateVideo(){
+
+    const button =
+        document.getElementById("generateBtn");
+
+    const promptInput =
+        document.getElementById("prompt");
+
+    const prompt =
+        promptInput.value.trim();
+
+    if(!prompt){
+
+        toast("Please enter a video prompt.");
+
+        promptInput.focus();
+
+        return;
+    }
+
+
+    const duration =
+        Number(
+            document.getElementById("duration").value
+        );
+
+    const ratio =
+        document.getElementById("ratio").value;
+
+    const style =
+        document.getElementById("style").value;
+
+    const camera =
+        document.getElementById("camera").value;
+
+    const resolution =
+        document.getElementById("resolution").value;
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "Generating...";
+
+
+    document
+        .getElementById("emptyPreview")
+        .style.display = "none";
+
+    document
+        .getElementById("previewVideo")
+        .style.display = "none";
+
+    document
+        .getElementById("reelOverlay")
+        .style.display = "none";
+
+    document
+        .getElementById("videoResult")
+        .style.display = "none";
+
+
+    const progressBox =
+        document.getElementById("progressBox");
+
+    progressBox.style.display = "block";
+
+
+    setProgress(
+        8,
+        "Sending request..."
+    );
+
+
+    /*
+       Make the prompt more descriptive
+       before sending it to the AI.
+    */
+
+    const finalPrompt = `
+${prompt}
+
+Style: ${style}.
+Camera movement: ${camera}.
+Aspect ratio: ${ratio}.
+Duration: ${duration} seconds.
+High quality social media video.
+No text, no watermark.
+`.trim();
+
+
+    try{
+
+        setProgress(
+            20,
+            "Connecting to VibeNest AI..."
+        );
+
+
+        const response =
+            await fetch(
+                API_URL + "/generate",
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:JSON.stringify({
+
+                        prompt:
+                            finalPrompt,
+
+                        duration:
+                            duration,
+
+                        ratio:
+                            ratio,
+
+                        resolution:
+                            resolution
+
+                    })
+
+                }
+            );
+
+
+        setProgress(
+            45,
+            "AI is creating your video..."
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if(!response.ok){
+
+            throw new Error(
+                data.error ||
+                data.message ||
+                "Generation failed."
+            );
+
+        }
+
+
+        /*
+          The Worker may return different
+          fal response structures depending
+          on whether it uses queue or sync mode.
+        */
+
+        const videoUrl =
+            findVideoUrl(data);
+
+
+        if(videoUrl){
+
+            showGeneratedVideo(videoUrl);
+
+        }else{
+
+            /*
+              If the Worker returns a request ID,
+              show a useful message instead of
+              pretending a video was generated.
+            */
+
+            if(
+                data.request_id ||
+                data.requestId ||
+                data.id
+            ){
+
+                setProgress(
+                    100,
+                    "Request created. Your Worker needs queue polling."
+                );
+
+                toast(
+                    "Generation request created. Queue polling needs to be enabled in the Worker."
+                );
+
+            }else{
+
+                throw new Error(
+                    "The API did not return a video URL."
+                );
+
+            }
+
+        }
+
+
+    }catch(error){
+
+        console.error(error);
+
+        setProgress(
+            100,
+            "Generation failed"
+        );
+
+        toast(
+            error.message ||
+            "Could not generate video."
+        );
+
+    }finally{
+
+        button.disabled = false;
+
+        button.textContent =
+            "✦ Generate Video";
+
+    }
+
+}
+
+
+/* =========================================================
+   FIND VIDEO URL FROM API RESPONSE
+========================================================= */
+
+function findVideoUrl(data){
+
+    if(!data) return null;
+
+
+    if(
+        typeof data === "string" &&
+        data.startsWith("http")
+    ){
+        return data;
+    }
+
+
+    if(data.video_url){
+        return data.video_url;
+    }
+
+
+    if(data.videoUrl){
+        return data.videoUrl;
+    }
+
+
+    if(
+        data.video &&
+        typeof data.video === "string"
+    ){
+        return data.video;
+    }
+
+
+    if(
+        data.video &&
+        data.video.url
+    ){
+        return data.video.url;
+    }
+
+
+    if(
+        data.output &&
+        typeof data.output === "string"
+    ){
+        return data.output;
+    }
+
+
+    if(
+        data.output &&
+        data.output.url
+    ){
+        return data.output.url;
+    }
+
+
+    if(
+        data.data &&
+        data.data.video &&
+        data.data.video.url
+    ){
+        return data.data.video.url;
+    }
+
+
+    if(
+        data.data &&
+        data.data.video_url
+    ){
+        return data.data.video_url;
+    }
+
+
+    return null;
+
+}
+
+
+/* =========================================================
+   SHOW GENERATED VIDEO
+========================================================= */
+
+function showGeneratedVideo(url){
+
+    generatedVideoUrl = url;
+
+    setProgress(
+        100,
+        "Video ready!"
+    );
+
+
+    const video =
+        document.getElementById("previewVideo");
+
+    video.src = url;
+
+    video.style.display = "block";
+
+    video.controls = true;
+
+
+    document
+        .getElementById("reelOverlay")
+        .style.display = "flex";
+
+
+    document
+        .getElementById("videoResult")
+        .style.display = "block";
+
+
+    document
+        .getElementById("resultVideo")
+        .src = url;
+
+
+    document
+        .getElementById("progressBox")
+        .style.display = "none";
+
+
+    document
+        .getElementById("reelCaption")
+        .textContent =
+        document
+            .getElementById("prompt")
+            .value;
+
+
+    saveRecentProject(
+        document
+            .getElementById("prompt")
+            .value
+    );
+
+
+    toast("Your video is ready! 🎉");
+
+}
+
+
+function setProgress(percent,status){
+
+    document
+        .getElementById("progressBar")
+        .style.width =
+        percent + "%";
+
+    document
+        .getElementById("progressPercent")
+        .textContent =
+        percent + "%";
+
+    document
+        .getElementById("progressStatus")
+        .textContent =
+        status;
+
+}
+
+
+/* =========================================================
+   DOWNLOAD VIDEO
+========================================================= */
+
+async function downloadVideo(){
+
+    if(!generatedVideoUrl){
+
+        toast("No video available.");
+
+        return;
+
+    }
+
+
+    try{
+
+        const response =
+            await fetch(generatedVideoUrl);
+
+        const blob =
+            await response.blob();
+
+        const url =
+            URL.createObjectURL(blob);
+
+        const a =
+            document.createElement("a");
+
+        a.href = url;
+
+        a.download =
+            "vibenest-video.mp4";
+
+        document.body.appendChild(a);
+
+        a.click();
+
+        a.remove();
+
+        URL.revokeObjectURL(url);
+
+    }catch(error){
+
+        /*
+          Some remote video servers block
+          browser downloads. Open the video
+          directly as fallback.
+        */
+
+        window.open(
+            generatedVideoUrl,
+            "_blank"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CAPTION + HASHTAGS
+========================================================= */
+
+function generateCaption(){
+
+    const prompt =
+        document
+            .getElementById("prompt")
+            .value
+            .trim();
+
+
+    if(!prompt){
+
+        toast("Create a video first.");
+
+        return;
+
+    }
+
+
+    const caption =
+        `POV: you found the perfect vibe ✨
+
+${prompt}
+
+Would you watch this again? 👀`;
+
+
+    const tags =
+        "#vibenest #reels #instagramreels #viralreels #aivideo #contentcreator #cinematic";
+
+
+    document
+        .getElementById("captionText")
+        .textContent =
+        caption;
+
+    document
+        .getElementById("hashtags")
+        .textContent =
+        tags;
+
+    document
+        .getElementById("captionBox")
+        .style.display =
+        "block";
+
+
+    toast("Caption generated.");
+
+}
+
+
+/* =========================================================
+   SIMPLE BROWSER BACKGROUND REMOVER
+========================================================= */
+
+let removeImage = null;
+let removedImageReady = false;
+
+
+function loadRemoveImage(event){
+
+    const file =
+        event.target.files[0];
+
+    if(!file) return;
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload = function(e){
+
+        const img =
+            new Image();
+
+        img.onload = function(){
+
+            removeImage = img;
+
+            removedImageReady = false;
+
+            const preview =
+                document.getElementById(
+                    "removePreview"
+                );
+
+            preview.innerHTML = "";
+
+            const display =
+                document.createElement("img");
+
+            display.src =
+                e.target.result;
+
+            preview.appendChild(display);
+
+            toast("Image loaded.");
+
+        };
+
+        img.src =
+            e.target.result;
+
+    };
+
+
+    reader.readAsDataURL(file);
+
+}
+
+
+/*
+  This is a lightweight local remover.
+
+  It compares pixels near the image edges
+  and removes pixels that are sufficiently
+  similar to the detected background color.
+
+  It works best with simple backgrounds.
+*/
+
+function removeBackground(){
+
+    if(!removeImage){
+
+        toast("Choose an image first.");
+
+        return;
+
+    }
+
+
+    const canvas =
+        document.getElementById(
+            "removeCanvas"
+        );
+
+    const ctx =
+        canvas.getContext("2d");
+
+
+    canvas.width =
+        removeImage.naturalWidth;
+
+    canvas.height =
+        removeImage.naturalHeight;
+
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    ctx.drawImage(
+        removeImage,
+        0,
+        0
+    );
+
+
+    const imageData =
+        ctx.getImageData(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+
+    const pixels =
+        imageData.data;
+
+
+    /*
+      Estimate background from corners.
+    */
+
+    const samples = [];
+
+    function sample(x,y){
+
+        const i =
+            (y * canvas.width + x) * 4;
+
+        samples.push([
+            pixels[i],
+            pixels[i+1],
+            pixels[i+2]
+        ]);
+
+    }
+
+
+    const w =
+        canvas.width;
+
+    const h =
+        canvas.height;
+
+
+    sample(0,0);
+    sample(w-1,0);
+    sample(0,h-1);
+    sample(w-1,h-1);
+
+
+    const bg = [
+        Math.round(
+            samples.reduce(
+                (sum,s) => sum+s[0],
+                0
+            ) / samples.length
+        ),
+
+        Math.round(
+            samples.reduce(
+                (sum,s) => sum+s[1],
+                0
+            ) / samples.length
+        ),
+
+        Math.round(
+            samples.reduce(
+                (sum,s) => sum+s[2],
+                0
+            ) / samples.length
+        )
+    ];
+
+
+    const tolerance = 55;
+
+
+    for(
+        let i=0;
+        i<pixels.length;
+        i+=4
+    ){
+
+        const r = pixels[i];
+        const g = pixels[i+1];
+        const b = pixels[i+2];
+
+
+        const distance =
+            Math.sqrt(
+                Math.pow(r-bg[0],2) +
+                Math.pow(g-bg[1],2) +
+                Math.pow(b-bg[2],2)
+            );
+
+
+        if(distance < tolerance){
+
+            pixels[i+3] = 0;
+
+        }
+
+    }
+
+
+    ctx.putImageData(
+        imageData,
+        0,
+        0
+    );
+
+
+    const preview =
+        document.getElementById(
+            "removePreview"
+        );
+
+    preview.innerHTML = "";
+
+
+    const output =
+        document.createElement("img");
+
+    output.src =
+        canvas.toDataURL("image/png");
+
+    preview.appendChild(output);
+
+
+    removedImageReady = true;
+
+    toast(
+        "Background removed. Check the preview."
+    );
+
+}
+
+
+/* =========================================================
+   DOWNLOAD REMOVED IMAGE
+========================================================= */
+
+function downloadRemovedImage(){
+
+    if(
+        !removedImageReady
+    ){
+
+        toast(
+            "Remove the background first."
+        );
+
+        return;
+
+    }
+
+
+    const canvas =
+        document.getElementById(
+            "removeCanvas"
+        );
+
+
+    const a =
+        document.createElement("a");
+
+    a.download =
+        "vibenest-transparent.png";
+
+    a.href =
+        canvas.toDataURL("image/png");
+
+    a.click();
+
+}
+
+
+/* =========================================================
+   LOCAL RECENT PROJECTS
+========================================================= */
+
+function saveRecentProject(prompt){
+
+    try{
+
+        const projects =
+            JSON.parse(
+                localStorage.getItem(
+                    "vibenest_projects"
+                ) || "[]"
+            );
+
+
+        projects.unshift({
+
+            prompt:
+                prompt.substring(0,100),
+
+            date:
+                new Date().toLocaleString()
+
+        });
+
+
+        localStorage.setItem(
+            "vibenest_projects",
+            JSON.stringify(
+                projects.slice(0,10)
+            )
+        );
+
+    }catch(error){
+
+        console.log(error);
+
+    }
+
+}
+
+
+/* =========================================================
+   KEYBOARD SHORTCUT
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(e){
+
+        if(
+            (e.ctrlKey || e.metaKey) &&
+            e.key === "Enter"
+        ){
+
+            if(
+                document
+                    .getElementById("ai")
+                    .classList.contains("active")
+            ){
+
+                generateVideo();
+
+            }
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+updatePhoneShape();
+
+</script>
+
+</body>
+</html>
