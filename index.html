@@ -1,273 +1,616 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VidioAI - AI Video Editor</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
+<title>VidioAI - Video Editor</title>
 
-        body {
-            background: #111;
-            color: white;
-            min-height: 100vh;
-        }
+<style>
 
-        header {
-            height: 65px;
-            padding: 0 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid #292929;
-            background: #151515;
-        }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
+body {
+    background: #101010;
+    color: white;
+    min-height: 100vh;
+}
 
-        .logo span {
-            color: #8b5cf6;
-        }
+/* NAVBAR */
 
-        .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
+header {
+    height: 65px;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #161616;
+    border-bottom: 1px solid #292929;
+}
 
-        .title {
-            margin-bottom: 20px;
-        }
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
 
-        .title h1 {
-            font-size: 30px;
-            margin-bottom: 8px;
-        }
+.logo span {
+    color: #8b5cf6;
+}
 
-        .title p {
-            color: #aaa;
-        }
+.header-right {
+    color: #aaa;
+    font-size: 14px;
+}
 
-        .editor {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 20px;
-        }
+/* MAIN */
 
-        .preview-box,
-        .controls {
-            background: #1b1b1b;
-            border: 1px solid #292929;
-            border-radius: 12px;
-        }
+.container {
+    max-width: 1250px;
+    margin: 25px auto;
+    padding: 0 20px;
+}
 
-        .preview-box {
-            padding: 20px;
-            min-height: 500px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.title {
+    margin-bottom: 20px;
+}
 
-        video {
-            width: 100%;
-            max-height: 450px;
-            border-radius: 8px;
-            background: black;
-        }
+.title h1 {
+    font-size: 30px;
+    margin-bottom: 6px;
+}
 
-        .empty {
-            text-align: center;
-            color: #888;
-        }
+.title p {
+    color: #999;
+}
 
-        .empty h2 {
-            color: white;
-            margin-bottom: 10px;
-        }
+/* EDITOR */
 
-        .upload-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 20px;
-            background: #8b5cf6;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+.editor {
+    display: grid;
+    grid-template-columns: 1fr 310px;
+    gap: 20px;
+}
 
-        .upload-btn:hover {
-            background: #7442df;
-        }
+/* PREVIEW */
 
-        input[type="file"] {
-            display: none;
-        }
+.preview-section {
+    background: #191919;
+    border: 1px solid #292929;
+    border-radius: 12px;
+    padding: 20px;
+}
 
-        .controls {
-            padding: 20px;
-        }
+.preview {
+    background: #050505;
+    min-height: 500px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
 
-        .controls h2 {
-            margin-bottom: 20px;
-            font-size: 20px;
-        }
+video {
+    width: 100%;
+    max-height: 480px;
+    object-fit: contain;
+}
 
-        .control {
-            margin-bottom: 22px;
-        }
+.empty {
+    text-align: center;
+    color: #888;
+}
 
-        .control label {
-            display: block;
-            margin-bottom: 8px;
-            color: #ccc;
-            font-size: 14px;
-        }
+.empty h2 {
+    color: white;
+    margin-bottom: 8px;
+}
 
-        button,
-        select {
-            width: 100%;
-            padding: 11px;
-            border: none;
-            border-radius: 7px;
-            background: #292929;
-            color: white;
-            cursor: pointer;
-        }
+.upload-btn {
+    display: inline-block;
+    margin-top: 18px;
+    background: #8b5cf6;
+    padding: 12px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+}
 
-        button:hover {
-            background: #383838;
-        }
+.upload-btn:hover {
+    background: #7442df;
+}
 
-        input[type="range"] {
-            width: 100%;
-        }
+input[type="file"] {
+    display: none;
+}
 
-        .time {
-            display: flex;
-            justify-content: space-between;
-            color: #aaa;
-            font-size: 13px;
-            margin-top: 6px;
-        }
+/* TEXT OVERLAY */
 
-        .export {
-            background: #8b5cf6;
-            font-weight: bold;
-            margin-top: 5px;
-        }
+.text-overlay {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+    pointer-events: none;
+    display: none;
+    text-align: center;
+    width: 90%;
+}
 
-        .export:hover {
-            background: #7442df;
-        }
+/* TIMELINE */
 
-        #status {
-            margin-top: 15px;
-            color: #aaa;
-            font-size: 13px;
-            text-align: center;
-        }
+.timeline {
+    margin-top: 18px;
+}
 
-        @media (max-width: 800px) {
-            .editor {
-                grid-template-columns: 1fr;
-            }
+.timeline-label {
+    display: flex;
+    justify-content: space-between;
+    color: #aaa;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
 
-            .preview-box {
-                min-height: 350px;
-            }
-        }
-    </style>
+.timeline input {
+    width: 100%;
+}
+
+/* CONTROLS */
+
+.controls {
+    background: #191919;
+    border: 1px solid #292929;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.controls h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.control {
+    margin-bottom: 20px;
+}
+
+.control label {
+    display: block;
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 8px;
+}
+
+button,
+select,
+input[type="text"] {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    border-radius: 7px;
+    background: #292929;
+    color: white;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:hover {
+    background: #383838;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: #8b5cf6;
+}
+
+input[type="text"] {
+    outline: none;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+/* EXPORT */
+
+.export {
+    background: #8b5cf6;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.export:hover {
+    background: #7442df;
+}
+
+.status {
+    text-align: center;
+    color: #999;
+    font-size: 12px;
+    margin-top: 12px;
+}
+
+/* MOBILE */
+
+@media (max-width: 850px) {
+
+    .editor {
+        grid-template-columns: 1fr;
+    }
+
+    .preview {
+        min-height: 350px;
+    }
+
+}
+
+</style>
 </head>
 
 <body>
 
 <header>
-    <div class="logo">Vidio<span>AI</span></div>
-    <div>AI Video Editor</div>
+
+    <div class="logo">
+        Vidio<span>AI</span>
+    </div>
+
+    <div class="header-right">
+        Video Editor
+    </div>
+
 </header>
+
 
 <div class="container">
 
     <div class="title">
+
         <h1>Video Editor</h1>
-        <p>Upload your video and start editing.</p>
+
+        <p>
+            Upload your video and edit it directly in your browser.
+        </p>
+
     </div>
+
 
     <div class="editor">
 
-        <div class="preview-box">
+        <!-- VIDEO PREVIEW -->
 
-            <div class="empty" id="emptyScreen">
-                <h2>Upload a video</h2>
-                <p>MP4, WebM and other browser-supported formats</p>
+        <div class="preview-section">
 
-                <label class="upload-btn">
-                    Choose Video
-                    <input type="file" id="videoInput" accept="video/*">
-                </label>
+            <div class="preview" id="preview">
+
+                <div class="empty" id="emptyScreen">
+
+                    <h2>Upload a video</h2>
+
+                    <p>Start editing your video with VidioAI.</p>
+
+                    <label class="upload-btn">
+
+                        Choose Video
+
+                        <input
+                            type="file"
+                            id="videoInput"
+                            accept="video/*"
+                        >
+
+                    </label>
+
+                </div>
+
+
+                <video
+                    id="video"
+                    controls
+                    style="display:none;"
+                ></video>
+
+
+                <div
+                    class="text-overlay"
+                    id="textOverlay"
+                ></div>
+
             </div>
 
-            <video id="video" controls style="display:none;"></video>
+
+            <!-- TIMELINE -->
+
+            <div class="timeline">
+
+                <div class="timeline-label">
+
+                    <span id="currentTime">
+                        0:00
+                    </span>
+
+                    <span id="duration">
+                        0:00
+                    </span>
+
+                </div>
+
+                <input
+                    type="range"
+                    id="timeline"
+                    min="0"
+                    value="0"
+                    step="0.01"
+                >
+
+            </div>
 
         </div>
+
+
+        <!-- CONTROLS -->
 
         <div class="controls">
 
             <h2>Editing Tools</h2>
 
+
+            <!-- PLAY -->
+
             <div class="control">
+
                 <label>Playback</label>
-                <button onclick="togglePlay()">▶ Play / Pause</button>
+
+                <button onclick="togglePlay()">
+                    ▶ Play / Pause
+                </button>
+
             </div>
 
-            <div class="control">
-                <label>Volume</label>
-                <input type="range" id="volume" min="0" max="1" step="0.01" value="1">
-            </div>
+
+            <!-- TRIM -->
 
             <div class="control">
-                <label>Speed</label>
-                <select id="speed">
-                    <option value="0.5">0.5x</option>
-                    <option value="0.75">0.75x</option>
-                    <option value="1" selected>1x</option>
-                    <option value="1.25">1.25x</option>
-                    <option value="1.5">1.5x</option>
-                    <option value="2">2x</option>
-                </select>
-            </div>
 
-            <div class="control">
                 <label>Trim Start</label>
-                <input type="range" id="startTrim" min="0" value="0" step="0.1">
+
+                <input
+                    type="range"
+                    id="trimStart"
+                    min="0"
+                    value="0"
+                    step="0.1"
+                >
+
+                <div class="timeline-label">
+
+                    <span>Start</span>
+
+                    <span id="startValue">
+                        0.0s
+                    </span>
+
+                </div>
+
             </div>
+
 
             <div class="control">
+
                 <label>Trim End</label>
-                <input type="range" id="endTrim" min="0" value="0" step="0.1">
+
+                <input
+                    type="range"
+                    id="trimEnd"
+                    min="0"
+                    value="0"
+                    step="0.1"
+                >
+
+                <div class="timeline-label">
+
+                    <span>End</span>
+
+                    <span id="endValue">
+                        0.0s
+                    </span>
+
+                </div>
+
             </div>
 
-            <div class="time">
-                <span id="startTime">Start: 0s</span>
-                <span id="endTime">End: 0s</span>
+
+            <!-- VOLUME -->
+
+            <div class="control">
+
+                <label>Volume</label>
+
+                <input
+                    type="range"
+                    id="volume"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value="1"
+                >
+
             </div>
 
-            <button class="export" onclick="exportVideo()">
-                Export Video
+
+            <div class="control">
+
+                <button onclick="muteVideo()">
+                    🔇 Mute / Unmute
+                </button>
+
+            </div>
+
+
+            <!-- SPEED -->
+
+            <div class="control">
+
+                <label>Playback Speed</label>
+
+                <select id="speed">
+
+                    <option value="0.5">
+                        0.5x
+                    </option>
+
+                    <option value="0.75">
+                        0.75x
+                    </option>
+
+                    <option value="1" selected>
+                        1x
+                    </option>
+
+                    <option value="1.25">
+                        1.25x
+                    </option>
+
+                    <option value="1.5">
+                        1.5x
+                    </option>
+
+                    <option value="2">
+                        2x
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- FILTERS -->
+
+            <div class="control">
+
+                <label>Brightness</label>
+
+                <input
+                    type="range"
+                    id="brightness"
+                    min="50"
+                    max="150"
+                    value="100"
+                >
+
+            </div>
+
+
+            <div class="control">
+
+                <label>Contrast</label>
+
+                <input
+                    type="range"
+                    id="contrast"
+                    min="50"
+                    max="150"
+                    value="100"
+                >
+
+            </div>
+
+
+            <div class="control">
+
+                <label>Saturation</label>
+
+                <input
+                    type="range"
+                    id="saturation"
+                    min="0"
+                    max="200"
+                    value="100"
+                >
+
+            </div>
+
+
+            <!-- ASPECT RATIO -->
+
+            <div class="control">
+
+                <label>Video Format</label>
+
+                <select id="aspectRatio">
+
+                    <option value="16 / 9">
+                        YouTube - 16:9
+                    </option>
+
+                    <option value="9 / 16">
+                        Reels / Shorts - 9:16
+                    </option>
+
+                    <option value="1 / 1">
+                        Square - 1:1
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- TEXT -->
+
+            <div class="control">
+
+                <label>Add Text</label>
+
+                <input
+                    type="text"
+                    id="textInput"
+                    placeholder="Type your text..."
+                >
+
+            </div>
+
+
+            <div class="control">
+
+                <button onclick="toggleText()">
+                    📝 Show / Hide Text
+                </button>
+
+            </div>
+
+
+            <!-- EXPORT -->
+
+            <button
+                class="export"
+                onclick="exportVideo()"
+            >
+                ⬇ Export Video
             </button>
 
-            <div id="status">
+
+            <div
+                class="status"
+                id="status"
+            >
                 Upload a video to begin.
+
             </div>
 
         </div>
@@ -276,117 +619,589 @@
 
 </div>
 
+
 <script>
 
-    const videoInput = document.getElementById("videoInput");
-    const video = document.getElementById("video");
-    const emptyScreen = document.getElementById("emptyScreen");
+const videoInput =
+    document.getElementById("videoInput");
 
-    const volume = document.getElementById("volume");
-    const speed = document.getElementById("speed");
+const video =
+    document.getElementById("video");
 
-    const startTrim = document.getElementById("startTrim");
-    const endTrim = document.getElementById("endTrim");
+const emptyScreen =
+    document.getElementById("emptyScreen");
 
-    const startTime = document.getElementById("startTime");
-    const endTime = document.getElementById("endTime");
+const timeline =
+    document.getElementById("timeline");
 
-    const status = document.getElementById("status");
+const currentTime =
+    document.getElementById("currentTime");
 
-    videoInput.addEventListener("change", function () {
+const duration =
+    document.getElementById("duration");
+
+const trimStart =
+    document.getElementById("trimStart");
+
+const trimEnd =
+    document.getElementById("trimEnd");
+
+const startValue =
+    document.getElementById("startValue");
+
+const endValue =
+    document.getElementById("endValue");
+
+const volume =
+    document.getElementById("volume");
+
+const speed =
+    document.getElementById("speed");
+
+const brightness =
+    document.getElementById("brightness");
+
+const contrast =
+    document.getElementById("contrast");
+
+const saturation =
+    document.getElementById("saturation");
+
+const aspectRatio =
+    document.getElementById("aspectRatio");
+
+const textInput =
+    document.getElementById("textInput");
+
+const textOverlay =
+    document.getElementById("textOverlay");
+
+const preview =
+    document.getElementById("preview");
+
+const status =
+    document.getElementById("status");
+
+
+/* UPLOAD VIDEO */
+
+videoInput.addEventListener(
+    "change",
+    function () {
 
         const file = this.files[0];
 
         if (!file) return;
 
-        const videoURL = URL.createObjectURL(file);
+        const videoURL =
+            URL.createObjectURL(file);
 
         video.src = videoURL;
 
         emptyScreen.style.display = "none";
+
         video.style.display = "block";
 
-        status.textContent = "Video loaded successfully.";
-
-    });
-
-    video.addEventListener("loadedmetadata", function () {
-
-        startTrim.max = video.duration;
-        endTrim.max = video.duration;
-
-        endTrim.value = video.duration;
-
-        startTime.textContent = "Start: 0s";
-        endTime.textContent = "End: " + video.duration.toFixed(1) + "s";
-
-    });
-
-    volume.addEventListener("input", function () {
-
-        video.volume = this.value;
-
-    });
-
-    speed.addEventListener("change", function () {
-
-        video.playbackRate = this.value;
-
-    });
-
-    startTrim.addEventListener("input", function () {
-
-        if (Number(this.value) >= Number(endTrim.value)) {
-            this.value = Number(endTrim.value) - 0.1;
-        }
-
-        startTime.textContent = "Start: " + Number(this.value).toFixed(1) + "s";
-
-        video.currentTime = this.value;
-
-    });
-
-    endTrim.addEventListener("input", function () {
-
-        if (Number(this.value) <= Number(startTrim.value)) {
-            this.value = Number(startTrim.value) + 0.1;
-        }
-
-        endTime.textContent = "End: " + Number(this.value).toFixed(1) + "s";
-
-    });
-
-    function togglePlay() {
-
-        if (video.paused) {
-            video.play();
-        } else {
-            video.pause();
-        }
+        status.textContent =
+            "Video loaded successfully.";
 
     }
+);
 
-    video.addEventListener("timeupdate", function () {
 
-        if (video.currentTime >= Number(endTrim.value)) {
-            video.pause();
-        }
+/* VIDEO LOADED */
 
-    });
+video.addEventListener(
+    "loadedmetadata",
+    function () {
 
-    function exportVideo() {
+        timeline.max =
+            video.duration;
 
-        if (!video.src) {
-            status.textContent = "Please upload a video first.";
-            return;
-        }
+        trimStart.max =
+            video.duration;
+
+        trimEnd.max =
+            video.duration;
+
+        trimEnd.value =
+            video.duration;
+
+        duration.textContent =
+            formatTime(video.duration);
+
+        endValue.textContent =
+            video.duration.toFixed(1) + "s";
+
+    }
+);
+
+
+/* FORMAT TIME */
+
+function formatTime(seconds) {
+
+    if (!seconds || isNaN(seconds)) {
+        return "0:00";
+    }
+
+    const minutes =
+        Math.floor(seconds / 60);
+
+    const secs =
+        Math.floor(seconds % 60);
+
+    return minutes + ":" +
+        String(secs).padStart(2, "0");
+
+}
+
+
+/* PLAY / PAUSE */
+
+function togglePlay() {
+
+    if (!video.src) {
 
         status.textContent =
-            "Export system will be added in the next step.";
+            "Upload a video first.";
+
+        return;
 
     }
+
+    if (video.paused) {
+
+        video.play();
+
+    } else {
+
+        video.pause();
+
+    }
+
+}
+
+
+/* TIMELINE */
+
+video.addEventListener(
+    "timeupdate",
+    function () {
+
+        timeline.value =
+            video.currentTime;
+
+        currentTime.textContent =
+            formatTime(video.currentTime);
+
+        if (
+            video.currentTime >=
+            Number(trimEnd.value)
+        ) {
+
+            video.pause();
+
+        }
+
+    }
+);
+
+
+timeline.addEventListener(
+    "input",
+    function () {
+
+        video.currentTime =
+            this.value;
+
+    }
+);
+
+
+/* TRIM START */
+
+trimStart.addEventListener(
+    "input",
+    function () {
+
+        let start =
+            Number(this.value);
+
+        let end =
+            Number(trimEnd.value);
+
+        if (start >= end) {
+
+            start =
+                end - 0.1;
+
+            this.value =
+                start;
+
+        }
+
+        startValue.textContent =
+            start.toFixed(1) + "s";
+
+        video.currentTime =
+            start;
+
+    }
+);
+
+
+/* TRIM END */
+
+trimEnd.addEventListener(
+    "input",
+    function () {
+
+        let end =
+            Number(this.value);
+
+        let start =
+            Number(trimStart.value);
+
+        if (end <= start) {
+
+            end =
+                start + 0.1;
+
+            this.value =
+                end;
+
+        }
+
+        endValue.textContent =
+            end.toFixed(1) + "s";
+
+    }
+);
+
+
+/* VOLUME */
+
+volume.addEventListener(
+    "input",
+    function () {
+
+        video.volume =
+            Number(this.value);
+
+    }
+);
+
+
+/* MUTE */
+
+function muteVideo() {
+
+    video.muted =
+        !video.muted;
+
+}
+
+
+/* SPEED */
+
+speed.addEventListener(
+    "change",
+    function () {
+
+        video.playbackRate =
+            Number(this.value);
+
+    }
+);
+
+
+/* FILTERS */
+
+function updateFilter() {
+
+    video.style.filter =
+        "brightness(" +
+        brightness.value +
+        "%) contrast(" +
+        contrast.value +
+        "%) saturate(" +
+        saturation.value +
+        "%)";
+
+}
+
+brightness.addEventListener(
+    "input",
+    updateFilter
+);
+
+contrast.addEventListener(
+    "input",
+    updateFilter
+);
+
+saturation.addEventListener(
+    "input",
+    updateFilter
+);
+
+
+/* ASPECT RATIO */
+
+aspectRatio.addEventListener(
+    "change",
+    function () {
+
+        preview.style.aspectRatio =
+            this.value;
+
+    }
+);
+
+
+/* TEXT */
+
+textInput.addEventListener(
+    "input",
+    function () {
+
+        textOverlay.textContent =
+            this.value;
+
+    }
+);
+
+
+function toggleText() {
+
+    if (
+        textOverlay.style.display ===
+        "block"
+    ) {
+
+        textOverlay.style.display =
+            "none";
+
+    } else {
+
+        textOverlay.style.display =
+            "block";
+
+    }
+
+}
+
+
+/* EXPORT */
+
+async function exportVideo() {
+
+    if (!video.src) {
+
+        status.textContent =
+            "Please upload a video first.";
+
+        return;
+
+    }
+
+    status.textContent =
+        "Preparing video export...";
+
+    /*
+       Browser-based export.
+
+       This records the video playback
+       into a WebM file.
+    */
+
+    const canvas =
+        document.createElement("canvas");
+
+    const ctx =
+        canvas.getContext("2d");
+
+    canvas.width = 1280;
+    canvas.height = 720;
+
+    const stream =
+        canvas.captureStream(30);
+
+    const recorder =
+        new MediaRecorder(
+            stream,
+            {
+                mimeType:
+                    "video/webm"
+            }
+        );
+
+    const chunks = [];
+
+    recorder.ondataavailable =
+        function (event) {
+
+            if (event.data.size > 0) {
+
+                chunks.push(event.data);
+
+            }
+
+        };
+
+
+    recorder.onstop =
+        function () {
+
+            const blob =
+                new Blob(
+                    chunks,
+                    {
+                        type:
+                            "video/webm"
+                    }
+                );
+
+            const url =
+                URL.createObjectURL(blob);
+
+            const link =
+                document.createElement("a");
+
+            link.href = url;
+
+            link.download =
+                "vidioai-edited-video.webm";
+
+            link.click();
+
+            URL.revokeObjectURL(url);
+
+            status.textContent =
+                "Video exported successfully.";
+
+        };
+
+
+    /*
+       Create a temporary video element
+       for recording.
+    */
+
+    const exportVideoElement =
+        document.createElement("video");
+
+    exportVideoElement.src =
+        video.src;
+
+    exportVideoElement.muted =
+        false;
+
+    exportVideoElement.volume =
+        video.muted ? 0 : video.volume;
+
+    exportVideoElement.playbackRate =
+        video.playbackRate;
+
+    exportVideoElement.crossOrigin =
+        "anonymous";
+
+
+    await new Promise(
+        resolve => {
+
+            exportVideoElement.onloadedmetadata =
+                resolve;
+
+        }
+    );
+
+
+    const start =
+        Number(trimStart.value);
+
+    const end =
+        Number(trimEnd.value);
+
+
+    exportVideoElement.currentTime =
+        start;
+
+
+    function drawFrame() {
+
+        if (
+            exportVideoElement.paused ||
+            exportVideoElement.ended
+        ) {
+
+            return;
+
+        }
+
+
+        ctx.filter =
+            "brightness(" +
+            brightness.value +
+            "%) contrast(" +
+            contrast.value +
+            "%) saturate(" +
+            saturation.value +
+            "%)";
+
+
+        ctx.drawImage(
+            exportVideoElement,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+
+        requestAnimationFrame(
+            drawFrame
+        );
+
+    }
+
+
+    recorder.start();
+
+
+    exportVideoElement.play();
+
+    drawFrame();
+
+
+    const checkEnd =
+        setInterval(
+            function () {
+
+                if (
+                    exportVideoElement.currentTime
+                    >= end
+                ) {
+
+                    clearInterval(
+                        checkEnd
+                    );
+
+                    exportVideoElement.pause();
+
+                    recorder.stop();
+
+                }
+
+            },
+            100
+        );
+
+}
 
 </script>
 
 </body>
 </html>
+```
