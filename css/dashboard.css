@@ -1757,3 +1757,21 @@ select {
 .mobile-menu {
   display: none !important;
 }
+/* SIMPLE VIBENEST — HIDE SIDEBAR */
+
+.sidebar {
+  display: none !important;
+}
+
+.main-area {
+  margin-left: 0 !important;
+  width: 100% !important;
+}
+
+.mobile-overlay {
+  display: none !important;
+}
+
+.mobile-menu {
+  display: none !important;
+}
