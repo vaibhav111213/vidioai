@@ -1736,3 +1736,24 @@ select {
     position: relative !important;
     z-index: 20 !important;
 }
+/* =========================================
+   SIMPLE VIBENEST LAYOUT — NO SIDEBAR
+   ========================================= */
+
+.sidebar {
+  display: none !important;
+}
+
+.mobile-overlay {
+  display: none !important;
+}
+
+.main-area {
+  margin-left: 0 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.mobile-menu {
+  display: none !important;
+}
