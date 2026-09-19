@@ -1,2028 +1,4246 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#080812">
-<meta name="description" content="VibeNest — Create without limits. AI video, images, voice, presentations and more.">
-
-<title>VibeNest — Create without limits</title>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
-
-:root{
-  --bg:#07070d;
-  --bg2:#0b0b14;
-  --panel:rgba(18,18,30,.72);
-  --panel2:rgba(25,25,42,.78);
-  --line:rgba(255,255,255,.09);
-  --line2:rgba(255,255,255,.15);
-  --text:#f7f7fb;
-  --muted:#9999ac;
-  --purple:#8b5cf6;
-  --violet:#a855f7;
-  --blue:#4f8cff;
-  --cyan:#22d3ee;
-  --pink:#ec4899;
-  --green:#34d399;
-  --radius:24px;
-  --shadow:0 25px 80px rgba(0,0,0,.38);
-}
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  background:
-    radial-gradient(circle at 15% 10%,rgba(124,58,237,.16),transparent 30%),
-    radial-gradient(circle at 85% 15%,rgba(59,130,246,.13),transparent 28%),
-    radial-gradient(circle at 50% 80%,rgba(168,85,247,.08),transparent 35%),
-    var(--bg);
-  color:var(--text);
-  font-family:Inter,Arial,sans-serif;
-  min-height:100vh;
-  overflow-x:hidden;
-}
-
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  opacity:.035;
-  background-image:
-    linear-gradient(rgba(255,255,255,.7) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.7) 1px,transparent 1px);
-  background-size:70px 70px;
-  mask-image:linear-gradient(to bottom,#000,transparent 80%);
-}
-
-/* ---------- TOP NAV ---------- */
-
-.nav{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  z-index:100;
-  height:74px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 5%;
-  background:rgba(7,7,13,.68);
-  backdrop-filter:blur(24px);
-  border-bottom:1px solid rgba(255,255,255,.055);
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:11px;
-  cursor:pointer;
-}
-
-.logo{
-  width:38px;
-  height:38px;
-  border-radius:12px;
-  display:grid;
-  place-items:center;
-  font-family:"Space Grotesk";
-  font-weight:800;
-  font-size:15px;
-  background:
-    linear-gradient(135deg,#9b5cff,#4269ff);
-  box-shadow:
-    0 0 30px rgba(139,92,246,.32),
-    inset 0 1px rgba(255,255,255,.3);
-}
-
-.brand-name{
-  font-family:"Space Grotesk";
-  font-size:19px;
-  font-weight:700;
-  letter-spacing:-.5px;
-}
-
-.nav-links{
-  display:flex;
-  gap:7px;
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-}
-
-.nav-link{
-  border:0;
-  background:transparent;
-  color:#a9a9bb;
-  padding:10px 14px;
-  border-radius:11px;
-  cursor:pointer;
-  font-size:13px;
-  transition:.2s;
-}
-
-.nav-link:hover,
-.nav-link.active{
-  background:rgba(255,255,255,.07);
-  color:white;
-}
-
-.nav-right{
-  display:flex;
-  gap:9px;
-  align-items:center;
-}
-
-.icon-btn{
-  width:39px;
-  height:39px;
-  border-radius:12px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.035);
-  color:white;
-  cursor:pointer;
-  font-size:17px;
-  transition:.2s;
-}
-
-.icon-btn:hover{
-  background:rgba(255,255,255,.09);
-  border-color:var(--line2);
-  transform:translateY(-1px);
-}
-
-.avatar{
-  width:39px;
-  height:39px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(135deg,#7c3aed,#2563eb);
-  font-size:13px;
-  font-weight:700;
-}
-
-/* ---------- APP ---------- */
-
-main{
-  padding-top:74px;
-}
-
-.section{
-  width:min(1240px,92%);
-  margin:auto;
-}
-
-/* ---------- HERO ---------- */
-
-.hero{
-  min-height:850px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  padding-top:125px;
-  position:relative;
-}
-
-.hero-orb{
-  position:absolute;
-  border-radius:50%;
-  filter:blur(80px);
-  pointer-events:none;
-}
-
-.orb1{
-  width:300px;
-  height:300px;
-  background:rgba(139,92,246,.18);
-  left:5%;
-  top:160px;
-  animation:float1 9s ease-in-out infinite;
-}
-
-.orb2{
-  width:260px;
-  height:260px;
-  background:rgba(59,130,246,.13);
-  right:5%;
-  top:240px;
-  animation:float2 11s ease-in-out infinite;
-}
-
-@keyframes float1{
-  50%{transform:translate(30px,35px) scale(1.1)}
-}
-
-@keyframes float2{
-  50%{transform:translate(-35px,-20px) scale(1.08)}
-}
-
-.eyebrow{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:7px 12px;
-  border:1px solid rgba(139,92,246,.24);
-  background:rgba(139,92,246,.08);
-  border-radius:999px;
-  color:#c4b5fd;
-  font-size:12px;
-  font-weight:600;
-  margin-bottom:27px;
-}
-
-.live-dot{
-  width:6px;
-  height:6px;
-  background:#34d399;
-  border-radius:50%;
-  box-shadow:0 0 10px #34d399;
-}
-
-.hero h1{
-  max-width:900px;
-  font-family:"Space Grotesk";
-  font-size:clamp(48px,7vw,88px);
-  line-height:.98;
-  letter-spacing:-5px;
-  font-weight:700;
-}
-
-.gradient-text{
-  background:linear-gradient(
-    100deg,
-    #fff 5%,
-    #c4b5fd 35%,
-    #8b5cf6 62%,
-    #60a5fa 90%
-  );
-  -webkit-background-clip:text;
-  color:transparent;
-}
-
-.hero-sub{
-  max-width:680px;
-  color:#a5a5b7;
-  font-size:17px;
-  line-height:1.7;
-  margin:28px auto 34px;
-}
-
-/* ---------- COMMAND BOX ---------- */
-
-.command-wrap{
-  width:min(820px,100%);
-  position:relative;
-  z-index:2;
-}
-
-.command-box{
-  background:
-    linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.025));
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:25px;
-  box-shadow:
-    0 25px 90px rgba(0,0,0,.42),
-    0 0 70px rgba(124,58,237,.12),
-    inset 0 1px rgba(255,255,255,.08);
-  padding:18px;
-  text-align:left;
-  backdrop-filter:blur(25px);
-  transition:.3s;
-}
-
-.command-box:focus-within{
-  border-color:rgba(139,92,246,.55);
-  box-shadow:
-    0 25px 90px rgba(0,0,0,.45),
-    0 0 80px rgba(139,92,246,.17),
-    inset 0 1px rgba(255,255,255,.12);
-}
-
-.prompt{
-  width:100%;
-  min-height:86px;
-  resize:none;
-  background:transparent;
-  border:0;
-  outline:0;
-  color:white;
-  font:16px Inter;
-  line-height:1.6;
-  padding:6px 8px;
-}
-
-.prompt::placeholder{
-  color:#737387;
-}
-
-.command-bottom{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-top:8px;
-}
-
-.command-tools{
-  display:flex;
-  gap:6px;
-}
-
-.small-action{
-  height:38px;
-  padding:0 12px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.035);
-  color:#a9a9b9;
-  border-radius:11px;
-  cursor:pointer;
-  font-size:12px;
-  transition:.2s;
-}
-
-.small-action:hover{
-  color:white;
-  background:rgba(255,255,255,.075);
-}
-
-.create-btn{
-  height:45px;
-  padding:0 21px;
-  border:0;
-  border-radius:13px;
-  color:white;
-  font-weight:700;
-  cursor:pointer;
-  background:linear-gradient(135deg,#8b5cf6,#4f7cff);
-  box-shadow:0 10px 30px rgba(99,102,241,.28);
-  transition:.25s;
-}
-
-.create-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 15px 35px rgba(99,102,241,.4);
-}
-
-.create-btn:active{
-  transform:scale(.97);
-}
-
-/* ---------- SUGGESTIONS ---------- */
-
-.suggestions{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:8px;
-  margin-top:18px;
-}
-
-.suggestion{
-  padding:9px 13px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.07);
-  background:rgba(255,255,255,.025);
-  color:#9696aa;
-  font-size:12px;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.suggestion:hover{
-  color:white;
-  background:rgba(255,255,255,.07);
-  border-color:rgba(139,92,246,.3);
-}
-
-/* ---------- FLOATING PREVIEWS ---------- */
-
-.hero-stage{
-  width:min(1060px,100%);
-  height:300px;
-  margin-top:60px;
-  position:relative;
-}
-
-.preview-card{
-  position:absolute;
-  border:1px solid rgba(255,255,255,.11);
-  background:rgba(20,20,33,.76);
-  backdrop-filter:blur(20px);
-  border-radius:18px;
-  box-shadow:var(--shadow);
-  overflow:hidden;
-}
-
-.preview-reel{
-  width:160px;
-  height:260px;
-  left:8%;
-  top:15px;
-  transform:rotate(-7deg);
-}
-
-.preview-reel .visual{
-  height:100%;
-  background:
-    linear-gradient(160deg,rgba(139,92,246,.1),transparent),
-    url("https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=500&q=80")
-    center/cover;
-}
-
-.preview-reel::after{
-  content:"▶  NIGHT DRIVE";
-  position:absolute;
-  left:13px;
-  bottom:14px;
-  font-size:9px;
-  font-weight:700;
-  letter-spacing:.6px;
-  text-shadow:0 2px 10px black;
-}
-
-.preview-image{
-  width:210px;
-  height:145px;
-  left:27%;
-  top:80px;
-  transform:rotate(4deg);
-}
-
-.preview-image .visual{
-  width:100%;
-  height:100%;
-  background:
-    url("https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=700&q=80")
-    center/cover;
-}
-
-.preview-presentation{
-  width:260px;
-  height:160px;
-  right:28%;
-  top:65px;
-  transform:rotate(-3deg);
-  padding:17px;
-}
-
-.slide-title{
-  font-family:"Space Grotesk";
-  font-size:17px;
-  font-weight:700;
-  margin-bottom:12px;
-}
-
-.slide-line{
-  height:6px;
-  border-radius:5px;
-  background:rgba(255,255,255,.1);
-  margin:7px 0;
-}
-
-.slide-line.short{
-  width:60%;
-}
-
-.preview-audio{
-  width:190px;
-  height:100px;
-  right:7%;
-  top:100px;
-  transform:rotate(7deg);
-  padding:18px;
-}
-
-.wave{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:3px;
-  height:45px;
-}
-
-.wave span{
-  width:3px;
-  border-radius:4px;
-  background:linear-gradient(#a78bfa,#60a5fa);
-  animation:wave 1s ease-in-out infinite alternate;
-}
-
-.wave span:nth-child(1){height:14px}
-.wave span:nth-child(2){height:25px;animation-delay:.1s}
-.wave span:nth-child(3){height:38px;animation-delay:.2s}
-.wave span:nth-child(4){height:22px;animation-delay:.3s}
-.wave span:nth-child(5){height:44px;animation-delay:.4s}
-.wave span:nth-child(6){height:29px;animation-delay:.5s}
-.wave span:nth-child(7){height:17px;animation-delay:.6s}
-.wave span:nth-child(8){height:34px;animation-delay:.7s}
-
-@keyframes wave{
-  to{transform:scaleY(.45)}
-}
-
-/* ---------- SECTION COMMON ---------- */
-
-.section-block{
-  padding:110px 0;
-}
-
-.section-heading{
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  margin-bottom:35px;
-}
-
-.section-heading h2{
-  font-family:"Space Grotesk";
-  font-size:clamp(28px,4vw,43px);
-  letter-spacing:-2px;
-}
-
-.section-heading p{
-  color:#858598;
-  font-size:14px;
-  max-width:420px;
-  line-height:1.6;
-}
-
-/* ---------- CREATE GRID ---------- */
-
-.tool-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-}
-
-.tool-card{
-  min-height:190px;
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:24px;
-  background:
-    linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
-  position:relative;
-  overflow:hidden;
-  cursor:pointer;
-  transition:.3s;
-}
-
-.tool-card::before{
-  content:"";
-  position:absolute;
-  width:130px;
-  height:130px;
-  border-radius:50%;
-  right:-55px;
-  top:-55px;
-  background:var(--glow,rgba(139,92,246,.13));
-  filter:blur(25px);
-}
-
-.tool-card:hover{
-  transform:translateY(-5px);
-  border-color:rgba(139,92,246,.28);
-  background:rgba(255,255,255,.065);
-}
-
-.tool-icon{
-  width:44px;
-  height:44px;
-  border-radius:14px;
-  display:grid;
-  place-items:center;
-  background:rgba(255,255,255,.065);
-  font-size:21px;
-  margin-bottom:24px;
-}
-
-.tool-card h3{
-  font-size:16px;
-  margin-bottom:8px;
-}
-
-.tool-card p{
-  color:#858598;
-  font-size:12px;
-  line-height:1.6;
-}
-
-.tool-arrow{
-  position:absolute;
-  right:20px;
-  bottom:20px;
-  color:#68687b;
-}
-
-/* ---------- WORKFLOW ---------- */
-
-.workflow{
-  border:1px solid var(--line);
-  background:
-    radial-gradient(circle at 50% 0%,rgba(139,92,246,.1),transparent 45%),
-    rgba(255,255,255,.025);
-  border-radius:28px;
-  padding:45px;
-  overflow:hidden;
-}
-
-.workflow-track{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px;
-  margin-top:45px;
-}
-
-.workflow-step{
-  flex:1;
-  text-align:center;
-  position:relative;
-}
-
-.workflow-step:not(:last-child)::after{
-  content:"→";
-  position:absolute;
-  right:-18px;
-  top:19px;
-  color:#555568;
-}
-
-.step-icon{
-  width:54px;
-  height:54px;
-  border-radius:17px;
-  display:grid;
-  place-items:center;
-  margin:auto auto 12px;
-  background:rgba(255,255,255,.055);
-  border:1px solid var(--line);
-}
-
-.workflow-step span{
-  font-size:12px;
-  color:#a5a5b7;
-}
-
-/* ---------- TEMPLATES ---------- */
-
-.template-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
-}
-
-.template{
-  aspect-ratio:1/1.18;
-  border-radius:19px;
-  overflow:hidden;
-  position:relative;
-  border:1px solid var(--line);
-  cursor:pointer;
-  background:#11111b;
-  transition:.3s;
-}
-
-.template:hover{
-  transform:translateY(-5px);
-  border-color:rgba(255,255,255,.2);
-}
-
-.template-bg{
-  position:absolute;
-  inset:0;
-  background-size:cover;
-  background-position:center;
-  transition:.4s;
-}
-
-.template:hover .template-bg{
-  transform:scale(1.06);
-}
-
-.template-overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(transparent 40%,rgba(0,0,0,.85));
-}
-
-.template-info{
-  position:absolute;
-  left:17px;
-  right:17px;
-  bottom:16px;
-}
-
-.template-info h3{
-  font-size:14px;
-  margin-bottom:5px;
-}
-
-.template-info span{
-  font-size:10px;
-  color:#aaaabd;
-}
-
-/* ---------- GALLERY ---------- */
-
-.gallery{
-  display:grid;
-  grid-template-columns:1.3fr .8fr .8fr;
-  grid-auto-rows:190px;
-  gap:13px;
-}
-
-.gallery-item{
-  border-radius:20px;
-  overflow:hidden;
-  border:1px solid var(--line);
-  position:relative;
-  background-size:cover;
-  background-position:center;
-}
-
-.gallery-item:first-child{
-  grid-row:span 2;
-}
-
-.gallery-item::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(transparent 50%,rgba(0,0,0,.65));
-}
-
-.gallery-label{
-  position:absolute;
-  z-index:2;
-  bottom:15px;
-  left:17px;
-  font-size:12px;
-  font-weight:600;
-}
-
-/* ---------- CTA ---------- */
-
-.final-cta{
-  margin:100px auto;
-  padding:85px 30px;
-  text-align:center;
-  border-radius:32px;
-  border:1px solid rgba(139,92,246,.2);
-  background:
-    radial-gradient(circle at 50% 0%,rgba(139,92,246,.2),transparent 45%),
-    linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.015));
-  position:relative;
-  overflow:hidden;
-}
-
-.final-cta h2{
-  font-family:"Space Grotesk";
-  font-size:clamp(35px,5vw,58px);
-  letter-spacing:-3px;
-}
-
-.final-cta p{
-  color:#9292a6;
-  margin:17px auto 27px;
-  max-width:520px;
-  line-height:1.7;
-}
-
-/* ---------- FOOTER ---------- */
-
-footer{
-  border-top:1px solid var(--line);
-  padding:35px 5%;
-  color:#6f6f81;
-  font-size:12px;
-  display:flex;
-  justify-content:space-between;
-}
-
-/* ---------- COMMAND PALETTE ---------- */
-
-.palette{
-  position:fixed;
-  inset:0;
-  z-index:500;
-  display:none;
-  align-items:flex-start;
-  justify-content:center;
-  padding-top:13vh;
-  background:rgba(0,0,0,.62);
-  backdrop-filter:blur(15px);
-}
-
-.palette.show{
-  display:flex;
-}
-
-.palette-box{
-  width:min(620px,92%);
-  background:#11111c;
-  border:1px solid var(--line2);
-  border-radius:20px;
-  overflow:hidden;
-  box-shadow:0 30px 100px rgba(0,0,0,.6);
-}
-
-.palette-input{
-  width:100%;
-  padding:20px;
-  background:transparent;
-  border:0;
-  outline:0;
-  color:white;
-  font-size:16px;
-  border-bottom:1px solid var(--line);
-}
-
-.palette-item{
-  padding:14px 18px;
-  display:flex;
-  align-items:center;
-  gap:13px;
-  cursor:pointer;
-  color:#aaaabd;
-}
-
-.palette-item:hover{
-  background:rgba(255,255,255,.055);
-  color:white;
-}
-
-/* ---------- TOAST ---------- */
-
-.toast{
-  position:fixed;
-  right:24px;
-  bottom:24px;
-  z-index:700;
-  padding:14px 18px;
-  border-radius:14px;
-  background:#171722;
-  border:1px solid var(--line2);
-  box-shadow:0 20px 60px rgba(0,0,0,.45);
-  color:#ddd;
-  font-size:13px;
-  transform:translateY(120px);
-  opacity:0;
-  transition:.35s;
-}
-
-.toast.show{
-  transform:translateY(0);
-  opacity:1;
-}
-
-/* ---------- MOBILE ---------- */
-
-.mobile-menu{
-  display:none;
-}
-
-@media(max-width:900px){
-
-  .nav-links{
-    display:none;
-  }
-
-  .mobile-menu{
-    display:block;
-  }
-
-  .hero{
-    min-height:760px;
-    padding-top:100px;
-  }
-
-  .hero h1{
-    letter-spacing:-3px;
-  }
-
-  .hero-stage{
-    transform:scale(.78);
-    margin-top:20px;
-  }
-
-  .tool-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .template-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .gallery{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .gallery-item:first-child{
-    grid-row:span 1;
-  }
-}
-
-@media(max-width:600px){
-
-  .nav{
-    padding:0 18px;
-  }
-
-  .brand-name{
-    font-size:17px;
-  }
-
-  .hero{
-    padding-top:80px;
-    min-height:720px;
-  }
-
-  .hero h1{
-    font-size:47px;
-    letter-spacing:-3px;
-  }
-
-  .hero-sub{
-    font-size:14px;
-    margin-top:20px;
-  }
-
-  .command-box{
-    padding:13px;
-    border-radius:20px;
-  }
-
-  .prompt{
-    min-height:100px;
-    font-size:14px;
-  }
-
-  .command-bottom{
-    flex-direction:column;
-    align-items:stretch;
-    gap:10px;
-  }
-
-  .command-tools{
-    overflow:auto;
-  }
-
-  .create-btn{
-    width:100%;
-  }
-
-  .hero-stage{
-    transform:scale(.55);
-    transform-origin:top center;
-    height:170px;
-    margin-top:10px;
-  }
-
-  .section-block{
-    padding:70px 0;
-  }
-
-  .section-heading{
-    display:block;
-  }
-
-  .section-heading p{
-    margin-top:10px;
-  }
-
-  .tool-grid{
-    grid-template-columns:1fr;
-  }
-
-  .template-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .workflow{
-    padding:25px 16px;
-  }
-
-  .workflow-track{
-    flex-direction:column;
-    gap:18px;
-  }
-
-  .workflow-step:not(:last-child)::after{
-    content:"↓";
-    top:auto;
-    right:auto;
-    bottom:-19px;
-    left:50%;
-  }
-
-  .gallery{
-    display:grid;
-    grid-template-columns:1fr;
-    grid-auto-rows:220px;
-  }
-
-  footer{
-    flex-direction:column;
-    gap:10px;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>VibeNest — Creative AI Studio</title>
+  <meta
+    name="description"
+    content="VibeNest is an all-in-one creative studio for video, images, voice, presentations, documents and more."
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/editor.css">
+  <link rel="stylesheet" href="css/responsive.css">
 </head>
 
 <body>
 
-<!-- ================= NAV ================= -->
+  <!-- =========================================================
+       BACKGROUND
+  ========================================================== -->
 
-<header class="nav">
-
-  <div class="brand" onclick="scrollHome()">
-    <div class="logo">VN</div>
-    <div class="brand-name">VibeNest</div>
+  <div class="background-effects">
+    <div class="bg-orb orb-one"></div>
+    <div class="bg-orb orb-two"></div>
+    <div class="bg-orb orb-three"></div>
+    <div class="noise-layer"></div>
   </div>
 
-  <nav class="nav-links">
-    <button class="nav-link active" onclick="scrollHome()">Home</button>
-    <button class="nav-link" onclick="openStudio()">Create</button>
-    <button class="nav-link" onclick="scrollToId('templates')">Templates</button>
-    <button class="nav-link" onclick="scrollToId('projects')">Projects</button>
-  </nav>
 
-  <div class="nav-right">
-    <button class="icon-btn" onclick="openPalette()" title="Command">
-      ⌘
-    </button>
+  <!-- =========================================================
+       APP
+  ========================================================== -->
 
-    <button class="icon-btn mobile-menu" onclick="openPalette()">
-      ☰
-    </button>
+  <div id="app">
 
-    <div class="avatar">VN</div>
-  </div>
+    <!-- =======================================================
+         MOBILE OVERLAY
+    ======================================================== -->
 
-</header>
+    <div
+      class="mobile-overlay"
+      id="mobileOverlay"
+      onclick="toggleSidebar(false)"
+    ></div>
 
 
-<main>
+    <!-- =======================================================
+         SIDEBAR
+    ======================================================== -->
 
-<!-- ================= HERO ================= -->
+    <aside class="sidebar" id="sidebar">
 
-<section class="hero section">
+      <div class="sidebar-top">
 
-  <div class="hero-orb orb1"></div>
-  <div class="hero-orb orb2"></div>
+        <!-- LOGO -->
 
-  <div class="eyebrow">
-    <span class="live-dot"></span>
-    VibeNest AI Studio
-  </div>
+        <a
+          href="#home"
+          class="brand"
+          data-page="home"
+          onclick="navigate('home'); return false;"
+        >
+          <div class="brand-mark">
+            VN
+          </div>
 
-  <h1>
-    Create
-    <span class="gradient-text">without limits.</span>
-  </h1>
+          <div class="brand-text">
+            <strong>VibeNest</strong>
+            <span>Creative Studio</span>
+          </div>
+        </a>
 
-  <p class="hero-sub">
-    Turn an idea into videos, images, voice, presentations,
-    documents and more — all from one creative workspace.
-  </p>
 
-  <div class="command-wrap">
+        <!-- CREATE BUTTON -->
 
-    <div class="command-box">
+        <button
+          class="create-button"
+          onclick="openCreateMenu()"
+        >
+          <span class="create-icon">+</span>
+          <span>Create</span>
+        </button>
 
-      <textarea
-        id="mainPrompt"
-        class="prompt"
-        placeholder="What do you want to create? Try: “Create a cinematic Reel about a night drive through the mountains…”"
-      ></textarea>
 
-      <div class="command-bottom">
+        <!-- NAVIGATION -->
 
-        <div class="command-tools">
+        <nav class="main-nav">
 
-          <button class="small-action" onclick="attachFile()">
-            ＋ Add
+          <div class="nav-label">
+            WORKSPACE
+          </div>
+
+          <button
+            class="nav-item active"
+            data-page="home"
+            onclick="navigate('home')"
+          >
+            <span class="nav-icon">⌂</span>
+            <span>Home</span>
           </button>
 
-          <button class="small-action" onclick="enhancePrompt()">
-            ✨ Enhance
+          <button
+            class="nav-item"
+            data-page="ai"
+            onclick="navigate('ai')"
+          >
+            <span class="nav-icon">✦</span>
+            <span>VibeNest AI</span>
+            <span class="nav-new">AI</span>
           </button>
 
-          <button class="small-action" onclick="randomIdea()">
-            ✦ Surprise me
+          <button
+            class="nav-item"
+            data-page="video"
+            onclick="navigate('video')"
+          >
+            <span class="nav-icon">▶</span>
+            <span>Video Studio</span>
+          </button>
+
+          <button
+            class="nav-item"
+            data-page="image"
+            onclick="navigate('image')"
+          >
+            <span class="nav-icon">▧</span>
+            <span>Image Studio</span>
+          </button>
+
+          <button
+            class="nav-item"
+            data-page="photobooth"
+            onclick="navigate('photobooth')"
+          >
+            <span class="nav-icon">◎</span>
+            <span>Photo Booth</span>
+          </button>
+
+          <button
+            class="nav-item"
+            data-page="voice"
+            onclick="navigate('voice')"
+          >
+            <span class="nav-icon">♬</span>
+            <span>Voice Studio</span>
+          </button>
+
+
+          <div class="nav-label nav-label-spaced">
+            CREATE
+          </div>
+
+          <button
+            class="nav-item"
+            data-page="presentation"
+            onclick="navigate('presentation')"
+          >
+            <span class="nav-icon">▣</span>
+            <span>Presentations</span>
+          </button>
+
+          <button
+            class="nav-item"
+            data-page="documents"
+            onclick="navigate('documents')"
+          >
+            <span class="nav-icon">▤</span>
+            <span>Documents</span>
+          </button>
+
+          <button
+            class="nav-item"
+            data-page="whiteboard"
+            onclick="navigate('whiteboard')"
+          >
+            <span class="nav-icon">⌘</span>
+            <span>Whiteboard</span>
+          </button>
+
+          <button
+            class="nav-item"
+            data-page="thumbnail"
+            onclick="navigate('thumbnail')"
+          >
+            <span class="nav-icon">◩</span>
+            <span>Thumbnail Maker</span>
+          </button>
+
+          <button
+            class="nav-item"
+            data-page="copywriter"
+            onclick="navigate('copywriter')"
+          >
+            <span class="nav-icon">T</span>
+            <span>AI Copywriter</span>
+          </button>
+
+
+          <div class="nav-label nav-label-spaced">
+            TOOLS
+          </div>
+
+          <button
+            class="nav-item"
+            data-page="compress"
+            onclick="navigate('compress')"
+          >
+            <span class="nav-icon">⇩</span>
+            <span>Compress</span>
+          </button>
+
+          <button
+            class="nav-item"
+            data-page="enhance"
+            onclick="navigate('enhance')"
+          >
+            <span class="nav-icon">✧</span>
+            <span>Enhance / Upscale</span>
+          </button>
+
+          <button
+            class="nav-item"
+            data-page="resume"
+            onclick="navigate('resume')"
+          >
+            <span class="nav-icon">▥</span>
+            <span>Resume & Portfolio</span>
+          </button>
+
+          <button
+            class="nav-item"
+            data-page="planner"
+            onclick="navigate('planner')"
+          >
+            <span class="nav-icon">☷</span>
+            <span>Content Planner</span>
+          </button>
+
+        </nav>
+
+      </div>
+
+
+      <!-- SIDEBAR BOTTOM -->
+
+      <div class="sidebar-bottom">
+
+        <button
+          class="nav-item"
+          data-page="projects"
+          onclick="navigate('projects')"
+        >
+          <span class="nav-icon">▱</span>
+          <span>My Projects</span>
+        </button>
+
+        <button
+          class="nav-item"
+          data-page="templates"
+          onclick="navigate('templates')"
+        >
+          <span class="nav-icon">◇</span>
+          <span>Templates</span>
+        </button>
+
+        <button
+          class="nav-item"
+          data-page="settings"
+          onclick="navigate('settings')"
+        >
+          <span class="nav-icon">⚙</span>
+          <span>Settings</span>
+        </button>
+
+
+        <!-- CREDIT CARD -->
+
+        <div class="credit-card">
+
+          <div class="credit-top">
+            <span>AI Credits</span>
+            <span id="creditCount">100</span>
+          </div>
+
+          <div class="credit-progress">
+            <div
+              class="credit-progress-fill"
+              id="creditProgress"
+              style="width: 35%"
+            ></div>
+          </div>
+
+          <button
+            class="upgrade-mini"
+            onclick="openPricing()"
+          >
+            Upgrade
           </button>
 
         </div>
 
-        <button class="create-btn" onclick="createFromPrompt()">
-          Create →
+      </div>
+
+    </aside>
+
+
+    <!-- =======================================================
+         MAIN AREA
+    ======================================================== -->
+
+    <main class="main-area">
+
+
+      <!-- =====================================================
+           TOP BAR
+      ====================================================== -->
+
+      <header class="topbar">
+
+        <button
+          class="mobile-menu"
+          onclick="toggleSidebar(true)"
+          aria-label="Open menu"
+        >
+          ☰
+        </button>
+
+
+        <div class="breadcrumb" id="breadcrumb">
+          Home
+        </div>
+
+
+        <div class="topbar-actions">
+
+          <button
+            class="top-icon-button"
+            onclick="openSearch()"
+            title="Search"
+          >
+            ⌕
+          </button>
+
+          <button
+            class="top-icon-button"
+            onclick="openUploadModal()"
+            title="Upload"
+          >
+            ↑
+          </button>
+
+          <button
+            class="credits-button"
+            onclick="openPricing()"
+          >
+            <span>✦</span>
+            <span id="topCreditCount">100</span>
+            <span class="credits-word">credits</span>
+          </button>
+
+          <button
+            class="profile-button"
+            onclick="openProfileMenu()"
+          >
+            <span class="profile-avatar">
+              V
+            </span>
+            <span class="profile-name">
+              You
+            </span>
+            <span class="profile-arrow">
+              ▾
+            </span>
+          </button>
+
+        </div>
+
+      </header>
+
+
+      <!-- =====================================================
+           PAGE CONTAINER
+      ====================================================== -->
+
+      <section class="page-container">
+
+
+        <!-- ===================================================
+             HOME
+        ==================================================== -->
+
+        <section
+          class="page active"
+          id="page-home"
+        >
+
+          <div class="home-hero">
+
+            <div class="hero-badge">
+              <span class="pulse-dot"></span>
+              Your creative studio, powered by AI
+            </div>
+
+            <h1>
+              Turn an idea into
+              <span class="gradient-text">
+                something real.
+              </span>
+            </h1>
+
+            <p class="hero-description">
+              Create videos, Reels, images, voices, presentations,
+              documents and more — all inside one creative studio.
+            </p>
+
+
+            <!-- MAIN AI COMMAND -->
+
+            <div class="command-box">
+
+              <div class="command-top">
+
+                <span class="command-sparkle">
+                  ✦
+                </span>
+
+                <span class="command-label">
+                  VibeNest AI
+                </span>
+
+                <span class="command-auto">
+                  AUTO
+                </span>
+
+              </div>
+
+
+              <textarea
+                id="homePrompt"
+                class="main-command-input"
+                placeholder="What do you want to create?"
+                rows="2"
+              ></textarea>
+
+
+              <div class="command-bottom">
+
+                <div class="command-modes">
+
+                  <button
+                    class="mode-chip active"
+                    data-mode="auto"
+                    onclick="selectHomeMode(this)"
+                  >
+                    Auto
+                  </button>
+
+                  <button
+                    class="mode-chip"
+                    data-mode="video"
+                    onclick="selectHomeMode(this)"
+                  >
+                    Video
+                  </button>
+
+                  <button
+                    class="mode-chip"
+                    data-mode="image"
+                    onclick="selectHomeMode(this)"
+                  >
+                    Image
+                  </button>
+
+                  <button
+                    class="mode-chip"
+                    data-mode="reel"
+                    onclick="selectHomeMode(this)"
+                  >
+                    Reel
+                  </button>
+
+                  <button
+                    class="mode-chip"
+                    data-mode="photobooth"
+                    onclick="selectHomeMode(this)"
+                  >
+                    Photo Booth
+                  </button>
+
+                  <button
+                    class="mode-chip"
+                    data-mode="voice"
+                    onclick="selectHomeMode(this)"
+                  >
+                    Voice
+                  </button>
+
+                  <button
+                    class="mode-chip"
+                    data-mode="presentation"
+                    onclick="selectHomeMode(this)"
+                  >
+                    Presentation
+                  </button>
+
+                  <button
+                    class="mode-chip"
+                    data-mode="document"
+                    onclick="selectHomeMode(this)"
+                  >
+                    Document
+                  </button>
+
+                </div>
+
+
+                <button
+                  class="command-submit"
+                  onclick="runHomeCommand()"
+                >
+                  <span>Create</span>
+                  <span>→</span>
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <!-- QUICK ACTIONS -->
+
+            <div class="quick-actions">
+
+              <button
+                onclick="navigate('video')"
+                class="quick-action"
+              >
+                <span class="quick-icon video-icon">▶</span>
+                <span>
+                  <strong>Make a Video</strong>
+                  <small>AI generated</small>
+                </span>
+              </button>
+
+              <button
+                onclick="navigate('image')"
+                class="quick-action"
+              >
+                <span class="quick-icon image-icon">▧</span>
+                <span>
+                  <strong>Create an Image</strong>
+                  <small>Generate or edit</small>
+                </span>
+              </button>
+
+              <button
+                onclick="navigate('photobooth')"
+                class="quick-action"
+              >
+                <span class="quick-icon photo-icon">◎</span>
+                <span>
+                  <strong>Photo Booth</strong>
+                  <small>Transform photos</small>
+                </span>
+              </button>
+
+              <button
+                onclick="openUploadModal()"
+                class="quick-action"
+              >
+                <span class="quick-icon upload-icon">↑</span>
+                <span>
+                  <strong>Upload Anything</strong>
+                  <small>Analyze or edit</small>
+                </span>
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- CREATE ANYTHING -->
+
+          <div class="section-block">
+
+            <div class="section-heading">
+
+              <div>
+                <span class="eyebrow">
+                  CREATIVE TOOLKIT
+                </span>
+
+                <h2>
+                  Create anything.
+                </h2>
+              </div>
+
+              <button
+                class="text-button"
+                onclick="navigate('templates')"
+              >
+                Explore templates →
+              </button>
+
+            </div>
+
+
+            <div class="tool-grid">
+
+              <article
+                class="tool-card tool-card-large"
+                onclick="navigate('video')"
+              >
+                <div class="tool-card-glow video-glow"></div>
+
+                <div class="tool-icon large-icon">
+                  ▶
+                </div>
+
+                <div class="tool-card-content">
+                  <h3>Video Studio</h3>
+                  <p>
+                    Generate AI videos, edit clips, add captions,
+                    effects, audio and more.
+                  </p>
+                </div>
+
+                <span class="tool-arrow">↗</span>
+              </article>
+
+
+              <article
+                class="tool-card"
+                onclick="navigate('image')"
+              >
+                <div class="tool-icon">▧</div>
+
+                <h3>Image Studio</h3>
+
+                <p>
+                  Generate, edit, remove backgrounds and enhance.
+                </p>
+
+                <span class="tool-arrow">↗</span>
+              </article>
+
+
+              <article
+                class="tool-card"
+                onclick="navigate('photobooth')"
+              >
+                <div class="tool-icon">◎</div>
+
+                <h3>Photo Booth</h3>
+
+                <p>
+                  Turn ordinary photos into creative portraits.
+                </p>
+
+                <span class="tool-arrow">↗</span>
+              </article>
+
+
+              <article
+                class="tool-card"
+                onclick="navigate('voice')"
+              >
+                <div class="tool-icon">♬</div>
+
+                <h3>Voice Studio</h3>
+
+                <p>
+                  Create voiceovers, clean audio and transform voices.
+                </p>
+
+                <span class="tool-arrow">↗</span>
+              </article>
+
+
+              <article
+                class="tool-card"
+                onclick="navigate('presentation')"
+              >
+                <div class="tool-icon">▣</div>
+
+                <h3>Presentations</h3>
+
+                <p>
+                  Turn a topic into a polished presentation.
+                </p>
+
+                <span class="tool-arrow">↗</span>
+              </article>
+
+
+              <article
+                class="tool-card"
+                onclick="navigate('documents')"
+              >
+                <div class="tool-icon">▤</div>
+
+                <h3>Documents</h3>
+
+                <p>
+                  Write, summarize and transform documents.
+                </p>
+
+                <span class="tool-arrow">↗</span>
+              </article>
+
+
+              <article
+                class="tool-card"
+                onclick="navigate('whiteboard')"
+              >
+                <div class="tool-icon">⌘</div>
+
+                <h3>Whiteboard</h3>
+
+                <p>
+                  Think visually with an infinite creative canvas.
+                </p>
+
+                <span class="tool-arrow">↗</span>
+              </article>
+
+
+              <article
+                class="tool-card"
+                onclick="navigate('thumbnail')"
+              >
+                <div class="tool-icon">◩</div>
+
+                <h3>Thumbnail Maker</h3>
+
+                <p>
+                  Create attention-grabbing thumbnails.
+                </p>
+
+                <span class="tool-arrow">↗</span>
+              </article>
+
+
+              <article
+                class="tool-card"
+                onclick="navigate('copywriter')"
+              >
+                <div class="tool-icon">T</div>
+
+                <h3>AI Copywriter</h3>
+
+                <p>
+                  Captions, hooks, scripts, ads and ideas.
+                </p>
+
+                <span class="tool-arrow">↗</span>
+              </article>
+
+
+              <article
+                class="tool-card"
+                onclick="navigate('compress')"
+              >
+                <div class="tool-icon">⇩</div>
+
+                <h3>Compress</h3>
+
+                <p>
+                  Compress images, videos and PDFs.
+                </p>
+
+                <span class="tool-arrow">↗</span>
+              </article>
+
+            </div>
+
+          </div>
+
+
+          <!-- ONE IDEA WORKFLOW -->
+
+          <div class="section-block workflow-section">
+
+            <div class="section-heading centered">
+
+              <span class="eyebrow">
+                THE VIBENEST WORKFLOW
+              </span>
+
+              <h2>
+                One idea → finished content.
+              </h2>
+
+              <p>
+                VibeNest can take your idea and help turn it into
+                a complete piece of content.
+              </p>
+
+            </div>
+
+
+            <div class="workflow">
+
+              <div class="workflow-line"></div>
+
+
+              <div class="workflow-step">
+
+                <div class="workflow-number">
+                  01
+                </div>
+
+                <div class="workflow-icon">
+                  ✦
+                </div>
+
+                <h3>
+                  Idea
+                </h3>
+
+                <p>
+                  Tell VibeNest what you want.
+                </p>
+
+              </div>
+
+
+              <div class="workflow-step">
+
+                <div class="workflow-number">
+                  02
+                </div>
+
+                <div class="workflow-icon">
+                  ◇
+                </div>
+
+                <h3>
+                  Plan
+                </h3>
+
+                <p>
+                  AI creates the structure.
+                </p>
+
+              </div>
+
+
+              <div class="workflow-step">
+
+                <div class="workflow-number">
+                  03
+                </div>
+
+                <div class="workflow-icon">
+                  ◈
+                </div>
+
+                <h3>
+                  Create
+                </h3>
+
+                <p>
+                  Generate your assets.
+                </p>
+
+              </div>
+
+
+              <div class="workflow-step">
+
+                <div class="workflow-number">
+                  04
+                </div>
+
+                <div class="workflow-icon">
+                  ✓
+                </div>
+
+                <h3>
+                  Export
+                </h3>
+
+                <p>
+                  Download or share.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- RECENT PROJECTS -->
+
+          <div class="section-block">
+
+            <div class="section-heading">
+
+              <div>
+                <span class="eyebrow">
+                  YOUR WORK
+                </span>
+
+                <h2>
+                  Recent projects
+                </h2>
+              </div>
+
+              <button
+                class="text-button"
+                onclick="navigate('projects')"
+              >
+                View all →
+              </button>
+
+            </div>
+
+
+            <div
+              class="recent-projects"
+              id="recentProjects"
+            >
+
+              <div class="empty-project-state">
+
+                <div class="empty-project-icon">
+                  ◇
+                </div>
+
+                <h3>
+                  Your projects will appear here
+                </h3>
+
+                <p>
+                  Create something with VibeNest and it will
+                  automatically show up here.
+                </p>
+
+                <button
+                  class="secondary-button"
+                  onclick="openCreateMenu()"
+                >
+                  Start creating
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- BOTTOM CTA -->
+
+          <div class="home-cta">
+
+            <div class="cta-glow"></div>
+
+            <div class="cta-content">
+
+              <span class="eyebrow">
+                VIBENEST AI
+              </span>
+
+              <h2>
+                Have an idea?
+                <span class="gradient-text">
+                  Just describe it.
+                </span>
+              </h2>
+
+              <p>
+                No complicated workflow. Start with what you
+                want and let VibeNest help you build it.
+              </p>
+
+              <button
+                class="primary-button"
+                onclick="focusHomePrompt()"
+              >
+                Start creating
+                <span>→</span>
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================================
+             AI STUDIO
+        ==================================================== -->
+
+        <section
+          class="page"
+          id="page-ai"
+        >
+
+          <div class="page-header">
+
+            <div>
+              <span class="eyebrow">
+                INTELLIGENT CREATION
+              </span>
+
+              <h1>
+                VibeNest AI
+              </h1>
+
+              <p>
+                Describe what you want. VibeNest figures out
+                the workflow.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="ai-workspace">
+
+            <div class="ai-chat-panel">
+
+              <div class="ai-panel-header">
+
+                <div class="ai-avatar">
+                  ✦
+                </div>
+
+                <div>
+                  <strong>VibeNest AI</strong>
+                  <span>
+                    Creative assistant
+                  </span>
+                </div>
+
+                <div class="ai-status">
+                  <span></span>
+                  Ready
+                </div>
+
+              </div>
+
+
+              <div
+                class="ai-messages"
+                id="aiMessages"
+              >
+
+                <div class="ai-message assistant">
+
+                  <div class="message-avatar">
+                    ✦
+                  </div>
+
+                  <div class="message-content">
+
+                    <p>
+                      Hey! Tell me what you want to create.
+                    </p>
+
+                    <p>
+                      I can help with videos, images, Reels,
+                      presentations, documents, voice and more.
+                    </p>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div class="ai-suggestions">
+
+                <button onclick="useAISuggestion('Create a 15 second Instagram Reel about artificial intelligence')">
+                  Create a Reel
+                </button>
+
+                <button onclick="useAISuggestion('Create a professional presentation about AI')">
+                  Make presentation
+                </button>
+
+                <button onclick="useAISuggestion('Create a cinematic AI image of a futuristic city')">
+                  Generate image
+                </button>
+
+                <button onclick="useAISuggestion('Write a viral Instagram caption')">
+                  Write caption
+                </button>
+
+              </div>
+
+
+              <div class="ai-input-wrapper">
+
+                <textarea
+                  id="aiPrompt"
+                  placeholder="Tell VibeNest what you want..."
+                  rows="2"
+                ></textarea>
+
+                <button
+                  class="ai-send"
+                  onclick="sendAIMessage()"
+                >
+                  ↑
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <div class="ai-side-panel">
+
+              <div class="panel-card">
+
+                <div class="panel-card-header">
+                  <h3>
+                    What can I create?
+                  </h3>
+                </div>
+
+                <div class="ai-capabilities">
+
+                  <button onclick="navigate('video')">
+                    <span>▶</span>
+                    <div>
+                      <strong>Video</strong>
+                      <small>AI video generation</small>
+                    </div>
+                  </button>
+
+                  <button onclick="navigate('image')">
+                    <span>▧</span>
+                    <div>
+                      <strong>Image</strong>
+                      <small>Generate & edit images</small>
+                    </div>
+                  </button>
+
+                  <button onclick="navigate('voice')">
+                    <span>♬</span>
+                    <div>
+                      <strong>Voice</strong>
+                      <small>Voice generation</small>
+                    </div>
+                  </button>
+
+                  <button onclick="navigate('presentation')">
+                    <span>▣</span>
+                    <div>
+                      <strong>Presentation</strong>
+                      <small>AI slide creation</small>
+                    </div>
+                  </button>
+
+                  <button onclick="navigate('documents')">
+                    <span>▤</span>
+                    <div>
+                      <strong>Documents</strong>
+                      <small>Write & transform</small>
+                    </div>
+                  </button>
+
+                  <button onclick="navigate('copywriter')">
+                    <span>T</span>
+                    <div>
+                      <strong>Content</strong>
+                      <small>Scripts & captions</small>
+                    </div>
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================================
+             VIDEO STUDIO
+        ==================================================== -->
+
+        <section
+          class="page"
+          id="page-video"
+        >
+
+          <div class="page-header video-page-header">
+
+            <div>
+
+              <span class="eyebrow">
+                VIDEO CREATION
+              </span>
+
+              <h1>
+                Video Studio
+              </h1>
+
+              <p>
+                Generate AI videos or edit your own footage.
+              </p>
+
+            </div>
+
+
+            <div class="header-actions">
+
+              <button
+                class="secondary-button"
+                onclick="openUploadModal()"
+              >
+                ↑ Upload
+              </button>
+
+              <button
+                class="primary-button"
+                onclick="generateVideo()"
+              >
+                ✦ Generate
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="video-studio-layout">
+
+
+            <!-- VIDEO SETTINGS -->
+
+            <div class="video-settings-panel">
+
+              <div class="studio-card">
+
+                <div class="studio-card-header">
+
+                  <div>
+                    <span class="eyebrow">
+                      AI GENERATOR
+                    </span>
+
+                    <h3>
+                      Describe your video
+                    </h3>
+                  </div>
+
+                </div>
+
+
+                <textarea
+                  id="videoPrompt"
+                  class="video-prompt"
+                  placeholder="Example: A cinematic shot of a futuristic city at night, neon lights reflecting on wet streets..."
+                ></textarea>
+
+
+                <div class="setting-group">
+
+                  <label>
+                    Format
+                  </label>
+
+                  <div class="format-grid">
+
+                    <button
+                      class="format-option active"
+                      data-ratio="9:16"
+                      onclick="selectVideoFormat(this)"
+                    >
+                      <span class="format-preview vertical"></span>
+                      <strong>Reel</strong>
+                      <small>9:16</small>
+                    </button>
+
+                    <button
+                      class="format-option"
+                      data-ratio="16:9"
+                      onclick="selectVideoFormat(this)"
+                    >
+                      <span class="format-preview horizontal"></span>
+                      <strong>Landscape</strong>
+                      <small>16:9</small>
+                    </button>
+
+                    <button
+                      class="format-option"
+                      data-ratio="1:1"
+                      onclick="selectVideoFormat(this)"
+                    >
+                      <span class="format-preview square"></span>
+                      <strong>Square</strong>
+                      <small>1:1</small>
+                    </button>
+
+                  </div>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                  <div class="setting-group">
+
+                    <label>
+                      Duration
+                    </label>
+
+                    <select id="videoDuration">
+
+                      <option value="5">
+                        5 seconds
+                      </option>
+
+                      <option value="10">
+                        10 seconds
+                      </option>
+
+                      <option value="15">
+                        15 seconds
+                      </option>
+
+                    </select>
+
+                  </div>
+
+
+                  <div class="setting-group">
+
+                    <label>
+                      Style
+                    </label>
+
+                    <select id="videoStyle">
+
+                      <option value="cinematic">
+                        Cinematic
+                      </option>
+
+                      <option value="realistic">
+                        Realistic
+                      </option>
+
+                      <option value="anime">
+                        Anime
+                      </option>
+
+                      <option value="3d">
+                        3D
+                      </option>
+
+                      <option value="artistic">
+                        Artistic
+                      </option>
+
+                    </select>
+
+                  </div>
+
+                </div>
+
+
+                <div class="setting-group">
+
+                  <label>
+                    Camera
+                  </label>
+
+                  <div class="chip-list">
+
+                    <button
+                      class="small-chip active"
+                      onclick="selectChip(this)"
+                    >
+                      Auto
+                    </button>
+
+                    <button
+                      class="small-chip"
+                      onclick="selectChip(this)"
+                    >
+                      Wide shot
+                    </button>
+
+                    <button
+                      class="small-chip"
+                      onclick="selectChip(this)"
+                    >
+                      Close-up
+                    </button>
+
+                    <button
+                      class="small-chip"
+                      onclick="selectChip(this)"
+                    >
+                      Tracking
+                    </button>
+
+                    <button
+                      class="small-chip"
+                      onclick="selectChip(this)"
+                    >
+                      Drone
+                    </button>
+
+                  </div>
+
+                </div>
+
+
+                <div class="ai-enhance-row">
+
+                  <div>
+                    <strong>
+                      Prompt enhancement
+                    </strong>
+
+                    <small>
+                      Let AI improve your description
+                    </small>
+                  </div>
+
+                  <label class="toggle">
+
+                    <input
+                      type="checkbox"
+                      id="promptEnhance"
+                      checked
+                    >
+
+                    <span></span>
+
+                  </label>
+
+                </div>
+
+
+                <button
+                  class="generate-large-button"
+                  onclick="generateVideo()"
+                >
+                  <span>✦</span>
+                  Generate Video
+                  <span class="button-credit">
+                    50 credits
+                  </span>
+                </button>
+
+
+                <div
+                  class="generation-status hidden"
+                  id="videoGenerationStatus"
+                >
+                  <div class="spinner"></div>
+
+                  <div>
+                    <strong>
+                      Creating your video...
+                    </strong>
+
+                    <span id="generationStatusText">
+                      Sending request to VibeNest AI
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+
+
+              <!-- VIDEO EDITING OPTIONS -->
+
+              <div class="studio-card">
+
+                <div class="studio-card-header">
+
+                  <div>
+                    <span class="eyebrow">
+                      EDIT
+                    </span>
+
+                    <h3>
+                      Quick editing
+                    </h3>
+                  </div>
+
+                </div>
+
+
+                <div class="editing-tools-grid">
+
+                  <button onclick="showToast('Trim tool opened')">
+                    <span>✂</span>
+                    Trim
+                  </button>
+
+                  <button onclick="showToast('Crop tool opened')">
+                    <span>□</span>
+                    Crop
+                  </button>
+
+                  <button onclick="showToast('Speed controls opened')">
+                    <span>◴</span>
+                    Speed
+                  </button>
+
+                  <button onclick="showToast('Text editor opened')">
+                    <span>T</span>
+                    Text
+                  </button>
+
+                  <button onclick="showToast('Caption generator opened')">
+                    <span>CC</span>
+                    Captions
+                  </button>
+
+                  <button onclick="showToast('Effects opened')">
+                    <span>✧</span>
+                    Effects
+                  </button>
+
+                  <button onclick="showToast('Audio tools opened')">
+                    <span>♬</span>
+                    Audio
+                  </button>
+
+                  <button onclick="showToast('Color controls opened')">
+                    <span>◉</span>
+                    Color
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- VIDEO PREVIEW -->
+
+            <div class="video-preview-panel">
+
+              <div class="preview-toolbar">
+
+                <div class="preview-title">
+                  Preview
+                </div>
+
+                <div class="preview-actions">
+
+                  <button
+                    onclick="toggleFullscreenPreview()"
+                    title="Fullscreen"
+                  >
+                    ⛶
+                  </button>
+
+                  <button
+                    onclick="downloadGeneratedVideo()"
+                    title="Download"
+                  >
+                    ↓
+                  </button>
+
+                </div>
+
+              </div>
+
+
+              <div
+                class="video-preview-stage"
+                id="videoPreviewStage"
+              >
+
+                <div class="preview-empty">
+
+                  <div class="preview-play-icon">
+                    ▶
+                  </div>
+
+                  <h3>
+                    Your video will appear here
+                  </h3>
+
+                  <p>
+                    Describe your idea and click
+                    Generate Video.
+                  </p>
+
+                </div>
+
+
+                <video
+                  id="generatedVideo"
+                  class="generated-video hidden"
+                  controls
+                  playsinline
+                ></video>
+
+              </div>
+
+
+              <div class="preview-footer">
+
+                <div class="preview-info">
+                  <span id="previewFormat">
+                    9:16
+                  </span>
+
+                  <span>•</span>
+
+                  <span id="previewDuration">
+                    5 sec
+                  </span>
+                </div>
+
+                <span>
+                  VibeNest AI
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- AI VIDEO EDIT COMMAND -->
+
+          <div class="ai-edit-command">
+
+            <div class="ai-edit-icon">
+              ✦
+            </div>
+
+            <div class="ai-edit-content">
+
+              <strong>
+                Edit with AI
+              </strong>
+
+              <span>
+                Tell VibeNest how you want your video changed.
+              </span>
+
+            </div>
+
+            <input
+              id="aiEditPrompt"
+              placeholder="Make this more cinematic, remove silent parts, add captions..."
+            >
+
+            <button
+              onclick="runAIEdit()"
+            >
+              Apply →
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================================
+             IMAGE STUDIO
+        ==================================================== -->
+
+        <section
+          class="page"
+          id="page-image"
+        >
+
+          <div class="page-header">
+
+            <div>
+
+              <span class="eyebrow">
+                VISUAL CREATION
+              </span>
+
+              <h1>
+                Image Studio
+              </h1>
+
+              <p>
+                Generate and transform images with AI.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="image-studio">
+
+            <div class="studio-card image-generator-card">
+
+              <div class="studio-card-header">
+
+                <div>
+                  <span class="eyebrow">
+                    AI IMAGE
+                  </span>
+
+                  <h3>
+                    Create an image
+                  </h3>
+                </div>
+
+              </div>
+
+
+              <textarea
+                id="imagePrompt"
+                class="large-prompt"
+                placeholder="Describe the image you want..."
+              ></textarea>
+
+
+              <div class="setting-row">
+
+                <div class="setting-group">
+
+                  <label>
+                    Aspect ratio
+                  </label>
+
+                  <select id="imageRatio">
+
+                    <option value="1:1">
+                      Square — 1:1
+                    </option>
+
+                    <option value="16:9">
+                      Landscape — 16:9
+                    </option>
+
+                    <option value="9:16">
+                      Portrait — 9:16
+                    </option>
+
+                    <option value="4:5">
+                      Instagram — 4:5
+                    </option>
+
+                  </select>
+
+                </div>
+
+
+                <div class="setting-group">
+
+                  <label>
+                    Style
+                  </label>
+
+                  <select id="imageStyle">
+
+                    <option>
+                      Realistic
+                    </option>
+
+                    <option>
+                      Cinematic
+                    </option>
+
+                    <option>
+                      Illustration
+                    </option>
+
+                    <option>
+                      3D
+                    </option>
+
+                    <option>
+                      Anime
+                    </option>
+
+                  </select>
+
+                </div>
+
+              </div>
+
+
+              <button
+                class="generate-large-button"
+                onclick="generateImage()"
+              >
+                ✦ Generate Image
+              </button>
+
+            </div>
+
+
+            <div class="image-preview-card">
+
+              <div class="image-preview-empty">
+
+                <div>
+                  ▧
+                </div>
+
+                <h3>
+                  Image preview
+                </h3>
+
+                <p>
+                  Your generated image will appear here.
+                </p>
+
+              </div>
+
+              <img
+                id="generatedImage"
+                class="generated-image hidden"
+                alt="Generated image"
+              >
+
+            </div>
+
+          </div>
+
+
+          <div class="feature-grid">
+
+            <button
+              class="feature-card"
+              onclick="showToast('Background remover opened')"
+            >
+              <span>◌</span>
+              <strong>
+                Remove Background
+              </strong>
+              <small>
+                Automatically isolate subjects.
+              </small>
+            </button>
+
+            <button
+              class="feature-card"
+              onclick="showToast('Object remover opened')"
+            >
+              <span>⌫</span>
+              <strong>
+                Remove Objects
+              </strong>
+              <small>
+                Clean unwanted elements.
+              </small>
+            </button>
+
+            <button
+              class="feature-card"
+              onclick="navigate('enhance')"
+            >
+              <span>✧</span>
+              <strong>
+                AI Enhance
+              </strong>
+              <small>
+                Improve image quality.
+              </small>
+            </button>
+
+            <button
+              class="feature-card"
+              onclick="showToast('Image editor opened')"
+            >
+              <span>◈</span>
+              <strong>
+                Image Editor
+              </strong>
+              <small>
+                Crop, adjust and transform.
+              </small>
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================================
+             PHOTO BOOTH
+        ==================================================== -->
+
+        <section
+          class="page"
+          id="page-photobooth"
+        >
+
+          <div class="page-header">
+
+            <div>
+
+              <span class="eyebrow">
+                PHOTO CREATION
+              </span>
+
+              <h1>
+                Photo Booth
+              </h1>
+
+              <p>
+                Transform your photos into new styles and scenes.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="photo-booth-layout">
+
+
+            <div class="photo-booth-controls">
+
+              <div class="studio-card">
+
+                <div class="studio-card-header">
+
+                  <div>
+                    <span class="eyebrow">
+                      STEP 1
+                    </span>
+
+                    <h3>
+                      Add your photo
+                    </h3>
+                  </div>
+
+                </div>
+
+
+                <label class="photo-upload-zone">
+
+                  <input
+                    type="file"
+                    id="photoInput"
+                    accept="image/*"
+                    onchange="loadPhotoBoothImage(event)"
+                  >
+
+                  <span class="upload-big-icon">
+                    ↑
+                  </span>
+
+                  <strong>
+                    Upload a photo
+                  </strong>
+
+                  <small>
+                    JPG, PNG or WebP
+                  </small>
+
+                </label>
+
+
+                <div class="photo-styles">
+
+                  <span class="setting-label">
+                    Choose a style
+                  </span>
+
+                  <div class="style-grid">
+
+                    <button
+                      class="style-card active"
+                      onclick="selectPhotoStyle(this)"
+                    >
+                      <span>◉</span>
+                      Portrait
+                    </button>
+
+                    <button
+                      class="style-card"
+                      onclick="selectPhotoStyle(this)"
+                    >
+                      <span>◇</span>
+                      Cinematic
+                    </button>
+
+                    <button
+                      class="style-card"
+                      onclick="selectPhotoStyle(this)"
+                    >
+                      <span>✦</span>
+                      Artistic
+                    </button>
+
+                    <button
+                      class="style-card"
+                      onclick="selectPhotoStyle(this)"
+                    >
+                      <span>▣</span>
+                      Professional
+                    </button>
+
+                    <button
+                      class="style-card"
+                      onclick="selectPhotoStyle(this)"
+                    >
+                      <span>☼</span>
+                      Cartoon
+                    </button>
+
+                    <button
+                      class="style-card"
+                      onclick="selectPhotoStyle(this)"
+                    >
+                      <span>◎</span>
+                      Mirror Booth
+                    </button>
+
+                  </div>
+
+                </div>
+
+
+                <div class="photo-tools">
+
+                  <button
+                    onclick="photoTool('background')"
+                  >
+                    Remove Background
+                  </button>
+
+                  <button
+                    onclick="photoTool('enhance')"
+                  >
+                    AI Enhance
+                  </button>
+
+                  <button
+                    onclick="photoTool('blur')"
+                  >
+                    Blur Background
+                  </button>
+
+                  <button
+                    onclick="photoTool('change')"
+                  >
+                    Change Background
+                  </button>
+
+                </div>
+
+
+                <button
+                  class="generate-large-button"
+                  onclick="generatePhotoBooth()"
+                >
+                  ✦ Transform Photo
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <div class="photo-booth-preview">
+
+              <div class="booth-preview-header">
+                <span>
+                  Preview
+                </span>
+
+                <button
+                  onclick="downloadPhoto()"
+                >
+                  ↓ Download
+                </button>
+              </div>
+
+
+              <div
+                class="photo-canvas"
+                id="photoCanvas"
+              >
+
+                <div class="photo-empty">
+
+                  <span>
+                    ◎
+                  </span>
+
+                  <h3>
+                    Your photo
+                  </h3>
+
+                  <p>
+                    Upload an image to start.
+                  </p>
+
+                </div>
+
+                <img
+                  id="photoPreview"
+                  class="photo-preview hidden"
+                  alt="Photo preview"
+                >
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================================
+             VOICE
+        ==================================================== -->
+
+        <section
+          class="page"
+          id="page-voice"
+        >
+
+          <div class="page-header">
+
+            <div>
+              <span class="eyebrow">
+                AUDIO CREATION
+              </span>
+
+              <h1>
+                Voice Studio
+              </h1>
+
+              <p>
+                Create voiceovers and work with audio.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="voice-grid">
+
+            <div class="studio-card">
+
+              <span class="eyebrow">
+                TEXT TO SPEECH
+              </span>
+
+              <h2>
+                Create a voiceover
+              </h2>
+
+              <textarea
+                id="voiceText"
+                class="large-prompt"
+                placeholder="Type the script you want your voice to say..."
+              ></textarea>
+
+
+              <div class="setting-row">
+
+                <div class="setting-group">
+
+                  <label>
+                    Voice
+                  </label>
+
+                  <select id="voiceSelect">
+
+                    <option>
+                      Natural Male
+                    </option>
+
+                    <option>
+                      Natural Female
+                    </option>
+
+                    <option>
+                      Calm Narrator
+                    </option>
+
+                    <option>
+                      Energetic Creator
+                    </option>
+
+                  </select>
+
+                </div>
+
+                <div class="setting-group">
+
+                  <label>
+                    Speed
+                  </label>
+
+                  <select>
+
+                    <option>
+                      0.75x
+                    </option>
+
+                    <option selected>
+                      1x
+                    </option>
+
+                    <option>
+                      1.25x
+                    </option>
+
+                    <option>
+                      1.5x
+                    </option>
+
+                  </select>
+
+                </div>
+
+              </div>
+
+
+              <button
+                class="generate-large-button"
+                onclick="generateVoice()"
+              >
+                ♬ Generate Voice
+              </button>
+
+            </div>
+
+
+            <div class="studio-card voice-tools">
+
+              <span class="eyebrow">
+                AUDIO TOOLS
+              </span>
+
+              <h2>
+                Work with audio
+              </h2>
+
+
+              <button onclick="showToast('Voice changer opened')">
+                <span>◈</span>
+                Voice Changer
+                <small>Transform your voice</small>
+              </button>
+
+              <button onclick="showToast('Noise removal opened')">
+                <span>✧</span>
+                Noise Removal
+                <small>Clean background noise</small>
+              </button>
+
+              <button onclick="showToast('Audio extractor opened')">
+                <span>↓</span>
+                Extract Audio
+                <small>Get audio from video</small>
+              </button>
+
+              <button onclick="showToast('Music studio opened')">
+                <span>♬</span>
+                Music & Sound
+                <small>Create audio for content</small>
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================================
+             PRESENTATION
+        ==================================================== -->
+
+        <section
+          class="page"
+          id="page-presentation"
+        >
+
+          <div class="page-header">
+
+            <div>
+              <span class="eyebrow">
+                AI PRESENTATIONS
+              </span>
+
+              <h1>
+                Presentation Maker
+              </h1>
+
+              <p>
+                Turn a topic into a structured presentation.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="presentation-builder">
+
+            <div class="studio-card">
+
+              <span class="eyebrow">
+                START WITH AN IDEA
+              </span>
+
+              <h2>
+                What is your presentation about?
+              </h2>
+
+              <textarea
+                id="presentationPrompt"
+                class="large-prompt"
+                placeholder="Example: Create a 10-slide presentation explaining artificial intelligence for beginners..."
+              ></textarea>
+
+
+              <div class="setting-row">
+
+                <div class="setting-group">
+
+                  <label>
+                    Slides
+                  </label>
+
+                  <select id="slideCount">
+
+                    <option>
+                      5 slides
+                    </option>
+
+                    <option selected>
+                      10 slides
+                    </option>
+
+                    <option>
+                      15 slides
+                    </option>
+
+                    <option>
+                      20 slides
+                    </option>
+
+                  </select>
+
+                </div>
+
+
+                <div class="setting-group">
+
+                  <label>
+                    Style
+                  </label>
+
+                  <select>
+
+                    <option>
+                      Modern
+                    </option>
+
+                    <option>
+                      Professional
+                    </option>
+
+                    <option>
+                      Minimal
+                    </option>
+
+                    <option>
+                      Creative
+                    </option>
+
+                  </select>
+
+                </div>
+
+              </div>
+
+
+              <button
+                class="generate-large-button"
+                onclick="generatePresentation()"
+              >
+                ✦ Create Presentation
+              </button>
+
+            </div>
+
+
+            <div class="presentation-preview">
+
+              <div class="slide-placeholder">
+
+                <div class="slide-number">
+                  01
+                </div>
+
+                <h2>
+                  Your presentation
+                </h2>
+
+                <p>
+                  AI-generated slides will appear here.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================================
+             DOCUMENTS
+        ==================================================== -->
+
+        <section
+          class="page"
+          id="page-documents"
+        >
+
+          <div class="page-header">
+
+            <div>
+              <span class="eyebrow">
+                DOCUMENT STUDIO
+              </span>
+
+              <h1>
+                Documents
+              </h1>
+
+              <p>
+                Write, transform and understand documents.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="document-actions">
+
+            <button
+              class="document-action-card"
+              onclick="createDocument('blank')"
+            >
+              <span>＋</span>
+              <strong>
+                Blank Document
+              </strong>
+              <small>
+                Start from scratch
+              </small>
+            </button>
+
+            <button
+              class="document-action-card"
+              onclick="createDocument('summary')"
+            >
+              <span>✦</span>
+              <strong>
+                AI Summary
+              </strong>
+              <small>
+                Summarize a document
+              </small>
+            </button>
+
+            <button
+              class="document-action-card"
+              onclick="createDocument('rewrite')"
+            >
+              <span>↻</span>
+              <strong>
+                Rewrite
+              </strong>
+              <small>
+                Improve existing content
+              </small>
+            </button>
+
+            <button
+              class="document-action-card"
+              onclick="createDocument('pdf')"
+            >
+              <span>▤</span>
+              <strong>
+                PDF Tools
+              </strong>
+              <small>
+                Work with PDF files
+              </small>
+            </button>
+
+          </div>
+
+
+          <div class="document-editor">
+
+            <div class="editor-toolbar">
+
+              <button onclick="document.execCommand('bold')">
+                <b>B</b>
+              </button>
+
+              <button onclick="document.execCommand('italic')">
+                <i>I</i>
+              </button>
+
+              <button onclick="document.execCommand('underline')">
+                <u>U</u>
+              </button>
+
+              <span></span>
+
+              <button onclick="document.execCommand('justifyLeft')">
+                ☰
+              </button>
+
+              <button onclick="document.execCommand('justifyCenter')">
+                ≡
+              </button>
+
+              <button onclick="document.execCommand('insertUnorderedList')">
+                •
+              </button>
+
+            </div>
+
+            <div
+              class="document-content"
+              id="documentContent"
+              contenteditable="true"
+            >
+              <h2>Untitled document</h2>
+              <p>
+                Start writing here...
+              </p>
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================================
+             WHITEBOARD
+        ==================================================== -->
+
+        <section
+          class="page"
+          id="page-whiteboard"
+        >
+
+          <div class="page-header">
+
+            <div>
+              <span class="eyebrow">
+                VISUAL THINKING
+              </span>
+
+              <h1>
+                Whiteboard
+              </h1>
+
+              <p>
+                Sketch ideas, diagrams and workflows.
+              </p>
+            </div>
+
+            <div class="header-actions">
+
+              <button
+                class="secondary-button"
+                onclick="clearWhiteboard()"
+              >
+                Clear
+              </button>
+
+              <button
+                class="primary-button"
+                onclick="downloadWhiteboard()"
+              >
+                ↓ Export
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="whiteboard-container">
+
+            <div class="whiteboard-toolbar">
+
+              <button
+                class="whiteboard-tool active"
+                onclick="setWhiteboardTool('pen', this)"
+              >
+                ✎
+              </button>
+
+              <button
+                class="whiteboard-tool"
+                onclick="setWhiteboardTool('line', this)"
+              >
+                /
+              </button>
+
+              <button
+                class="whiteboard-tool"
+                onclick="setWhiteboardTool('rect', this)"
+              >
+                □
+              </button>
+
+              <button
+                class="whiteboard-tool"
+                onclick="setWhiteboardTool('circle', this)"
+              >
+                ○
+              </button>
+
+              <button
+                class="whiteboard-tool"
+                onclick="setWhiteboardTool('text', this)"
+              >
+                T
+              </button>
+
+              <span class="toolbar-divider"></span>
+
+              <button
+                onclick="undoWhiteboard()"
+              >
+                ↶
+              </button>
+
+              <button
+                onclick="redoWhiteboard()"
+              >
+                ↷
+              </button>
+
+            </div>
+
+
+            <canvas
+              id="whiteboardCanvas"
+            ></canvas>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================================
+             THUMBNAIL
+        ==================================================== -->
+
+        <section
+          class="page"
+          id="page-thumbnail"
+        >
+
+          <div class="page-header">
+
+            <div>
+              <span class="eyebrow">
+                CREATOR TOOLS
+              </span>
+
+              <h1>
+                Thumbnail Maker
+              </h1>
+
+              <p>
+                Create bold thumbnails for YouTube and social media.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="thumbnail-builder">
+
+            <div class="studio-card">
+
+              <span class="eyebrow">
+                AI THUMBNAIL
+              </span>
+
+              <h2>
+                Describe your thumbnail
+              </h2>
+
+              <textarea
+                id="thumbnailPrompt"
+                class="large-prompt"
+                placeholder="Example: A dramatic YouTube thumbnail about the future of AI..."
+              ></textarea>
+
+
+              <div class="setting-group">
+
+                <label>
+                  Text
+                </label>
+
+                <input
+                  id="thumbnailText"
+                  class="text-input"
+                  placeholder="Your thumbnail headline"
+                >
+
+              </div>
+
+
+              <button
+                class="generate-large-button"
+                onclick="generateThumbnail()"
+              >
+                ✦ Create Thumbnail
+              </button>
+
+            </div>
+
+
+            <div class="thumbnail-preview">
+
+              <div class="thumbnail-safe-area">
+
+                <span>
+                  Thumbnail Preview
+                </span>
+
+                <strong id="thumbnailPreviewText">
+                  YOUR HEADLINE
+                </strong>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================================
+             COPYWRITER
+        ==================================================== -->
+
+        <section
+          class="page"
+          id="page-copywriter"
+        >
+
+          <div class="page-header">
+
+            <div>
+              <span class="eyebrow">
+                AI WRITING
+              </span>
+
+              <h1>
+                AI Copywriter
+              </h1>
+
+              <p>
+                Create captions, hooks, scripts, ads and content ideas.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="copywriter-layout">
+
+            <div class="studio-card">
+
+              <label class="setting-label">
+                What do you want to write?
+              </label>
+
+              <textarea
+                id="copyPrompt"
+                class="large-prompt"
+                placeholder="Example: Write a short Instagram caption for a video about AI..."
+              ></textarea>
+
+
+              <div class="copy-types">
+
+                <button
+                  class="small-chip active"
+                  onclick="selectChip(this)"
+                >
+                  Caption
+                </button>
+
+                <button
+                  class="small-chip"
+                  onclick="selectChip(this)"
+                >
+                  Hook
+                </button>
+
+                <button
+                  class="small-chip"
+                  onclick="selectChip(this)"
+                >
+                  Reel Script
+                </button>
+
+                <button
+                  class="small-chip"
+                  onclick="selectChip(this)"
+                >
+                  Ad
+                </button>
+
+                <button
+                  class="small-chip"
+                  onclick="selectChip(this)"
+                >
+                  Blog
+                </button>
+
+              </div>
+
+
+              <button
+                class="generate-large-button"
+                onclick="generateCopy()"
+              >
+                ✦ Generate Copy
+              </button>
+
+            </div>
+
+
+            <div class="copy-result">
+
+              <div class="result-header">
+
+                <span>
+                  Result
+                </span>
+
+                <button onclick="copyResult()">
+                  Copy
+                </button>
+
+              </div>
+
+              <div
+                id="copyResult"
+                class="result-content"
+              >
+                Your generated content will appear here.
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================================
+             COMPRESS
+        ==================================================== -->
+
+        <section
+          class="page"
+          id="page-compress"
+        >
+
+          <div class="page-header">
+
+            <div>
+              <span class="eyebrow">
+                FILE TOOLS
+              </span>
+
+              <h1>
+                Compression Studio
+              </h1>
+
+              <p>
+                Reduce file size while keeping your content useful.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="compression-grid">
+
+            <label class="compression-card">
+
+              <input
+                type="file"
+                id="imageCompressInput"
+                accept="image/*"
+                onchange="compressImageFile(event)"
+              >
+
+              <span class="compression-icon">
+                ▧
+              </span>
+
+              <strong>
+                Image Compressor
+              </strong>
+
+              <small>
+                JPG, PNG, WebP
+              </small>
+
+            </label>
+
+
+            <label class="compression-card">
+
+              <input
+                type="file"
+                id="videoCompressInput"
+                accept="video/*"
+                onchange="handleVideoCompression(event)"
+              >
+
+              <span class="compression-icon">
+                ▶
+              </span>
+
+              <strong>
+                Video Compressor
+              </strong>
+
+              <small>
+                MP4, WebM and more
+              </small>
+
+            </label>
+
+
+            <label class="compression-card">
+
+              <input
+                type="file"
+                id="pdfCompressInput"
+                accept="application/pdf"
+                onchange="handlePDFCompression(event)"
+              >
+
+              <span class="compression-icon">
+                ▤
+              </span>
+
+              <strong>
+                PDF Compressor
+              </strong>
+
+              <small>
+                Reduce PDF size
+              </small>
+
+            </label>
+
+          </div>
+
+
+          <div
+            class="compression-result hidden"
+            id="compressionResult"
+          >
+
+            <div>
+              <strong id="compressionFileName">
+                file.jpg
+              </strong>
+
+              <span id="compressionFileSize">
+                0 MB
+              </span>
+            </div>
+
+            <button
+              class="primary-button"
+              onclick="downloadCompressedFile()"
+            >
+              ↓ Download
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================================
+             ENHANCE
+        ==================================================== -->
+
+        <section
+          class="page"
+          id="page-enhance"
+        >
+
+          <div class="page-header">
+
+            <div>
+              <span class="eyebrow">
+                AI ENHANCEMENT
+              </span>
+
+              <h1>
+                Enhance & Upscale
+              </h1>
+
+              <p>
+                Improve resolution and image quality.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="enhance-layout">
+
+            <label class="enhance-upload">
+
+              <input
+                type="file"
+                id="enhanceInput"
+                accept="image/*"
+                onchange="loadEnhanceImage(event)"
+              >
+
+              <span>
+                ✧
+              </span>
+
+              <h3>
+                Upload an image
+              </h3>
+
+              <p>
+                Drag & drop or click to browse.
+              </p>
+
+            </label>
+
+
+            <div class="enhance-options">
+
+              <div class="studio-card">
+
+                <h3>
+                  Enhancement
+                </h3>
+
+                <label class="option-check">
+                  <input type="checkbox" checked>
+                  <span>
+                    Sharpen details
+                  </span>
+                </label>
+
+                <label class="option-check">
+                  <input type="checkbox" checked>
+                  <span>
+                    Improve lighting
+                  </span>
+                </label>
+
+                <label class="option-check">
+                  <input type="checkbox">
+                  <span>
+                    Reduce noise
+                  </span>
+                </label>
+
+                <label class="option-check">
+                  <input type="checkbox">
+                  <span>
+                    Face enhancement
+                  </span>
+                </label>
+
+
+                <button
+                  class="generate-large-button"
+                  onclick="enhanceImage()"
+                >
+                  ✧ Enhance Image
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================================
+             RESUME
+        ==================================================== -->
+
+        <section
+          class="page"
+          id="page-resume"
+        >
+
+          <div class="page-header">
+
+            <div>
+              <span class="eyebrow">
+                PROFESSIONAL TOOLS
+              </span>
+
+              <h1>
+                Resume & Portfolio
+              </h1>
+
+              <p>
+                Build a professional profile from your information.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="resume-builder">
+
+            <div class="studio-card">
+
+              <h3>
+                Tell us about yourself
+              </h3>
+
+              <input
+                class="text-input"
+                id="resumeName"
+                placeholder="Full name"
+              >
+
+              <input
+                class="text-input"
+                id="resumeRole"
+                placeholder="Role / Career goal"
+              >
+
+              <textarea
+                class="large-prompt"
+                id="resumeExperience"
+                placeholder="Education, skills, experience, projects..."
+              ></textarea>
+
+              <button
+                class="generate-large-button"
+                onclick="generateResume()"
+              >
+                ✦ Build Resume
+              </button>
+
+            </div>
+
+
+            <div class="resume-preview">
+
+              <div class="resume-paper">
+
+                <h1 id="resumePreviewName">
+                  Your Name
+                </h1>
+
+                <h3 id="resumePreviewRole">
+                  Your Role
+                </h3>
+
+                <hr>
+
+                <p id="resumePreviewContent">
+                  Your resume preview will appear here.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================================
+             CONTENT PLANNER
+        ==================================================== -->
+
+        <section
+          class="page"
+          id="page-planner"
+        >
+
+          <div class="page-header">
+
+            <div>
+              <span class="eyebrow">
+                CONTENT SYSTEM
+              </span>
+
+              <h1>
+                Content Planner
+              </h1>
+
+              <p>
+                Plan your next videos, Reels and posts.
+              </p>
+
+            </div>
+
+            <button
+              class="primary-button"
+              onclick="addPlannerItem()"
+            >
+              + Add idea
+            </button>
+
+          </div>
+
+
+          <div class="planner-board">
+
+            <div class="planner-column">
+
+              <div class="planner-column-header">
+                Ideas
+                <span>0</span>
+              </div>
+
+              <div
+                id="plannerIdeas"
+                class="planner-items"
+              ></div>
+
+            </div>
+
+
+            <div class="planner-column">
+
+              <div class="planner-column-header">
+                Planned
+                <span>0</span>
+              </div>
+
+              <div
+                id="plannerPlanned"
+                class="planner-items"
+              ></div>
+
+            </div>
+
+
+            <div class="planner-column">
+
+              <div class="planner-column-header">
+                Published
+                <span>0</span>
+              </div>
+
+              <div
+                id="plannerPublished"
+                class="planner-items"
+              ></div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================================
+             PROJECTS
+        ==================================================== -->
+
+        <section
+          class="page"
+          id="page-projects"
+        >
+
+          <div class="page-header">
+
+            <div>
+
+              <span class="eyebrow">
+                YOUR WORKSPACE
+              </span>
+
+              <h1>
+                My Projects
+              </h1>
+
+              <p>
+                Everything you've created with VibeNest.
+              </p>
+
+            </div>
+
+            <button
+              class="primary-button"
+              onclick="openCreateMenu()"
+            >
+              + New project
+            </button>
+
+          </div>
+
+
+          <div
+            class="projects-grid"
+            id="projectsGrid"
+          >
+
+            <div class="empty-project-state">
+
+              <div class="empty-project-icon">
+                ◇
+              </div>
+
+              <h3>
+                No projects yet
+              </h3>
+
+              <p>
+                Start creating and your projects will appear here.
+              </p>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================================
+             TEMPLATES
+        ==================================================== -->
+
+        <section
+          class="page"
+          id="page-templates"
+        >
+
+          <div class="page-header">
+
+            <div>
+
+              <span class="eyebrow">
+                START FASTER
+              </span>
+
+              <h1>
+                Templates
+              </h1>
+
+              <p>
+                Start with a structure and make it yours.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="template-filters">
+
+            <button
+              class="filter-chip active"
+              onclick="filterTemplates('all', this)"
+            >
+              All
+            </button>
+
+            <button
+              class="filter-chip"
+              onclick="filterTemplates('video', this)"
+            >
+              Video
+            </button>
+
+            <button
+              class="filter-chip"
+              onclick="filterTemplates('social', this)"
+            >
+              Social
+            </button>
+
+            <button
+              class="filter-chip"
+              onclick="filterTemplates('presentation', this)"
+            >
+              Presentation
+            </button>
+
+            <button
+              class="filter-chip"
+              onclick="filterTemplates('business', this)"
+            >
+              Business
+            </button>
+
+          </div>
+
+
+          <div class="templates-grid">
+
+            <article
+              class="template-card"
+              data-template-category="video"
+              onclick="useTemplate('Reel')"
+            >
+              <div class="template-visual template-video">
+                <span>▶</span>
+              </div>
+
+              <div class="template-info">
+                <h3>
+                  Social Reel
+                </h3>
+
+                <p>
+                  9:16 short-form video
+                </p>
+              </div>
+            </article>
+
+
+            <article
+              class="template-card"
+              data-template-category="social"
+              onclick="useTemplate('Social Post')"
+            >
+              <div class="template-visual template-social">
+                <span>✦</span>
+              </div>
+
+              <div class="template-info">
+                <h3>
+                  Social Post
+                </h3>
+
+                <p>
+                  Clean social media design
+                </p>
+              </div>
+            </article>
+
+
+            <article
+              class="template-card"
+              data-template-category="presentation"
+              onclick="useTemplate('Presentation')"
+            >
+              <div class="template-visual template-presentation">
+                <span>▣</span>
+              </div>
+
+              <div class="template-info">
+                <h3>
+                  Modern Presentation
+                </h3>
+
+                <p>
+                  Professional slide deck
+                </p>
+              </div>
+            </article>
+
+
+            <article
+              class="template-card"
+              data-template-category="business"
+              onclick="useTemplate('Business')"
+            >
+              <div class="template-visual template-business">
+                <span>▥</span>
+              </div>
+
+              <div class="template-info">
+                <h3>
+                  Business Report
+                </h3>
+
+                <p>
+                  Clean professional layout
+                </p>
+              </div>
+            </article>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================================
+             SETTINGS
+        ==================================================== -->
+
+        <section
+          class="page"
+          id="page-settings"
+        >
+
+          <div class="page-header">
+
+            <div>
+
+              <span class="eyebrow">
+                ACCOUNT
+              </span>
+
+              <h1>
+                Settings
+              </h1>
+
+              <p>
+                Manage your VibeNest preferences.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="settings-layout">
+
+            <div class="settings-nav">
+
+              <button class="settings-tab active">
+                General
+              </button>
+
+              <button class="settings-tab">
+                Account
+              </button>
+
+              <button class="settings-tab">
+                Notifications
+              </button>
+
+              <button class="settings-tab">
+                Billing
+              </button>
+
+            </div>
+
+
+            <div class="settings-content">
+
+              <div class="settings-card">
+
+                <h3>
+                  Appearance
+                </h3>
+
+                <div class="settings-row">
+
+                  <div>
+                    <strong>
+                      Dark interface
+                    </strong>
+
+                    <small>
+                      Use VibeNest's dark creative workspace.
+                    </small>
+                  </div>
+
+                  <label class="toggle">
+
+                    <input
+                      type="checkbox"
+                      checked
+                    >
+
+                    <span></span>
+
+                  </label>
+
+                </div>
+
+              </div>
+
+
+              <div class="settings-card">
+
+                <h3>
+                  Auto-save
+                </h3>
+
+                <div class="settings-row">
+
+                  <div>
+                    <strong>
+                      Automatically save projects
+                    </strong>
+
+                    <small>
+                      Keep your work saved locally.
+                    </small>
+
+                  </div>
+
+                  <label class="toggle">
+
+                    <input
+                      type="checkbox"
+                      checked
+                    >
+
+                    <span></span>
+
+                  </label>
+
+                </div>
+
+              </div>
+
+
+              <div class="settings-card">
+
+                <h3>
+                  Account
+                </h3>
+
+                <button
+                  class="secondary-button"
+                  onclick="openProfileMenu()"
+                >
+                  Manage account
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- =========================================================
+       CREATE MENU
+  ========================================================== -->
+
+  <div
+    class="modal-backdrop hidden"
+    id="createModal"
+    onclick="closeModalOnBackdrop(event, 'createModal')"
+  >
+
+    <div class="modal create-modal">
+
+      <div class="modal-header">
+
+        <div>
+          <span class="eyebrow">
+            CREATE
+          </span>
+
+          <h2>
+            What are you making?
+          </h2>
+        </div>
+
+        <button
+          class="modal-close"
+          onclick="closeModal('createModal')"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div class="create-menu-grid">
+
+        <button onclick="createFromMenu('video')">
+          <span>▶</span>
+          <strong>Video</strong>
+          <small>AI video or editing</small>
+        </button>
+
+        <button onclick="createFromMenu('image')">
+          <span>▧</span>
+          <strong>Image</strong>
+          <small>Generate or edit</small>
+        </button>
+
+        <button onclick="createFromMenu('photobooth')">
+          <span>◎</span>
+          <strong>Photo Booth</strong>
+          <small>Transform photos</small>
+        </button>
+
+        <button onclick="createFromMenu('voice')">
+          <span>♬</span>
+          <strong>Voice</strong>
+          <small>Create voiceovers</small>
+        </button>
+
+        <button onclick="createFromMenu('presentation')">
+          <span>▣</span>
+          <strong>Presentation</strong>
+          <small>Build slides</small>
+        </button>
+
+        <button onclick="createFromMenu('document')">
+          <span>▤</span>
+          <strong>Document</strong>
+          <small>Write content</small>
+        </button>
+
+        <button onclick="createFromMenu('whiteboard')">
+          <span>⌘</span>
+          <strong>Whiteboard</strong>
+          <small>Draw ideas</small>
+        </button>
+
+        <button onclick="openUploadModal(); closeModal('createModal')">
+          <span>↑</span>
+          <strong>Upload</strong>
+          <small>Start from a file</small>
         </button>
 
       </div>
 
     </div>
 
-    <div class="suggestions">
-
-      <button class="suggestion"
-        onclick="useSuggestion('Create a cinematic travel Reel about a mountain road at sunset')">
-        🎬 Cinematic Reel
-      </button>
-
-      <button class="suggestion"
-        onclick="useSuggestion('Generate a futuristic city image at night')">
-        🖼️ AI Image
-      </button>
-
-      <button class="suggestion"
-        onclick="useSuggestion('Create a presentation about Artificial Intelligence')">
-        📊 Presentation
-      </button>
-
-      <button class="suggestion"
-        onclick="useSuggestion('Write a motivational voiceover for a study Reel')">
-        🎙️ Voiceover
-      </button>
-
-    </div>
-
   </div>
 
 
-  <!-- FLOATING CREATIVE PREVIEWS -->
+  <!-- =========================================================
+       UPLOAD MODAL
+  ========================================================== -->
 
-  <div class="hero-stage">
+  <div
+    class="modal-backdrop hidden"
+    id="uploadModal"
+    onclick="closeModalOnBackdrop(event, 'uploadModal')"
+  >
 
-    <div class="preview-card preview-reel">
-      <div class="visual"></div>
-    </div>
+    <div class="modal upload-modal">
 
-    <div class="preview-card preview-image">
-      <div class="visual"></div>
-    </div>
+      <div class="modal-header">
 
-    <div class="preview-card preview-presentation">
+        <div>
+          <span class="eyebrow">
+            UPLOAD
+          </span>
 
-      <div class="slide-title">
-        The future of AI
+          <h2>
+            What should VibeNest do with it?
+          </h2>
+
+          <p>
+            Upload a file and choose what you want to get from it.
+          </p>
+
+        </div>
+
+        <button
+          class="modal-close"
+          onclick="closeModal('uploadModal')"
+        >
+          ×
+        </button>
+
       </div>
 
-      <div class="slide-line"></div>
-      <div class="slide-line"></div>
-      <div class="slide-line short"></div>
 
-    </div>
+      <label class="big-upload-zone">
 
-    <div class="preview-card preview-audio">
+        <input
+          type="file"
+          id="universalUpload"
+          onchange="handleUniversalUpload(event)"
+        >
 
-      <div style="font-size:10px;color:#8888a0">
-        VibeNest Voice
+        <span>
+          ↑
+        </span>
+
+        <strong>
+          Choose a file
+        </strong>
+
+        <small>
+          Video, image, PDF, audio or document
+        </small>
+
+      </label>
+
+
+      <div class="upload-actions">
+
+        <button onclick="uploadAction('summary')">
+          <span>✦</span>
+          Summary
+        </button>
+
+        <button onclick="uploadAction('mom')">
+          <span>▤</span>
+          MOM
+        </button>
+
+        <button onclick="uploadAction('transcript')">
+          <span>≡</span>
+          Transcript
+        </button>
+
+        <button onclick="uploadAction('keypoints')">
+          <span>•</span>
+          Key Points
+        </button>
+
+        <button onclick="uploadAction('actions')">
+          <span>✓</span>
+          Action Items
+        </button>
+
+        <button onclick="uploadAction('chapters')">
+          <span>☷</span>
+          Chapters
+        </button>
+
+        <button onclick="uploadAction('translate')">
+          <span>文</span>
+          Translate
+        </button>
+
+        <button onclick="uploadAction('edit')">
+          <span>✎</span>
+          Edit Video
+        </button>
+
+        <button onclick="uploadAction('ask')">
+          <span>✦</span>
+          Ask VibeNest AI
+        </button>
+
       </div>
 
-      <div class="wave">
-        <span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span>
+    </div>
+
+  </div>
+
+
+  <!-- =========================================================
+       SEARCH MODAL
+  ========================================================== -->
+
+  <div
+    class="modal-backdrop hidden"
+    id="searchModal"
+    onclick="closeModalOnBackdrop(event, 'searchModal')"
+  >
+
+    <div class="modal search-modal">
+
+      <div class="search-box">
+
+        <span>
+          ⌕
+        </span>
+
+        <input
+          id="globalSearch"
+          placeholder="Search VibeNest..."
+          oninput="searchVibeNest(this.value)"
+        >
+
+        <button
+          onclick="closeModal('searchModal')"
+        >
+          ESC
+        </button>
+
+      </div>
+
+
+      <div
+        class="search-results"
+        id="searchResults"
+      >
+
+        <div class="search-empty">
+          Search for tools, projects or features.
+        </div>
+
       </div>
 
     </div>
 
   </div>
 
-</section>
+
+  <!-- =========================================================
+       PRICING MODAL
+  ========================================================== -->
+
+  <div
+    class="modal-backdrop hidden"
+    id="pricingModal"
+    onclick="closeModalOnBackdrop(event, 'pricingModal')"
+  >
+
+    <div class="modal pricing-modal">
+
+      <div class="modal-header">
+
+        <div>
+          <span class="eyebrow">
+            VIBENEST PLANS
+          </span>
+
+          <h2>
+            Choose your plan
+          </h2>
+
+          <p>
+            More credits for more creation.
+          </p>
+
+        </div>
+
+        <button
+          class="modal-close"
+          onclick="closeModal('pricingModal')"
+        >
+          ×
+        </button>
+
+      </div>
 
 
-<!-- ================= CREATE ANYTHING ================= -->
+      <div class="pricing-grid">
 
-<section class="section section-block">
 
-  <div class="section-heading">
+        <!-- FREE -->
 
-    <div>
-      <h2>Create anything.</h2>
+        <div class="pricing-card">
+
+          <span class="plan-name">
+            Free
+          </span>
+
+          <div class="plan-price">
+            ₹0
+            <small>/month</small>
+          </div>
+
+          <p>
+            Try VibeNest and explore the studio.
+          </p>
+
+          <ul>
+
+            <li>
+              ✓ 100 credits
+            </li>
+
+            <li>
+              ✓ Basic tools
+            </li>
+
+            <li>
+              ✓ Project storage
+            </li>
+
+            <li>
+              ✓ Browser utilities
+            </li>
+
+          </ul>
+
+          <button
+            class="secondary-button full-button"
+            onclick="closeModal('pricingModal')"
+          >
+            Current plan
+          </button>
+
+        </div>
+
+
+        <!-- CREATOR -->
+
+        <div class="pricing-card featured-plan">
+
+          <div class="popular-badge">
+            CREATOR
+          </div>
+
+          <span class="plan-name">
+            Creator
+          </span>
+
+          <div class="plan-price">
+            ₹149
+            <small>/month</small>
+          </div>
+
+          <p>
+            For regular content creation.
+          </p>
+
+          <ul>
+
+            <li>
+              ✓ 1,000 AI credits
+            </li>
+
+            <li>
+              ✓ AI Video
+            </li>
+
+            <li>
+              ✓ AI Images
+            </li>
+
+            <li>
+              ✓ Voice tools
+            </li>
+
+            <li>
+              ✓ More exports
+            </li>
+
+          </ul>
+
+          <button
+            class="primary-button full-button"
+            onclick="startCheckout('creator')"
+          >
+            Choose Creator
+          </button>
+
+        </div>
+
+
+        <!-- PRO -->
+
+        <div class="pricing-card">
+
+          <span class="plan-name">
+            Pro
+          </span>
+
+          <div class="plan-price">
+            ₹499
+            <small>/month</small>
+          </div>
+
+          <p>
+            For heavy creators and professionals.
+          </p>
+
+          <ul>
+
+            <li>
+              ✓ 5,000 AI credits
+            </li>
+
+            <li>
+              ✓ Advanced AI tools
+            </li>
+
+            <li>
+              ✓ Priority generation
+            </li>
+
+            <li>
+              ✓ More storage
+            </li>
+
+            <li>
+              ✓ Premium exports
+            </li>
+
+          </ul>
+
+          <button
+            class="secondary-button full-button"
+            onclick="startCheckout('pro')"
+          >
+            Choose Pro
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="payment-note">
+
+        🔒 Payments will be securely processed through
+        VibeNest's payment provider.
+
+      </div>
+
     </div>
-
-    <p>
-      One workspace for your videos, images, voice,
-      presentations and creative projects.
-    </p>
 
   </div>
 
 
-  <div class="tool-grid">
+  <!-- =========================================================
+       PROFILE MENU
+  ========================================================== -->
 
-    <div class="tool-card" style="--glow:rgba(139,92,246,.18)"
-         onclick="openTool('video')">
-      <div class="tool-icon">🎬</div>
-      <h3>AI Video</h3>
-      <p>Turn prompts and images into cinematic videos and social content.</p>
-      <div class="tool-arrow">↗</div>
-    </div>
+  <div
+    class="profile-menu hidden"
+    id="profileMenu"
+  >
 
+    <div class="profile-menu-header">
 
-    <div class="tool-card" style="--glow:rgba(59,130,246,.18)"
-         onclick="openTool('image')">
-      <div class="tool-icon">🖼️</div>
-      <h3>AI Image</h3>
-      <p>Generate, transform and enhance images from simple descriptions.</p>
-      <div class="tool-arrow">↗</div>
-    </div>
-
-
-    <div class="tool-card" style="--glow:rgba(236,72,153,.16)"
-         onclick="openTool('voice')">
-      <div class="tool-icon">🎙️</div>
-      <h3>Voice Studio</h3>
-      <p>Create natural voiceovers and build audio for your projects.</p>
-      <div class="tool-arrow">↗</div>
-    </div>
-
-
-    <div class="tool-card" style="--glow:rgba(34,211,238,.15)"
-         onclick="openTool('presentation')">
-      <div class="tool-icon">📊</div>
-      <h3>Presentations</h3>
-      <p>Turn an idea into structured, beautifully designed slides.</p>
-      <div class="tool-arrow">↗</div>
-    </div>
-
-
-    <div class="tool-card" style="--glow:rgba(52,211,153,.15)"
-         onclick="openTool('document')">
-      <div class="tool-icon">📄</div>
-      <h3>Documents & PDF</h3>
-      <p>Create, rewrite, summarize and work with documents and PDFs.</p>
-      <div class="tool-arrow">↗</div>
-    </div>
-
-
-    <div class="tool-card" style="--glow:rgba(168,85,247,.16)"
-         onclick="openTool('whiteboard')">
-      <div class="tool-icon">🎨</div>
-      <h3>Whiteboard</h3>
-      <p>Think visually with sketches, diagrams, notes and AI workflows.</p>
-      <div class="tool-arrow">↗</div>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= ONE IDEA WORKFLOW ================= -->
-
-<section class="section section-block">
-
-  <div class="workflow">
-
-    <div class="section-heading">
+      <div class="profile-avatar large">
+        V
+      </div>
 
       <div>
-        <h2>One idea → finished content.</h2>
-      </div>
+        <strong>
+          VibeNest User
+        </strong>
 
-      <p>
-        VibeNest connects the creative process instead of
-        making you jump between different apps.
-      </p>
-
-    </div>
-
-
-    <div class="workflow-track">
-
-      <div class="workflow-step">
-        <div class="step-icon">💡</div>
-        <span>Idea</span>
-      </div>
-
-      <div class="workflow-step">
-        <div class="step-icon">✍️</div>
-        <span>Script</span>
-      </div>
-
-      <div class="workflow-step">
-        <div class="step-icon">🖼️</div>
-        <span>Visuals</span>
-      </div>
-
-      <div class="workflow-step">
-        <div class="step-icon">🎙️</div>
-        <span>Voice</span>
-      </div>
-
-      <div class="workflow-step">
-        <div class="step-icon">✂️</div>
-        <span>Edit</span>
-      </div>
-
-      <div class="workflow-step">
-        <div class="step-icon">🚀</div>
-        <span>Export</span>
+        <small>
+          Free plan
+        </small>
       </div>
 
     </div>
 
-  </div>
+    <button onclick="navigate('settings'); closeProfileMenu()">
+      ⚙ Settings
+    </button>
 
-</section>
+    <button onclick="openPricing(); closeProfileMenu()">
+      ✦ Upgrade plan
+    </button>
 
-
-<!-- ================= TEMPLATES ================= -->
-
-<section id="templates" class="section section-block">
-
-  <div class="section-heading">
-
-    <div>
-      <h2>Start with a template.</h2>
-    </div>
-
-    <p>
-      Skip the blank page and start from a format
-      designed for the content you want to create.
-    </p>
-
-  </div>
-
-
-  <div class="template-grid">
-
-    <div class="template" onclick="templatePrompt('cinematic travel Reel')">
-      <div class="template-bg"
-        style="background-image:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=700&q=80')">
-      </div>
-      <div class="template-overlay"></div>
-      <div class="template-info">
-        <h3>Cinematic Travel</h3>
-        <span>Instagram Reel · 9:16</span>
-      </div>
-    </div>
-
-
-    <div class="template" onclick="templatePrompt('motivational Reel')">
-      <div class="template-bg"
-        style="background-image:url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=700&q=80')">
-      </div>
-      <div class="template-overlay"></div>
-      <div class="template-info">
-        <h3>Motivation</h3>
-        <span>Short Video · 9:16</span>
-      </div>
-    </div>
-
-
-    <div class="template" onclick="templatePrompt('modern technology presentation')">
-      <div class="template-bg"
-        style="background-image:url('https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=700&q=80')">
-      </div>
-      <div class="template-overlay"></div>
-      <div class="template-info">
-        <h3>Tech Presentation</h3>
-        <span>Presentation</span>
-      </div>
-    </div>
-
-
-    <div class="template" onclick="templatePrompt('modern product advertisement')">
-      <div class="template-bg"
-        style="background-image:url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=700&q=80')">
-      </div>
-      <div class="template-overlay"></div>
-      <div class="template-info">
-        <h3>Product Ad</h3>
-        <span>Social Advertisement</span>
-      </div>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= MADE WITH VIBENEST ================= -->
-
-<section id="projects" class="section section-block">
-
-  <div class="section-heading">
-
-    <div>
-      <h2>Made with VibeNest.</h2>
-    </div>
-
-    <p>
-      Your creative workspace should feel inspiring
-      before you even start creating.
-    </p>
-
-  </div>
-
-
-  <div class="gallery">
-
-    <div class="gallery-item"
-      style="background-image:url('https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=1000&q=80')">
-      <div class="gallery-label">Cinematic Video</div>
-    </div>
-
-    <div class="gallery-item"
-      style="background-image:url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=700&q=80')">
-      <div class="gallery-label">AI Image</div>
-    </div>
-
-    <div class="gallery-item"
-      style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=700&q=80')">
-      <div class="gallery-label">Presentation</div>
-    </div>
-
-    <div class="gallery-item"
-      style="background-image:url('https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=700&q=80')">
-      <div class="gallery-label">Voice Studio</div>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= FINAL CTA ================= -->
-
-<section class="section">
-
-  <div class="final-cta">
-
-    <h2>
-      Have an idea?
-      <span class="gradient-text">Make it real.</span>
-    </h2>
-
-    <p>
-      Describe what you want to create and let VibeNest
-      help turn the idea into something you can actually use.
-    </p>
-
-    <button class="create-btn" onclick="focusPrompt()">
-      Start creating →
+    <button onclick="showToast('Account settings coming next')">
+      ◉ Account
     </button>
 
   </div>
 
-</section>
 
-</main>
+  <!-- =========================================================
+       TOAST
+  ========================================================== -->
+
+  <div
+    class="toast-container"
+    id="toastContainer"
+  ></div>
 
 
-<footer>
-  <div>© 2026 VibeNest. Create without limits.</div>
-  <div>AI Creative Studio · Built for creators</div>
-</footer>
+  <!-- =========================================================
+       LOADING OVERLAY
+  ========================================================== -->
 
+  <div
+    class="global-loading hidden"
+    id="globalLoading"
+  >
 
-<!-- ================= COMMAND PALETTE ================= -->
+    <div class="loading-card">
 
-<div class="palette" id="palette" onclick="closePalette(event)">
+      <div class="loading-spinner"></div>
 
-  <div class="palette-box" onclick="event.stopPropagation()">
+      <strong id="loadingTitle">
+        Working...
+      </strong>
 
-    <input
-      id="paletteInput"
-      class="palette-input"
-      placeholder="Search VibeNest..."
-      oninput="filterPalette()"
-    >
-
-    <div id="paletteItems">
-
-      <div class="palette-item" onclick="openTool('video')">
-        🎬 <span>AI Video</span>
-      </div>
-
-      <div class="palette-item" onclick="openTool('image')">
-        🖼️ <span>AI Image</span>
-      </div>
-
-      <div class="palette-item" onclick="openTool('voice')">
-        🎙️ <span>Voice Studio</span>
-      </div>
-
-      <div class="palette-item" onclick="openTool('presentation')">
-        📊 <span>Presentation Maker</span>
-      </div>
-
-      <div class="palette-item" onclick="openTool('document')">
-        📄 <span>Documents & PDF</span>
-      </div>
-
-      <div class="palette-item" onclick="openTool('whiteboard')">
-        🎨 <span>Whiteboard</span>
-      </div>
+      <span id="loadingText">
+        VibeNest is processing your request.
+      </span>
 
     </div>
 
   </div>
 
-</div>
 
-
-<div class="toast" id="toast"></div>
-
-
-<script>
-
-/* =========================================================
-   VIBENEST CORE
-========================================================= */
-
-const API_URL =
-  "https://vibenest-api.vaibhavkhotkar2006.workers.dev";
-
-
-/* ---------- BASIC UI ---------- */
-
-function toast(message){
-
-  const el = document.getElementById("toast");
-
-  el.textContent = message;
-  el.classList.add("show");
-
-  clearTimeout(window.toastTimer);
-
-  window.toastTimer = setTimeout(()=>{
-    el.classList.remove("show");
-  },2800);
-}
-
-
-function scrollHome(){
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-}
-
-
-function scrollToId(id){
-
-  document.getElementById(id)?.scrollIntoView({
-    behavior:"smooth"
-  });
-
-}
-
-
-/* ---------- PROMPT ---------- */
-
-function focusPrompt(){
-
-  document.getElementById("mainPrompt").focus();
-
-}
-
-
-function useSuggestion(text){
-
-  document.getElementById("mainPrompt").value = text;
-
-  focusPrompt();
-
-}
-
-
-function templatePrompt(type){
-
-  useSuggestion(
-    `Create a ${type} with a premium modern style`
-  );
-
-}
-
-
-function randomIdea(){
-
-  const ideas = [
-
-    "Create a cinematic Reel about a lonely night drive through the mountains",
-
-    "Generate a futuristic city floating above the clouds",
-
-    "Create a motivational study Reel for students",
-
-    "Create a cinematic travel story about discovering a hidden place",
-
-    "Generate a product advertisement for a futuristic smartphone",
-
-    "Create a mysterious 20-second story with a surprising ending"
-
-  ];
-
-  const idea =
-    ideas[Math.floor(Math.random()*ideas.length)];
-
-  useSuggestion(idea);
-
-}
-
-
-function enhancePrompt(){
-
-  const input =
-    document.getElementById("mainPrompt");
-
-  const value =
-    input.value.trim();
-
-  if(!value){
-
-    input.value =
-      "Create a cinematic video about a person walking through a futuristic city at night.";
-
-    return;
-  }
-
-  input.value =
-    `${value}. Make it cinematic, visually detailed, natural-looking, professionally composed, with realistic lighting, smooth camera movement and strong visual storytelling.`;
-
-}
-
-
-/* ---------- INTELLIGENT ROUTING ---------- */
-
-function detectIntent(prompt){
-
-  const p = prompt.toLowerCase();
-
-  if(
-    p.includes("video") ||
-    p.includes("reel") ||
-    p.includes("short") ||
-    p.includes("cinematic") ||
-    p.includes("animation")
-  ){
-    return "video";
-  }
-
-  if(
-    p.includes("image") ||
-    p.includes("picture") ||
-    p.includes("photo") ||
-    p.includes("poster") ||
-    p.includes("illustration")
-  ){
-    return "image";
-  }
-
-  if(
-    p.includes("voice") ||
-    p.includes("voiceover") ||
-    p.includes("narration") ||
-    p.includes("speech")
-  ){
-    return "voice";
-  }
-
-  if(
-    p.includes("presentation") ||
-    p.includes("slides") ||
-    p.includes("ppt")
-  ){
-    return "presentation";
-  }
-
-  if(
-    p.includes("pdf") ||
-    p.includes("document") ||
-    p.includes("report") ||
-    p.includes("notes")
-  ){
-    return "document";
-  }
-
-  if(
-    p.includes("whiteboard") ||
-    p.includes("flowchart") ||
-    p.includes("diagram")
-  ){
-    return "whiteboard";
-  }
-
-  return "studio";
-}
-
-
-/* ---------- CREATE ---------- */
-
-async function createFromPrompt(){
-
-  const input =
-    document.getElementById("mainPrompt");
-
-  const prompt =
-    input.value.trim();
-
-  if(!prompt){
-
-    toast("Tell VibeNest what you want to create.");
-
-    focusPrompt();
-
-    return;
-  }
-
-  const intent =
-    detectIntent(prompt);
-
-  if(intent !== "video"){
-
-    openTool(intent);
-
-    return;
-  }
-
-  toast("Starting VibeNest video generation...");
-
-  try{
-
-    const response =
-      await fetch(`${API_URL}/generate`,{
-
-        method:"POST",
-
-        headers:{
-          "Content-Type":"application/json"
-        },
-
-        body:JSON.stringify({
-
-          prompt,
-
-          duration:5,
-
-          ratio:"9:16",
-
-          format:"reel",
-
-          style:"cinematic"
-
-        })
-
-      });
-
-
-    const data =
-      await response.json();
-
-    console.log("VibeNest generation:",data);
-
-    if(!response.ok){
-
-      toast(
-        data.error ||
-        "Video generation failed."
-      );
-
-      return;
-    }
-
-    /*
-      We deliberately don't fake a result here.
-
-      Your Worker/provider may return a queue request.
-      The dedicated Video Studio will handle polling
-      and previewing the final result.
-    */
-
-    localStorage.setItem(
-      "vibenest:lastPrompt",
-      prompt
-    );
-
-    localStorage.setItem(
-      "vibenest:lastGeneration",
-      JSON.stringify(data)
-    );
-
-    openTool("video");
-
-    toast("Generation request created.");
-
-  }catch(error){
-
-    console.error(error);
-
-    toast(
-      "Couldn't reach VibeNest AI. Please try again."
-    );
-
-  }
-
-}
-
-
-/* ---------- TOOLS ---------- */
-
-function openTool(tool){
-
-  const names = {
-
-    video:"AI Video Studio",
-
-    image:"AI Image Studio",
-
-    voice:"Voice Studio",
-
-    presentation:"AI Presentation Studio",
-
-    document:"Document & PDF Studio",
-
-    whiteboard:"AI Whiteboard",
-
-    studio:"VibeNest AI Studio"
-
-  };
-
-  /*
-    For now this foundation routes to the correct
-    future workspace. We will replace this with real
-    tool pages one by one.
-  */
-
-  toast(`${names[tool] || "VibeNest Studio"} is opening...`);
-
-  setTimeout(()=>{
-
-    if(tool === "video"){
-
-      window.location.href =
-        "#video";
-
-    }else{
-
-      window.location.href =
-        "#studio";
-
-    }
-
-  },350);
-
-}
-
-
-/* ---------- FILE ---------- */
-
-function attachFile(){
-
-  const input =
-    document.createElement("input");
-
-  input.type = "file";
-
-  input.accept =
-    "image/*,video/*,audio/*,.pdf,.txt,.doc,.docx";
-
-  input.onchange = ()=>{
-
-    if(input.files.length){
-
-      toast(
-        `${input.files[0].name} attached`
-      );
-
-    }
-
-  };
-
-  input.click();
-
-}
-
-
-/* ---------- COMMAND PALETTE ---------- */
-
-function openPalette(){
-
-  document
-    .getElementById("palette")
-    .classList.add("show");
-
-  setTimeout(()=>{
-
-    document
-      .getElementById("paletteInput")
-      .focus();
-
-  },100);
-
-}
-
-
-function closePalette(event){
-
-  if(
-    event.target.id === "palette"
-  ){
-
-    document
-      .getElementById("palette")
-      .classList.remove("show");
-
-  }
-
-}
-
-
-function filterPalette(){
-
-  const query =
-    document
-      .getElementById("paletteInput")
-      .value
-      .toLowerCase();
-
-  document
-    .querySelectorAll(".palette-item")
-    .forEach(item=>{
-
-      item.style.display =
-        item.textContent
-          .toLowerCase()
-          .includes(query)
-          ? "flex"
-          : "none";
-
-    });
-
-}
-
-
-/* ---------- KEYBOARD ---------- */
-
-document.addEventListener("keydown",event=>{
-
-  if(
-    (event.ctrlKey || event.metaKey) &&
-    event.key.toLowerCase() === "k"
-  ){
-
-    event.preventDefault();
-
-    openPalette();
-
-  }
-
-
-  if(event.key === "Escape"){
-
-    document
-      .getElementById("palette")
-      .classList.remove("show");
-
-  }
-
-});
-
-
-/* ---------- RESTORE LAST PROMPT ---------- */
-
-window.addEventListener("load",()=>{
-
-  const previous =
-    localStorage.getItem(
-      "vibenest:lastPrompt"
-    );
-
-  if(previous){
-
-    /*
-      We intentionally don't automatically fill
-      the prompt because the homepage should remain
-      clean. It can be restored later in Projects.
-    */
-
-    console.log(
-      "Previous VibeNest prompt available."
-    );
-
-  }
-
-});
-
-</script>
+  <!-- =========================================================
+       JAVASCRIPT
+  ========================================================== -->
+
+  <script src="js/projects.js"></script>
+  <script src="js/video.js"></script>
+  <script src="js/image.js"></script>
+  <script src="js/voice.js"></script>
+  <script src="js/whiteboard.js"></script>
+  <script src="js/compressor.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/app.js"></script>
 
 </body>
 </html>
