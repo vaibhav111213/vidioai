@@ -162,7 +162,7 @@
 
 
 /* =========================================================
-   COMMAND BOX
+   VIBENEST AI COMMAND BOX
    ========================================================= */
 
 .command-box,
@@ -171,34 +171,52 @@
     z-index: 3;
     width: min(820px, 100%);
     margin: 38px auto 0;
-}
-
-.command-box form,
-.home-command-wrapper {
-    position: relative;
-}
-
-.main-command-input,
-.home-command-input,
-.command-box textarea,
-.command-box input {
-    width: 100%;
-    min-height: 70px;
-    padding: 20px 72px 20px 24px;
-    border: 1px solid var(--vn-border);
-    border-radius: 20px;
-    outline: none;
-    resize: none;
+    padding: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 22px;
     background: rgba(20, 20, 37, 0.88);
-    color: var(--vn-text);
-    font-size: 16px;
     box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.28),
         inset 0 1px 0 rgba(255, 255, 255, 0.03);
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+.command-top {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.command-label {
+    color: #a8a8bc;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+}
+
+/* TEXT AREA */
+
+.main-command-input,
+.home-command-input,
+.command-box textarea {
+    display: block;
+    width: 100%;
+    min-height: 90px;
+    padding: 12px 4px 10px 4px;
+
+    border: 0;
+    outline: none;
+    resize: none;
+
+    background: transparent;
+    color: var(--vn-text);
+
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 1.55;
+
+    box-shadow: none;
 }
 
 .main-command-input::placeholder,
@@ -208,41 +226,150 @@
 
 .main-command-input:focus,
 .home-command-input:focus,
-.command-box textarea:focus,
-.command-box input:focus {
-    border-color: rgba(139, 92, 246, 0.65);
-    background: rgba(23, 23, 43, 0.96);
-    box-shadow:
-        0 0 0 4px rgba(139, 92, 246, 0.08),
-        0 25px 70px rgba(0, 0, 0, 0.35);
+.command-box textarea:focus {
+    border: 0;
+    outline: none;
+    background: transparent;
+    box-shadow: none;
 }
 
+/* IMPORTANT:
+   The old CSS made the Create button float
+   inside the textarea.
+   This forces the new bottom layout.
+*/
+
+.command-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    min-height: 40px;
+    margin-top: 4px;
+}
+
+/* ADD FILE */
+
+.add-file-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 34px;
+    padding: 0 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 9px;
+
+    background: rgba(255, 255, 255, 0.045);
+    color: #aaaabd;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.add-file-button:hover {
+    background: rgba(139, 92, 246, 0.12);
+    border-color: rgba(139, 92, 246, 0.35);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+/* CREATE BUTTON */
+
 .command-submit {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 48px;
-    height: 48px;
+    position: static !important;
+
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    width: auto !important;
+    min-width: 96px;
+    height: 36px;
+
+    padding: 0 15px;
+
     border: 0;
-    border-radius: 14px;
+    border-radius: 10px;
+
     background: linear-gradient(
         135deg,
         var(--vn-purple),
         var(--vn-blue)
     );
-    color: white;
+
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+
     cursor: pointer;
-    font-size: 18px;
-    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25);
+
+    box-shadow:
+        0 8px 22px rgba(99, 102, 241, 0.22);
+
+    transform: none !important;
+
     transition:
-        transform 0.2s ease,
-        filter 0.2s ease;
+        filter 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
 }
 
 .command-submit:hover {
-    transform: translateY(-50%) scale(1.05);
-    filter: brightness(1.1);
+    filter: brightness(1.08);
+
+    transform: translateY(-1px) !important;
+
+    box-shadow:
+        0 10px 26px rgba(99, 102, 241, 0.30);
+}
+
+.command-submit:active {
+    transform: translateY(0) !important;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .command-box,
+    .home-command {
+        width: 100%;
+        padding: 14px;
+        border-radius: 18px;
+    }
+
+    .main-command-input,
+    .home-command-input,
+    .command-box textarea {
+        min-height: 80px;
+        font-size: 15px;
+    }
+
+    .add-file-button {
+        font-size: 11px;
+        padding: 0 10px;
+    }
+
+    .command-submit {
+        min-width: 82px;
+        height: 34px;
+        font-size: 11px;
+    }
 }
 
 
