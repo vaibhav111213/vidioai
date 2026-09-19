@@ -1,0 +1,863 @@
+/* =========================================================
+   VIBENEST — RESPONSIVE SYSTEM
+   Desktop → Tablet → Mobile
+   ========================================================= */
+
+/* =========================================================
+   GLOBAL RESPONSIVE SAFETY
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img,
+video,
+canvas {
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* =========================================================
+   LARGE DESKTOP
+   ========================================================= */
+
+@media (min-width: 1500px) {
+  .main-content {
+    max-width: 1500px;
+  }
+
+  .home-hero {
+    padding: 70px 60px;
+  }
+
+  .hero-title {
+    font-size: 58px;
+  }
+
+  .command-box {
+    max-width: 900px;
+  }
+
+  .create-grid {
+    grid-template-columns:
+      repeat(5, minmax(0, 1fr));
+  }
+
+  .quick-actions {
+    grid-template-columns:
+      repeat(8, minmax(0, 1fr));
+  }
+}
+
+/* =========================================================
+   STANDARD DESKTOP
+   ========================================================= */
+
+@media (max-width: 1300px) {
+
+  .sidebar {
+    width: 225px;
+  }
+
+  .main-area {
+    margin-left: 225px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+
+  .create-grid {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+  }
+
+  .quick-actions {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+  }
+
+  .workspace-layout {
+    grid-template-columns:
+      1fr 300px;
+  }
+
+  .video-workspace {
+    grid-template-columns:
+      250px 1fr;
+  }
+}
+
+/* =========================================================
+   TABLET / SMALL DESKTOP
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .sidebar {
+    width: 205px;
+  }
+
+  .main-area {
+    margin-left: 205px;
+  }
+
+  .topbar {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .page-content {
+    padding: 20px;
+  }
+
+  .hero-title {
+    font-size: 43px;
+  }
+
+  .hero-description {
+    max-width: 600px;
+  }
+
+  .create-grid {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+
+  .quick-actions {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+  }
+
+  .dashboard-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .two-column {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .three-column {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .workspace-layout {
+    grid-template-columns:
+      1fr;
+  }
+
+  .workspace-sidebar {
+    display: none;
+  }
+
+  .video-workspace {
+    grid-template-columns:
+      220px 1fr;
+  }
+
+  .feature-card {
+    padding: 20px;
+  }
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .sidebar {
+    width: 72px;
+  }
+
+  .sidebar-logo-text,
+  .sidebar-section-title,
+  .sidebar-link span,
+  .sidebar-footer-text,
+  .sidebar-profile-info {
+    display: none;
+  }
+
+  .sidebar-logo {
+    justify-content: center;
+  }
+
+  .sidebar-link {
+    justify-content: center;
+
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .sidebar-profile {
+    justify-content: center;
+  }
+
+  .main-area {
+    margin-left: 72px;
+  }
+
+  .topbar {
+    min-height: 58px;
+  }
+
+  .mobile-menu-button {
+    display: inline-flex;
+  }
+
+  .hero {
+    padding: 45px 25px;
+  }
+
+  .hero-title {
+    font-size: 38px;
+  }
+
+  .hero-description {
+    font-size: 13px;
+  }
+
+  .command-box {
+    width: 100%;
+  }
+
+  .create-grid {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+
+  .quick-actions {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+  }
+
+  .recent-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .template-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .pricing-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+  .pricing-card.featured {
+    transform: none;
+  }
+
+  .video-workspace {
+    grid-template-columns:
+      1fr;
+  }
+
+  .video-sidebar {
+    display: none;
+  }
+
+  .video-preview {
+    min-height: 500px;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  body {
+    font-size: 14px;
+  }
+
+  .sidebar {
+    position: fixed;
+
+    left: -270px;
+
+    top: 0;
+    bottom: 0;
+
+    width: 250px;
+
+    z-index: 1000;
+
+    transition:
+      left 0.25s ease;
+
+    box-shadow:
+      15px 0 50px rgba(0, 0, 0, 0.45);
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .sidebar-logo-text,
+  .sidebar-section-title,
+  .sidebar-link span,
+  .sidebar-footer-text,
+  .sidebar-profile-info {
+    display: block;
+  }
+
+  .sidebar-link {
+    justify-content: flex-start;
+
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .sidebar-logo {
+    justify-content: flex-start;
+  }
+
+  .sidebar-profile {
+    justify-content: flex-start;
+  }
+
+  .main-area {
+    margin-left: 0;
+  }
+
+  .topbar {
+    height: 58px;
+
+    padding: 8px 12px;
+
+    gap: 7px;
+  }
+
+  .topbar-search {
+    flex: 1;
+  }
+
+  .topbar-search input {
+    width: 100%;
+  }
+
+  .topbar-action-label {
+    display: none;
+  }
+
+  .page-content {
+    padding: 13px;
+  }
+
+  /* Hero */
+
+  .hero {
+    min-height: auto;
+
+    padding: 35px 18px;
+
+    border-radius: 18px;
+  }
+
+  .hero-title {
+    font-size: 31px;
+
+    line-height: 1.05;
+  }
+
+  .hero-description {
+    font-size: 11px;
+
+    line-height: 1.55;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .hero-buttons button {
+    width: 100%;
+  }
+
+  /* Command */
+
+  .command-box {
+    border-radius: 14px;
+  }
+
+  .command-input {
+    min-height: 90px;
+
+    padding: 14px;
+
+    font-size: 12px;
+  }
+
+  .command-footer {
+    flex-wrap: wrap;
+
+    gap: 6px;
+  }
+
+  .command-actions {
+    width: 100%;
+
+    justify-content: space-between;
+  }
+
+  /* Create */
+
+  .create-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 8px;
+  }
+
+  .create-card {
+    min-height: 105px;
+
+    padding: 13px;
+  }
+
+  .create-card-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .create-card-title {
+    font-size: 10px;
+  }
+
+  .create-card-description {
+    font-size: 7px;
+  }
+
+  /* Quick actions */
+
+  .quick-actions {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  /* Grids */
+
+  .dashboard-grid,
+  .two-column,
+  .three-column,
+  .four-column {
+    grid-template-columns:
+      1fr;
+  }
+
+  .recent-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+  .template-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  /* Cards */
+
+  .card {
+    border-radius: 13px;
+  }
+
+  .section-header {
+    align-items: flex-start;
+
+    gap: 10px;
+  }
+
+  .section-title {
+    font-size: 16px;
+  }
+
+  .section-description {
+    font-size: 8px;
+  }
+
+  /* Modal */
+
+  .modal {
+    width: calc(100% - 24px);
+
+    max-height: 90vh;
+
+    border-radius: 16px;
+  }
+
+  .modal-header {
+    padding: 15px;
+  }
+
+  .modal-body {
+    padding: 15px;
+  }
+
+  .modal-footer {
+    padding: 12px 15px;
+  }
+
+  /* Upload */
+
+  .upload-dropzone {
+    min-height: 180px;
+  }
+
+  .upload-actions {
+    grid-template-columns:
+      1fr;
+  }
+
+  /* AI */
+
+  .ai-layout {
+    grid-template-columns:
+      1fr;
+  }
+
+  .ai-sidebar {
+    display: none;
+  }
+
+  .ai-chat {
+    min-height: 500px;
+  }
+
+  /* Image */
+
+  .image-workspace {
+    grid-template-columns:
+      1fr;
+  }
+
+  .image-controls {
+    order: 2;
+  }
+
+  .image-preview {
+    min-height: 400px;
+  }
+
+  /* Photo booth */
+
+  .photobooth-layout {
+    grid-template-columns:
+      1fr;
+  }
+
+  .photobooth-preview {
+    min-height: 350px;
+  }
+
+  /* Voice */
+
+  .voice-layout {
+    grid-template-columns:
+      1fr;
+  }
+
+  /* Presentation */
+
+  .presentation-layout {
+    grid-template-columns:
+      1fr;
+  }
+
+  /* Documents */
+
+  .document-layout {
+    grid-template-columns:
+      1fr;
+  }
+
+  /* Whiteboard */
+
+  .whiteboard-toolbar {
+    overflow-x: auto;
+
+    white-space: nowrap;
+  }
+
+  .whiteboard-canvas-wrapper {
+    min-height: 500px;
+  }
+
+  /* Resume */
+
+  .resume-layout {
+    grid-template-columns:
+      1fr;
+  }
+
+  /* Planner */
+
+  .planner-layout {
+    grid-template-columns:
+      1fr;
+  }
+
+  /* Compression */
+
+  .compression-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+  /* Enhance */
+
+  .enhance-layout {
+    grid-template-columns:
+      1fr;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  .topbar {
+    padding: 7px 9px;
+  }
+
+  .topbar-logo {
+    font-size: 13px;
+  }
+
+  .topbar-search {
+    display: none;
+  }
+
+  .page-content {
+    padding: 10px;
+  }
+
+  .hero {
+    padding: 28px 14px;
+  }
+
+  .hero-title {
+    font-size: 27px;
+  }
+
+  .hero-description {
+    font-size: 10px;
+  }
+
+  .create-grid {
+    gap: 6px;
+  }
+
+  .create-card {
+    min-height: 96px;
+
+    padding: 10px;
+  }
+
+  .create-card-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .quick-actions {
+    gap: 6px;
+  }
+
+  .quick-action {
+    min-height: 70px;
+  }
+
+  .template-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+  .section-title {
+    font-size: 15px;
+  }
+
+  .page-title {
+    font-size: 22px;
+  }
+
+  .page-description {
+    font-size: 9px;
+  }
+
+  .button {
+    min-height: 35px;
+  }
+
+  /* Video */
+
+  .video-preview {
+    min-height: 350px;
+  }
+
+  /* Editor */
+
+  .editor-page {
+    min-height: 800px;
+  }
+
+  .editor-top-actions {
+    gap: 3px;
+  }
+
+  .editor-action-button {
+    width: 31px;
+    height: 31px;
+  }
+
+  .editor-stage {
+    padding: 8px;
+  }
+
+  .editor-timeline {
+    height: 190px;
+  }
+
+  /* Tables */
+
+  .table-wrapper {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 600px;
+  }
+
+  /* Forms */
+
+  .form-grid {
+    grid-template-columns:
+      1fr;
+  }
+}
+
+/* =========================================================
+   LANDSCAPE MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) and (orientation: landscape) {
+
+  .hero {
+    padding: 25px;
+  }
+
+  .hero-title {
+    font-size: 30px;
+  }
+
+  .editor-stage {
+    min-height: 300px;
+  }
+
+  .editor-timeline {
+    height: 180px;
+  }
+}
+
+/* =========================================================
+   TOUCH DEVICES
+   ========================================================= */
+
+@media (hover: none) and (pointer: coarse) {
+
+  button,
+  a,
+  .create-card,
+  .quick-action,
+  .template-card,
+  .editor-tool,
+  .editor-small-button {
+    min-height: 40px;
+  }
+
+  .editor-tool {
+    min-height: 48px;
+  }
+
+  .timeline-clip {
+    cursor: pointer;
+  }
+
+  input[type="range"] {
+    height: 8px;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+
+    animation-iteration-count: 1 !important;
+
+    scroll-behavior: auto !important;
+
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+
+@media print {
+
+  .sidebar,
+  .topbar,
+  .modal-backdrop,
+  .toast,
+  .editor-tool-rail,
+  .editor-topbar,
+  .editor-timeline {
+    display: none !important;
+  }
+
+  .main-area {
+    margin-left: 0 !important;
+  }
+
+  body {
+    background: white !important;
+
+    color: black !important;
+  }
+}
