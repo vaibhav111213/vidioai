@@ -1775,3 +1775,80 @@ select {
 .mobile-menu {
   display: none !important;
 }
+/* =========================================
+   HOME COMMAND — ADD FILE + CREATE
+   ========================================= */
+
+.command-box {
+  padding: 18px !important;
+  border-radius: 18px !important;
+  background: rgba(20, 20, 37, 0.88) !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+}
+
+.command-bottom {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  margin-top: 10px !important;
+}
+
+.add-file-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+
+  height: 34px !important;
+  padding: 0 11px !important;
+
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  border-radius: 8px !important;
+
+  background: rgba(255,255,255,0.045) !important;
+  color: #aaaabd !important;
+
+  font-size: 11px !important;
+  font-weight: 600 !important;
+
+  cursor: pointer !important;
+}
+
+.add-file-button:hover {
+  background: rgba(139,92,246,0.12) !important;
+  border-color: rgba(139,92,246,0.35) !important;
+  color: white !important;
+}
+
+.command-submit {
+  position: static !important;
+  transform: none !important;
+
+  width: auto !important;
+  min-width: 95px !important;
+  height: 36px !important;
+
+  padding: 0 14px !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+
+  border-radius: 9px !important;
+
+  background: linear-gradient(
+    135deg,
+    #8b5cf6,
+    #6366f1
+  ) !important;
+
+  color: white !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+}
+
+.command-submit:hover {
+  transform: translateY(-1px) !important;
+}
