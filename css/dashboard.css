@@ -1650,3 +1650,44 @@ select {
 .profile-button {
   height: 36px;
 }
+/* Fix Home Create button only */
+
+.command-submit {
+  position: relative !important;
+  z-index: 10 !important;
+
+  flex-shrink: 0 !important;
+
+  width: 110px !important;
+  min-width: 110px !important;
+  height: 40px !important;
+
+  margin-left: 16px !important;
+
+  border-radius: 10px !important;
+
+  background: linear-gradient(135deg, #8b5cf6, #6366f1) !important;
+
+  color: #fff !important;
+
+  border: none !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  cursor: pointer !important;
+}
+
+/* Keep the existing mode boxes from being covered */
+.command-modes {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+
+/* Make the row fit naturally */
+.command-bottom {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+}
