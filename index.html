@@ -426,115 +426,57 @@
 
             <!-- MAIN AI COMMAND -->
 
-            <div class="command-box">
 
-              <div class="command-top">
+<div class="command-box">
 
-                <span class="command-sparkle">
-                  ✦
-                </span>
+  <div class="command-top">
+    <span class="command-label">
+      What do you want to create?
+    </span>
+  </div>
 
-                <span class="command-label">
-                  VibeNest AI
-                </span>
+  <textarea
+    id="home-command-input"
+    class="main-command-input"
+    placeholder="Describe what you want to create..."
+    rows="2"
+  ></textarea>
 
-                <span class="command-auto">
-                  AUTO
-                </span>
+  <div class="command-bottom">
 
-              </div>
+    <!-- ADD FILE -->
 
+    <input
+      type="file"
+      id="home-file-input"
+      hidden
+      multiple
+      accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.txt,.ppt,.pptx"
+      onchange="handleUniversalUpload(this.files)"
+    >
 
-              <textarea
-                id="homePrompt"
-                class="main-command-input"
-                placeholder="What do you want to create?"
-                rows="2"
-              ></textarea>
+    <button
+      type="button"
+      class="add-file-button"
+      onclick="document.getElementById('home-file-input').click()"
+    >
+      ＋ Add file
+    </button>
 
+    <!-- CREATE -->
 
-              <div class="command-bottom">
+    <button
+      type="button"
+      class="command-submit"
+      onclick="runHomeCommand()"
+    >
+      <span>Create</span>
+      <span>→</span>
+    </button>
 
-                <div class="command-modes">
+  </div>
 
-                  <button
-                    class="mode-chip active"
-                    data-mode="auto"
-                    onclick="selectHomeMode(this)"
-                  >
-                    Auto
-                  </button>
-
-                  <button
-                    class="mode-chip"
-                    data-mode="video"
-                    onclick="selectHomeMode(this)"
-                  >
-                    Video
-                  </button>
-
-                  <button
-                    class="mode-chip"
-                    data-mode="image"
-                    onclick="selectHomeMode(this)"
-                  >
-                    Image
-                  </button>
-
-                  <button
-                    class="mode-chip"
-                    data-mode="reel"
-                    onclick="selectHomeMode(this)"
-                  >
-                    Reel
-                  </button>
-
-                  <button
-                    class="mode-chip"
-                    data-mode="photobooth"
-                    onclick="selectHomeMode(this)"
-                  >
-                    Photo Booth
-                  </button>
-
-                  <button
-                    class="mode-chip"
-                    data-mode="voice"
-                    onclick="selectHomeMode(this)"
-                  >
-                    Voice
-                  </button>
-
-                  <button
-                    class="mode-chip"
-                    data-mode="presentation"
-                    onclick="selectHomeMode(this)"
-                  >
-                    Presentation
-                  </button>
-
-                  <button
-                    class="mode-chip"
-                    data-mode="document"
-                    onclick="selectHomeMode(this)"
-                  >
-                    Document
-                  </button>
-
-                </div>
-
-
-                <button
-                  class="command-submit"
-                  onclick="runHomeCommand()"
-                >
-                  <span>Create</span>
-                  <span>→</span>
-                </button>
-
-              </div>
-
-            </div>
+</div>
 
 
             <!-- QUICK ACTIONS -->
