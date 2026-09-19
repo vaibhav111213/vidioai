@@ -2,28 +2,32 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#08090d">
-<meta name="description" content="VibeNest — AI creative studio for video, images, voice, presentations and more.">
-<title>VibeNest — AI Creative Studio</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#080812">
+<meta name="description" content="VibeNest — Create without limits. AI video, images, voice, presentations and more.">
+
+<title>VibeNest — Create without limits</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
 :root{
-  --bg:#08090d;
-  --bg2:#0d0f16;
-  --panel:rgba(18,20,29,.78);
-  --panel2:rgba(24,27,38,.9);
-  --border:rgba(255,255,255,.09);
-  --text:#f7f8fb;
-  --muted:#9499aa;
+  --bg:#07070d;
+  --bg2:#0b0b14;
+  --panel:rgba(18,18,30,.72);
+  --panel2:rgba(25,25,42,.78);
+  --line:rgba(255,255,255,.09);
+  --line2:rgba(255,255,255,.15);
+  --text:#f7f7fb;
+  --muted:#9999ac;
   --purple:#8b5cf6;
-  --purple2:#a855f7;
-  --blue:#3b82f6;
+  --violet:#a855f7;
+  --blue:#4f8cff;
   --cyan:#22d3ee;
-  --green:#22c55e;
-  --red:#ef4444;
-  --shadow:0 25px 80px rgba(0,0,0,.45);
-  --radius:22px;
+  --pink:#ec4899;
+  --green:#34d399;
+  --radius:24px;
+  --shadow:0 25px 80px rgba(0,0,0,.38);
 }
 
 *{
@@ -37,897 +41,1002 @@ html{
 }
 
 body{
-  min-height:100vh;
   background:
-    radial-gradient(circle at 15% 10%,rgba(139,92,246,.12),transparent 30%),
-    radial-gradient(circle at 85% 15%,rgba(59,130,246,.09),transparent 28%),
+    radial-gradient(circle at 15% 10%,rgba(124,58,237,.16),transparent 30%),
+    radial-gradient(circle at 85% 15%,rgba(59,130,246,.13),transparent 28%),
+    radial-gradient(circle at 50% 80%,rgba(168,85,247,.08),transparent 35%),
     var(--bg);
   color:var(--text);
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-family:Inter,Arial,sans-serif;
+  min-height:100vh;
   overflow-x:hidden;
 }
 
-button,
-input,
-textarea{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible{
-  outline:2px solid var(--purple);
-  outline-offset:2px;
-}
-
-/* =========================
-   APP
-========================= */
-
-.app{
-  min-height:100vh;
-  display:flex;
-}
-
-/* =========================
-   SIDEBAR
-========================= */
-
-.sidebar{
-  width:270px;
-  height:100vh;
+body::before{
+  content:"";
   position:fixed;
-  left:0;
-  top:0;
-  z-index:100;
-  display:flex;
-  flex-direction:column;
-  padding:20px 14px;
-  background:rgba(8,9,13,.88);
-  border-right:1px solid var(--border);
-  backdrop-filter:blur(25px);
-  transition:.3s ease;
+  inset:0;
+  pointer-events:none;
+  opacity:.035;
+  background-image:
+    linear-gradient(rgba(255,255,255,.7) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.7) 1px,transparent 1px);
+  background-size:70px 70px;
+  mask-image:linear-gradient(to bottom,#000,transparent 80%);
 }
 
-.logo{
+/* ---------- TOP NAV ---------- */
+
+.nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:100;
+  height:74px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 5%;
+  background:rgba(7,7,13,.68);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(255,255,255,.055);
+}
+
+.brand{
   display:flex;
   align-items:center;
   gap:11px;
-  padding:6px 10px 25px;
+  cursor:pointer;
 }
 
-.logo-mark{
+.logo{
   width:38px;
   height:38px;
+  border-radius:12px;
   display:grid;
   place-items:center;
-  border-radius:12px;
-  background:linear-gradient(135deg,var(--purple),var(--blue));
-  box-shadow:0 8px 30px rgba(139,92,246,.3);
-  font-size:20px;
+  font-family:"Space Grotesk";
+  font-weight:800;
+  font-size:15px;
+  background:
+    linear-gradient(135deg,#9b5cff,#4269ff);
+  box-shadow:
+    0 0 30px rgba(139,92,246,.32),
+    inset 0 1px rgba(255,255,255,.3);
 }
 
-.logo-text{
-  font-size:21px;
-  font-weight:800;
+.brand-name{
+  font-family:"Space Grotesk";
+  font-size:19px;
+  font-weight:700;
   letter-spacing:-.5px;
 }
 
-.logo-text span{
-  color:#a78bfa;
-}
-
-.nav-label{
-  padding:13px 11px 7px;
-  color:#626777;
-  font-size:10px;
-  font-weight:800;
-  letter-spacing:1.5px;
-  text-transform:uppercase;
-}
-
-.nav{
+.nav-links{
   display:flex;
-  flex-direction:column;
-  gap:3px;
+  gap:7px;
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
 }
 
-.nav-btn{
-  width:100%;
+.nav-link{
   border:0;
   background:transparent;
-  color:#9da2b2;
-  padding:11px 12px;
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  text-align:left;
-  transition:.2s ease;
-}
-
-.nav-btn:hover{
-  background:rgba(255,255,255,.055);
-  color:white;
-}
-
-.nav-btn.active{
-  background:linear-gradient(90deg,rgba(139,92,246,.18),rgba(139,92,246,.05));
-  color:white;
-  box-shadow:inset 2px 0 0 #8b5cf6;
-}
-
-.nav-icon{
-  width:20px;
-  text-align:center;
-  font-size:17px;
-}
-
-.nav-name{
+  color:#a9a9bb;
+  padding:10px 14px;
+  border-radius:11px;
+  cursor:pointer;
   font-size:13px;
-  font-weight:600;
+  transition:.2s;
 }
 
-.nav-arrow{
-  margin-left:auto;
-  color:#555b6d;
-  font-size:11px;
-}
-
-.sidebar-bottom{
-  margin-top:auto;
-}
-
-.beta-card{
-  padding:15px;
-  border:1px solid rgba(139,92,246,.18);
-  border-radius:17px;
-  background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(59,130,246,.05));
-}
-
-.beta-title{
-  font-size:12px;
-  font-weight:750;
-}
-
-.beta-text{
-  margin-top:5px;
-  color:var(--muted);
-  font-size:10px;
-  line-height:1.5;
-}
-
-.usage{
-  margin-top:12px;
-}
-
-.usage-top{
-  display:flex;
-  justify-content:space-between;
-  color:#a7abba;
-  font-size:10px;
-  margin-bottom:6px;
-}
-
-.usage-bar{
-  height:5px;
+.nav-link:hover,
+.nav-link.active{
   background:rgba(255,255,255,.07);
-  border-radius:20px;
-  overflow:hidden;
+  color:white;
 }
 
-.usage-fill{
-  width:24%;
-  height:100%;
-  background:linear-gradient(90deg,var(--purple),var(--blue));
-  border-radius:20px;
-}
-
-/* =========================
-   MAIN
-========================= */
-
-.main{
-  width:calc(100% - 270px);
-  margin-left:270px;
-  min-height:100vh;
-}
-
-.topbar{
-  height:72px;
-  padding:0 30px;
+.nav-right{
   display:flex;
+  gap:9px;
   align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid var(--border);
-  background:rgba(8,9,13,.5);
-  backdrop-filter:blur(20px);
-  position:sticky;
-  top:0;
-  z-index:50;
-}
-
-.page-title{
-  font-size:14px;
-  font-weight:700;
-}
-
-.page-subtitle{
-  color:#6f7484;
-  font-size:11px;
-  margin-top:2px;
-}
-
-.top-actions{
-  display:flex;
-  align-items:center;
-  gap:10px;
 }
 
 .icon-btn{
-  width:38px;
-  height:38px;
-  border:1px solid var(--border);
-  border-radius:11px;
+  width:39px;
+  height:39px;
+  border-radius:12px;
+  border:1px solid var(--line);
   background:rgba(255,255,255,.035);
-  color:#a9adba;
-  display:grid;
-  place-items:center;
+  color:white;
+  cursor:pointer;
+  font-size:17px;
   transition:.2s;
 }
 
 .icon-btn:hover{
-  background:rgba(255,255,255,.08);
-  color:white;
+  background:rgba(255,255,255,.09);
+  border-color:var(--line2);
+  transform:translateY(-1px);
 }
 
 .avatar{
-  width:36px;
-  height:36px;
+  width:39px;
+  height:39px;
   border-radius:50%;
   display:grid;
   place-items:center;
   background:linear-gradient(135deg,#7c3aed,#2563eb);
-  font-size:12px;
-  font-weight:800;
+  font-size:13px;
+  font-weight:700;
 }
 
-/* =========================
-   CONTENT
-========================= */
+/* ---------- APP ---------- */
 
-.content{
-  max-width:1450px;
+main{
+  padding-top:74px;
+}
+
+.section{
+  width:min(1240px,92%);
   margin:auto;
-  padding:38px;
 }
 
-.page{
-  display:none;
-  animation:pageIn .35s ease;
-}
-
-.page.active{
-  display:block;
-}
-
-@keyframes pageIn{
-  from{
-    opacity:0;
-    transform:translateY(8px);
-  }
-  to{
-    opacity:1;
-    transform:none;
-  }
-}
-
-/* =========================
-   HERO
-========================= */
+/* ---------- HERO ---------- */
 
 .hero{
-  min-height:420px;
+  min-height:850px;
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:center;
   text-align:center;
+  padding-top:125px;
   position:relative;
-  overflow:hidden;
 }
 
 .hero-orb{
   position:absolute;
-  width:420px;
-  height:420px;
   border-radius:50%;
-  background:radial-gradient(circle,rgba(139,92,246,.16),transparent 68%);
-  filter:blur(10px);
+  filter:blur(80px);
   pointer-events:none;
 }
 
-.hero-badge{
-  position:relative;
-  padding:7px 13px;
-  border:1px solid rgba(139,92,246,.25);
-  border-radius:50px;
-  background:rgba(139,92,246,.07);
-  color:#b8a3ff;
-  font-size:11px;
-  font-weight:700;
-  margin-bottom:18px;
+.orb1{
+  width:300px;
+  height:300px;
+  background:rgba(139,92,246,.18);
+  left:5%;
+  top:160px;
+  animation:float1 9s ease-in-out infinite;
+}
+
+.orb2{
+  width:260px;
+  height:260px;
+  background:rgba(59,130,246,.13);
+  right:5%;
+  top:240px;
+  animation:float2 11s ease-in-out infinite;
+}
+
+@keyframes float1{
+  50%{transform:translate(30px,35px) scale(1.1)}
+}
+
+@keyframes float2{
+  50%{transform:translate(-35px,-20px) scale(1.08)}
+}
+
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 12px;
+  border:1px solid rgba(139,92,246,.24);
+  background:rgba(139,92,246,.08);
+  border-radius:999px;
+  color:#c4b5fd;
+  font-size:12px;
+  font-weight:600;
+  margin-bottom:27px;
+}
+
+.live-dot{
+  width:6px;
+  height:6px;
+  background:#34d399;
+  border-radius:50%;
+  box-shadow:0 0 10px #34d399;
 }
 
 .hero h1{
-  position:relative;
-  max-width:800px;
-  font-size:clamp(38px,6vw,70px);
+  max-width:900px;
+  font-family:"Space Grotesk";
+  font-size:clamp(48px,7vw,88px);
   line-height:.98;
-  letter-spacing:-3px;
-  font-weight:850;
+  letter-spacing:-5px;
+  font-weight:700;
 }
 
 .gradient-text{
-  background:linear-gradient(100deg,#fff 10%,#c4b5fd 45%,#60a5fa 85%);
+  background:linear-gradient(
+    100deg,
+    #fff 5%,
+    #c4b5fd 35%,
+    #8b5cf6 62%,
+    #60a5fa 90%
+  );
   -webkit-background-clip:text;
-  background-clip:text;
   color:transparent;
 }
 
-.hero p{
-  position:relative;
-  max-width:620px;
-  margin:22px auto 28px;
-  color:#858b9c;
-  font-size:14px;
+.hero-sub{
+  max-width:680px;
+  color:#a5a5b7;
+  font-size:17px;
   line-height:1.7;
+  margin:28px auto 34px;
 }
 
-/* =========================
-   AI COMMAND
-========================= */
+/* ---------- COMMAND BOX ---------- */
 
-.command{
-  width:min(850px,100%);
+.command-wrap{
+  width:min(820px,100%);
   position:relative;
-  padding:7px;
-  border:1px solid rgba(139,92,246,.24);
-  border-radius:20px;
-  background:rgba(17,19,29,.82);
-  box-shadow:
-    0 0 0 5px rgba(139,92,246,.025),
-    0 25px 80px rgba(0,0,0,.4);
-  backdrop-filter:blur(20px);
+  z-index:2;
 }
 
-.command:focus-within{
+.command-box{
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:25px;
+  box-shadow:
+    0 25px 90px rgba(0,0,0,.42),
+    0 0 70px rgba(124,58,237,.12),
+    inset 0 1px rgba(255,255,255,.08);
+  padding:18px;
+  text-align:left;
+  backdrop-filter:blur(25px);
+  transition:.3s;
+}
+
+.command-box:focus-within{
   border-color:rgba(139,92,246,.55);
   box-shadow:
-    0 0 0 5px rgba(139,92,246,.06),
-    0 25px 90px rgba(0,0,0,.5);
+    0 25px 90px rgba(0,0,0,.45),
+    0 0 80px rgba(139,92,246,.17),
+    inset 0 1px rgba(255,255,255,.12);
 }
 
-.command textarea{
+.prompt{
   width:100%;
-  min-height:85px;
+  min-height:86px;
   resize:none;
+  background:transparent;
   border:0;
   outline:0;
-  background:transparent;
   color:white;
-  padding:13px 15px 7px;
-  font-size:14px;
-  line-height:1.5;
+  font:16px Inter;
+  line-height:1.6;
+  padding:6px 8px;
 }
 
-.command textarea::placeholder{
-  color:#5e6474;
+.prompt::placeholder{
+  color:#737387;
 }
 
 .command-bottom{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:5px;
+  margin-top:8px;
 }
 
-.command-hints{
+.command-tools{
   display:flex;
-  gap:7px;
-  flex-wrap:wrap;
+  gap:6px;
 }
 
-.hint{
-  border:1px solid var(--border);
+.small-action{
+  height:38px;
+  padding:0 12px;
+  border:1px solid var(--line);
   background:rgba(255,255,255,.035);
-  color:#777d8e;
-  padding:6px 9px;
-  border-radius:8px;
-  font-size:10px;
-}
-
-.primary{
-  border:0;
-  color:white;
-  padding:11px 17px;
+  color:#a9a9b9;
   border-radius:11px;
-  background:linear-gradient(135deg,#8b5cf6,#6366f1);
-  box-shadow:0 8px 25px rgba(99,102,241,.25);
+  cursor:pointer;
   font-size:12px;
-  font-weight:750;
   transition:.2s;
 }
 
-.primary:hover{
-  transform:translateY(-1px);
-  box-shadow:0 12px 30px rgba(99,102,241,.35);
+.small-action:hover{
+  color:white;
+  background:rgba(255,255,255,.075);
 }
 
-.primary:active{
-  transform:translateY(0);
+.create-btn{
+  height:45px;
+  padding:0 21px;
+  border:0;
+  border-radius:13px;
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+  background:linear-gradient(135deg,#8b5cf6,#4f7cff);
+  box-shadow:0 10px 30px rgba(99,102,241,.28);
+  transition:.25s;
 }
 
-/* =========================
-   SECTION
-========================= */
-
-.section{
-  margin-top:34px;
+.create-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 15px 35px rgba(99,102,241,.4);
 }
 
-.section-head{
+.create-btn:active{
+  transform:scale(.97);
+}
+
+/* ---------- SUGGESTIONS ---------- */
+
+.suggestions{
   display:flex;
-  align-items:end;
-  justify-content:space-between;
-  margin-bottom:15px;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px;
+  margin-top:18px;
 }
 
-.section-title{
+.suggestion{
+  padding:9px 13px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.07);
+  background:rgba(255,255,255,.025);
+  color:#9696aa;
+  font-size:12px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.suggestion:hover{
+  color:white;
+  background:rgba(255,255,255,.07);
+  border-color:rgba(139,92,246,.3);
+}
+
+/* ---------- FLOATING PREVIEWS ---------- */
+
+.hero-stage{
+  width:min(1060px,100%);
+  height:300px;
+  margin-top:60px;
+  position:relative;
+}
+
+.preview-card{
+  position:absolute;
+  border:1px solid rgba(255,255,255,.11);
+  background:rgba(20,20,33,.76);
+  backdrop-filter:blur(20px);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+
+.preview-reel{
+  width:160px;
+  height:260px;
+  left:8%;
+  top:15px;
+  transform:rotate(-7deg);
+}
+
+.preview-reel .visual{
+  height:100%;
+  background:
+    linear-gradient(160deg,rgba(139,92,246,.1),transparent),
+    url("https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=500&q=80")
+    center/cover;
+}
+
+.preview-reel::after{
+  content:"▶  NIGHT DRIVE";
+  position:absolute;
+  left:13px;
+  bottom:14px;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:.6px;
+  text-shadow:0 2px 10px black;
+}
+
+.preview-image{
+  width:210px;
+  height:145px;
+  left:27%;
+  top:80px;
+  transform:rotate(4deg);
+}
+
+.preview-image .visual{
+  width:100%;
+  height:100%;
+  background:
+    url("https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=700&q=80")
+    center/cover;
+}
+
+.preview-presentation{
+  width:260px;
+  height:160px;
+  right:28%;
+  top:65px;
+  transform:rotate(-3deg);
+  padding:17px;
+}
+
+.slide-title{
+  font-family:"Space Grotesk";
   font-size:17px;
-  font-weight:800;
-  letter-spacing:-.3px;
+  font-weight:700;
+  margin-bottom:12px;
 }
 
-.section-description{
-  color:#6f7484;
-  font-size:11px;
-  margin-top:4px;
+.slide-line{
+  height:6px;
+  border-radius:5px;
+  background:rgba(255,255,255,.1);
+  margin:7px 0;
 }
 
-/* =========================
-   TOOL GRID
-========================= */
+.slide-line.short{
+  width:60%;
+}
+
+.preview-audio{
+  width:190px;
+  height:100px;
+  right:7%;
+  top:100px;
+  transform:rotate(7deg);
+  padding:18px;
+}
+
+.wave{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  height:45px;
+}
+
+.wave span{
+  width:3px;
+  border-radius:4px;
+  background:linear-gradient(#a78bfa,#60a5fa);
+  animation:wave 1s ease-in-out infinite alternate;
+}
+
+.wave span:nth-child(1){height:14px}
+.wave span:nth-child(2){height:25px;animation-delay:.1s}
+.wave span:nth-child(3){height:38px;animation-delay:.2s}
+.wave span:nth-child(4){height:22px;animation-delay:.3s}
+.wave span:nth-child(5){height:44px;animation-delay:.4s}
+.wave span:nth-child(6){height:29px;animation-delay:.5s}
+.wave span:nth-child(7){height:17px;animation-delay:.6s}
+.wave span:nth-child(8){height:34px;animation-delay:.7s}
+
+@keyframes wave{
+  to{transform:scaleY(.45)}
+}
+
+/* ---------- SECTION COMMON ---------- */
+
+.section-block{
+  padding:110px 0;
+}
+
+.section-heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin-bottom:35px;
+}
+
+.section-heading h2{
+  font-family:"Space Grotesk";
+  font-size:clamp(28px,4vw,43px);
+  letter-spacing:-2px;
+}
+
+.section-heading p{
+  color:#858598;
+  font-size:14px;
+  max-width:420px;
+  line-height:1.6;
+}
+
+/* ---------- CREATE GRID ---------- */
 
 .tool-grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:13px;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
 }
 
 .tool-card{
-  min-height:150px;
-  padding:19px;
-  border:1px solid var(--border);
-  border-radius:18px;
-  background:linear-gradient(145deg,rgba(21,23,33,.88),rgba(13,15,22,.88));
+  min-height:190px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:24px;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
   position:relative;
   overflow:hidden;
-  transition:.25s ease;
   cursor:pointer;
+  transition:.3s;
 }
 
-.tool-card::after{
+.tool-card::before{
   content:"";
   position:absolute;
-  width:120px;
-  height:120px;
-  right:-50px;
-  bottom:-65px;
+  width:130px;
+  height:130px;
   border-radius:50%;
-  background:var(--glow,rgba(139,92,246,.15));
-  filter:blur(20px);
+  right:-55px;
+  top:-55px;
+  background:var(--glow,rgba(139,92,246,.13));
+  filter:blur(25px);
 }
 
 .tool-card:hover{
-  transform:translateY(-4px);
-  border-color:rgba(255,255,255,.15);
-  box-shadow:0 20px 50px rgba(0,0,0,.25);
+  transform:translateY(-5px);
+  border-color:rgba(139,92,246,.28);
+  background:rgba(255,255,255,.065);
 }
 
 .tool-icon{
-  width:42px;
-  height:42px;
-  border-radius:13px;
+  width:44px;
+  height:44px;
+  border-radius:14px;
   display:grid;
   place-items:center;
-  font-size:20px;
-  background:rgba(139,92,246,.1);
-  border:1px solid rgba(139,92,246,.15);
-  margin-bottom:17px;
+  background:rgba(255,255,255,.065);
+  font-size:21px;
+  margin-bottom:24px;
 }
 
 .tool-card h3{
-  font-size:13px;
-  font-weight:750;
+  font-size:16px;
+  margin-bottom:8px;
 }
 
 .tool-card p{
-  color:#717687;
-  font-size:10px;
-  line-height:1.5;
-  margin-top:5px;
+  color:#858598;
+  font-size:12px;
+  line-height:1.6;
 }
 
 .tool-arrow{
   position:absolute;
-  right:17px;
-  top:19px;
-  color:#555b6c;
-  font-size:13px;
+  right:20px;
+  bottom:20px;
+  color:#68687b;
 }
 
-/* =========================
-   RECENT PROJECTS
-========================= */
+/* ---------- WORKFLOW ---------- */
 
-.project-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:13px;
-}
-
-.project-card{
-  border:1px solid var(--border);
-  border-radius:17px;
-  overflow:hidden;
-  background:#11131b;
-  transition:.2s;
-}
-
-.project-card:hover{
-  transform:translateY(-3px);
-  border-color:rgba(255,255,255,.15);
-}
-
-.project-preview{
-  height:125px;
-  display:grid;
-  place-items:center;
-  font-size:34px;
+.workflow{
+  border:1px solid var(--line);
   background:
-    radial-gradient(circle at 30% 20%,rgba(139,92,246,.4),transparent 40%),
-    linear-gradient(135deg,#16121f,#101522);
+    radial-gradient(circle at 50% 0%,rgba(139,92,246,.1),transparent 45%),
+    rgba(255,255,255,.025);
+  border-radius:28px;
+  padding:45px;
+  overflow:hidden;
 }
 
-.project-info{
-  padding:12px;
-}
-
-.project-name{
-  font-size:12px;
-  font-weight:700;
-}
-
-.project-meta{
-  color:#686e7d;
-  font-size:9px;
-  margin-top:4px;
-}
-
-/* =========================
-   TOOL PAGE
-========================= */
-
-.tool-header{
+.workflow-track{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  margin-bottom:25px;
+  gap:8px;
+  margin-top:45px;
 }
 
-.tool-header h1{
-  font-size:27px;
-  letter-spacing:-1px;
+.workflow-step{
+  flex:1;
+  text-align:center;
+  position:relative;
 }
 
-.tool-header p{
-  color:#74798a;
-  font-size:12px;
-  margin-top:5px;
+.workflow-step:not(:last-child)::after{
+  content:"→";
+  position:absolute;
+  right:-18px;
+  top:19px;
+  color:#555568;
 }
 
-.workspace{
-  display:grid;
-  grid-template-columns:1fr 390px;
-  gap:18px;
-}
-
-.panel{
-  border:1px solid var(--border);
-  border-radius:20px;
-  background:rgba(15,17,25,.75);
-  box-shadow:var(--shadow);
-}
-
-.panel-padding{
-  padding:20px;
-}
-
-.preview{
-  min-height:520px;
+.step-icon{
+  width:54px;
+  height:54px;
+  border-radius:17px;
   display:grid;
   place-items:center;
-  background:
-    radial-gradient(circle at 50% 20%,rgba(139,92,246,.12),transparent 35%),
-    #0b0d13;
-  border-radius:20px;
+  margin:auto auto 12px;
+  background:rgba(255,255,255,.055);
+  border:1px solid var(--line);
 }
 
-.phone{
-  width:250px;
-  aspect-ratio:9/16;
-  border:7px solid #1d202a;
-  border-radius:28px;
+.workflow-step span{
+  font-size:12px;
+  color:#a5a5b7;
+}
+
+/* ---------- TEMPLATES ---------- */
+
+.template-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+.template{
+  aspect-ratio:1/1.18;
+  border-radius:19px;
+  overflow:hidden;
+  position:relative;
+  border:1px solid var(--line);
+  cursor:pointer;
+  background:#11111b;
+  transition:.3s;
+}
+
+.template:hover{
+  transform:translateY(-5px);
+  border-color:rgba(255,255,255,.2);
+}
+
+.template-bg{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  transition:.4s;
+}
+
+.template:hover .template-bg{
+  transform:scale(1.06);
+}
+
+.template-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(transparent 40%,rgba(0,0,0,.85));
+}
+
+.template-info{
+  position:absolute;
+  left:17px;
+  right:17px;
+  bottom:16px;
+}
+
+.template-info h3{
+  font-size:14px;
+  margin-bottom:5px;
+}
+
+.template-info span{
+  font-size:10px;
+  color:#aaaabd;
+}
+
+/* ---------- GALLERY ---------- */
+
+.gallery{
+  display:grid;
+  grid-template-columns:1.3fr .8fr .8fr;
+  grid-auto-rows:190px;
+  gap:13px;
+}
+
+.gallery-item{
+  border-radius:20px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  position:relative;
+  background-size:cover;
+  background-position:center;
+}
+
+.gallery-item:first-child{
+  grid-row:span 2;
+}
+
+.gallery-item::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(transparent 50%,rgba(0,0,0,.65));
+}
+
+.gallery-label{
+  position:absolute;
+  z-index:2;
+  bottom:15px;
+  left:17px;
+  font-size:12px;
+  font-weight:600;
+}
+
+/* ---------- CTA ---------- */
+
+.final-cta{
+  margin:100px auto;
+  padding:85px 30px;
+  text-align:center;
+  border-radius:32px;
+  border:1px solid rgba(139,92,246,.2);
   background:
-    radial-gradient(circle at 65% 25%,rgba(96,165,250,.35),transparent 30%),
-    linear-gradient(145deg,#171328,#0b1322);
-  box-shadow:0 25px 80px rgba(0,0,0,.55);
-  display:flex;
-  align-items:end;
-  padding:17px;
+    radial-gradient(circle at 50% 0%,rgba(139,92,246,.2),transparent 45%),
+    linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.015));
   position:relative;
   overflow:hidden;
 }
 
-.phone::before{
-  content:"";
-  position:absolute;
-  top:7px;
-  left:50%;
-  transform:translateX(-50%);
-  width:70px;
-  height:17px;
-  border-radius:30px;
-  background:#05060a;
+.final-cta h2{
+  font-family:"Space Grotesk";
+  font-size:clamp(35px,5vw,58px);
+  letter-spacing:-3px;
 }
 
-.phone-content{
-  position:relative;
-  z-index:2;
+.final-cta p{
+  color:#9292a6;
+  margin:17px auto 27px;
+  max-width:520px;
+  line-height:1.7;
 }
 
-.phone-label{
-  font-size:9px;
-  color:#c4b5fd;
-  margin-bottom:6px;
-}
+/* ---------- FOOTER ---------- */
 
-.phone h3{
-  font-size:20px;
-  line-height:1.05;
-}
-
-.controls{
-  padding:20px;
-}
-
-.control-group{
-  margin-bottom:20px;
-}
-
-.control-label{
+footer{
+  border-top:1px solid var(--line);
+  padding:35px 5%;
+  color:#6f6f81;
+  font-size:12px;
   display:flex;
   justify-content:space-between;
-  margin-bottom:8px;
-  color:#9da2b1;
-  font-size:11px;
-  font-weight:700;
 }
 
-.text-input,
-.select,
-.textarea{
-  width:100%;
-  border:1px solid var(--border);
-  border-radius:11px;
-  background:#0c0e15;
-  color:white;
-  padding:11px 12px;
-  outline:none;
+/* ---------- COMMAND PALETTE ---------- */
+
+.palette{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  display:none;
+  align-items:flex-start;
+  justify-content:center;
+  padding-top:13vh;
+  background:rgba(0,0,0,.62);
+  backdrop-filter:blur(15px);
 }
 
-.textarea{
-  min-height:115px;
-  resize:vertical;
-}
-
-.text-input:focus,
-.select:focus,
-.textarea:focus{
-  border-color:rgba(139,92,246,.55);
-}
-
-.chips{
+.palette.show{
   display:flex;
-  flex-wrap:wrap;
-  gap:7px;
 }
 
-.chip{
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.03);
-  color:#858b9b;
-  padding:7px 10px;
-  border-radius:9px;
-  font-size:10px;
+.palette-box{
+  width:min(620px,92%);
+  background:#11111c;
+  border:1px solid var(--line2);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 30px 100px rgba(0,0,0,.6);
 }
 
-.chip.active{
-  color:#ddd6fe;
-  border-color:rgba(139,92,246,.45);
-  background:rgba(139,92,246,.12);
-}
-
-.full{
+.palette-input{
   width:100%;
+  padding:20px;
+  background:transparent;
+  border:0;
+  outline:0;
+  color:white;
+  font-size:16px;
+  border-bottom:1px solid var(--line);
 }
 
-/* =========================
-   COMING SOON
-========================= */
-
-.coming{
-  min-height:500px;
-  display:grid;
-  place-items:center;
-  text-align:center;
-  border:1px dashed rgba(255,255,255,.09);
-  border-radius:22px;
-  background:rgba(15,17,24,.5);
+.palette-item{
+  padding:14px 18px;
+  display:flex;
+  align-items:center;
+  gap:13px;
+  cursor:pointer;
+  color:#aaaabd;
 }
 
-.coming-icon{
-  font-size:48px;
-  margin-bottom:15px;
+.palette-item:hover{
+  background:rgba(255,255,255,.055);
+  color:white;
 }
 
-.coming h2{
-  font-size:24px;
-}
-
-.coming p{
-  color:#707687;
-  font-size:12px;
-  max-width:450px;
-  margin:10px auto 20px;
-  line-height:1.6;
-}
-
-/* =========================
-   TOAST
-========================= */
+/* ---------- TOAST ---------- */
 
 .toast{
   position:fixed;
-  right:25px;
-  bottom:25px;
-  z-index:500;
-  padding:12px 15px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  background:#151822;
-  box-shadow:0 20px 50px rgba(0,0,0,.4);
-  color:#dfe2ea;
-  font-size:11px;
-  transform:translateY(100px);
+  right:24px;
+  bottom:24px;
+  z-index:700;
+  padding:14px 18px;
+  border-radius:14px;
+  background:#171722;
+  border:1px solid var(--line2);
+  box-shadow:0 20px 60px rgba(0,0,0,.45);
+  color:#ddd;
+  font-size:13px;
+  transform:translateY(120px);
   opacity:0;
-  pointer-events:none;
-  transition:.3s;
+  transition:.35s;
 }
 
 .toast.show{
-  transform:none;
+  transform:translateY(0);
   opacity:1;
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* ---------- MOBILE ---------- */
 
 .mobile-menu{
   display:none;
 }
 
-@media(max-width:1100px){
-  .tool-grid,
-  .project-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
+@media(max-width:900px){
 
-  .workspace{
-    grid-template-columns:1fr;
-  }
-}
-
-@media(max-width:800px){
-  .sidebar{
-    transform:translateX(-100%);
-  }
-
-  .sidebar.open{
-    transform:none;
-    box-shadow:20px 0 60px rgba(0,0,0,.5);
-  }
-
-  .main{
-    width:100%;
-    margin-left:0;
+  .nav-links{
+    display:none;
   }
 
   .mobile-menu{
-    display:grid;
-  }
-
-  .content{
-    padding:22px 16px 40px;
-  }
-
-  .topbar{
-    padding:0 16px;
+    display:block;
   }
 
   .hero{
-    min-height:470px;
+    min-height:760px;
+    padding-top:100px;
   }
 
   .hero h1{
-    letter-spacing:-2px;
+    letter-spacing:-3px;
   }
 
-  .command-bottom{
-    align-items:flex-end;
-    gap:10px;
+  .hero-stage{
+    transform:scale(.78);
+    margin-top:20px;
   }
 
-  .command-hints{
-    display:none;
+  .tool-grid{
+    grid-template-columns:repeat(2,1fr);
   }
 
-  .tool-grid,
-  .project-grid{
+  .template-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .gallery{
     grid-template-columns:1fr 1fr;
+  }
+
+  .gallery-item:first-child{
+    grid-row:span 1;
   }
 }
 
-@media(max-width:520px){
-  .tool-grid,
-  .project-grid{
-    grid-template-columns:1fr;
+@media(max-width:600px){
+
+  .nav{
+    padding:0 18px;
   }
 
-  .tool-card{
-    min-height:125px;
+  .brand-name{
+    font-size:17px;
   }
 
-  .hero p{
-    font-size:12px;
+  .hero{
+    padding-top:80px;
+    min-height:720px;
   }
 
   .hero h1{
-    font-size:40px;
+    font-size:47px;
+    letter-spacing:-3px;
   }
 
-  .topbar .page-subtitle{
-    display:none;
+  .hero-sub{
+    font-size:14px;
+    margin-top:20px;
   }
 
-  .phone{
-    width:210px;
+  .command-box{
+    padding:13px;
+    border-radius:20px;
+  }
+
+  .prompt{
+    min-height:100px;
+    font-size:14px;
+  }
+
+  .command-bottom{
+    flex-direction:column;
+    align-items:stretch;
+    gap:10px;
+  }
+
+  .command-tools{
+    overflow:auto;
+  }
+
+  .create-btn{
+    width:100%;
+  }
+
+  .hero-stage{
+    transform:scale(.55);
+    transform-origin:top center;
+    height:170px;
+    margin-top:10px;
+  }
+
+  .section-block{
+    padding:70px 0;
+  }
+
+  .section-heading{
+    display:block;
+  }
+
+  .section-heading p{
+    margin-top:10px;
+  }
+
+  .tool-grid{
+    grid-template-columns:1fr;
+  }
+
+  .template-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .workflow{
+    padding:25px 16px;
+  }
+
+  .workflow-track{
+    flex-direction:column;
+    gap:18px;
+  }
+
+  .workflow-step:not(:last-child)::after{
+    content:"↓";
+    top:auto;
+    right:auto;
+    bottom:-19px;
+    left:50%;
+  }
+
+  .gallery{
+    display:grid;
+    grid-template-columns:1fr;
+    grid-auto-rows:220px;
+  }
+
+  footer{
+    flex-direction:column;
+    gap:10px;
   }
 }
 </style>
@@ -935,1081 +1044,983 @@ textarea:focus-visible{
 
 <body>
 
-<div class="app">
+<!-- ================= NAV ================= -->
 
-  <!-- ================= SIDEBAR ================= -->
+<header class="nav">
 
-  <aside class="sidebar" id="sidebar">
+  <div class="brand" onclick="scrollHome()">
+    <div class="logo">VN</div>
+    <div class="brand-name">VibeNest</div>
+  </div>
 
-    <div class="logo">
-      <div class="logo-mark">✦</div>
-      <div class="logo-text">Vibe<span>Nest</span></div>
-    </div>
+  <nav class="nav-links">
+    <button class="nav-link active" onclick="scrollHome()">Home</button>
+    <button class="nav-link" onclick="openStudio()">Create</button>
+    <button class="nav-link" onclick="scrollToId('templates')">Templates</button>
+    <button class="nav-link" onclick="scrollToId('projects')">Projects</button>
+  </nav>
 
-    <div class="nav-label">Workspace</div>
+  <div class="nav-right">
+    <button class="icon-btn" onclick="openPalette()" title="Command">
+      ⌘
+    </button>
 
-    <nav class="nav">
+    <button class="icon-btn mobile-menu" onclick="openPalette()">
+      ☰
+    </button>
 
-      <button class="nav-btn active" data-page="home">
-        <span class="nav-icon">⌂</span>
-        <span class="nav-name">Home</span>
-      </button>
+    <div class="avatar">VN</div>
+  </div>
 
-      <button class="nav-btn" data-page="ai">
-        <span class="nav-icon">✦</span>
-        <span class="nav-name">AI Studio</span>
-      </button>
+</header>
 
-    </nav>
 
-    <div class="nav-label">Create</div>
+<main>
 
-    <nav class="nav">
+<!-- ================= HERO ================= -->
 
-      <button class="nav-btn" data-page="video">
-        <span class="nav-icon">🎬</span>
-        <span class="nav-name">Video & Reels</span>
-      </button>
+<section class="hero section">
 
-      <button class="nav-btn" data-page="voice">
-        <span class="nav-icon">🎙️</span>
-        <span class="nav-name">Voice</span>
-      </button>
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
 
-      <button class="nav-btn" data-page="image">
-        <span class="nav-icon">🖼️</span>
-        <span class="nav-name">Images</span>
-      </button>
+  <div class="eyebrow">
+    <span class="live-dot"></span>
+    VibeNest AI Studio
+  </div>
 
-      <button class="nav-btn" data-page="presentation">
-        <span class="nav-icon">📊</span>
-        <span class="nav-name">Presentations</span>
-      </button>
+  <h1>
+    Create
+    <span class="gradient-text">without limits.</span>
+  </h1>
 
-      <button class="nav-btn" data-page="documents">
-        <span class="nav-icon">📄</span>
-        <span class="nav-name">Documents</span>
-      </button>
+  <p class="hero-sub">
+    Turn an idea into videos, images, voice, presentations,
+    documents and more — all from one creative workspace.
+  </p>
 
-      <button class="nav-btn" data-page="whiteboard">
-        <span class="nav-icon">🧑‍🎨</span>
-        <span class="nav-name">Whiteboard</span>
-      </button>
+  <div class="command-wrap">
 
-    </nav>
+    <div class="command-box">
 
-    <div class="nav-label">Tools</div>
+      <textarea
+        id="mainPrompt"
+        class="prompt"
+        placeholder="What do you want to create? Try: “Create a cinematic Reel about a night drive through the mountains…”"
+      ></textarea>
 
-    <nav class="nav">
+      <div class="command-bottom">
 
-      <button class="nav-btn" data-page="compress">
-        <span class="nav-icon">📦</span>
-        <span class="nav-name">Compress</span>
-      </button>
+        <div class="command-tools">
 
-      <button class="nav-btn" data-page="projects">
-        <span class="nav-icon">📁</span>
-        <span class="nav-name">My Projects</span>
-      </button>
+          <button class="small-action" onclick="attachFile()">
+            ＋ Add
+          </button>
 
-    </nav>
+          <button class="small-action" onclick="enhancePrompt()">
+            ✨ Enhance
+          </button>
 
-    <div class="sidebar-bottom">
+          <button class="small-action" onclick="randomIdea()">
+            ✦ Surprise me
+          </button>
 
-      <div class="beta-card">
-        <div class="beta-title">VibeNest Beta ✨</div>
-        <div class="beta-text">
-          You're using the early creative studio. More AI tools are being added.
         </div>
 
-        <div class="usage">
-          <div class="usage-top">
-            <span>AI usage</span>
-            <span>24%</span>
-          </div>
+        <button class="create-btn" onclick="createFromPrompt()">
+          Create →
+        </button>
 
-          <div class="usage-bar">
-            <div class="usage-fill"></div>
-          </div>
-        </div>
       </div>
 
     </div>
 
-  </aside>
+    <div class="suggestions">
 
-  <!-- ================= MAIN ================= -->
+      <button class="suggestion"
+        onclick="useSuggestion('Create a cinematic travel Reel about a mountain road at sunset')">
+        🎬 Cinematic Reel
+      </button>
 
-  <main class="main">
+      <button class="suggestion"
+        onclick="useSuggestion('Generate a futuristic city image at night')">
+        🖼️ AI Image
+      </button>
 
-    <header class="topbar">
+      <button class="suggestion"
+        onclick="useSuggestion('Create a presentation about Artificial Intelligence')">
+        📊 Presentation
+      </button>
+
+      <button class="suggestion"
+        onclick="useSuggestion('Write a motivational voiceover for a study Reel')">
+        🎙️ Voiceover
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- FLOATING CREATIVE PREVIEWS -->
+
+  <div class="hero-stage">
+
+    <div class="preview-card preview-reel">
+      <div class="visual"></div>
+    </div>
+
+    <div class="preview-card preview-image">
+      <div class="visual"></div>
+    </div>
+
+    <div class="preview-card preview-presentation">
+
+      <div class="slide-title">
+        The future of AI
+      </div>
+
+      <div class="slide-line"></div>
+      <div class="slide-line"></div>
+      <div class="slide-line short"></div>
+
+    </div>
+
+    <div class="preview-card preview-audio">
+
+      <div style="font-size:10px;color:#8888a0">
+        VibeNest Voice
+      </div>
+
+      <div class="wave">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= CREATE ANYTHING ================= -->
+
+<section class="section section-block">
+
+  <div class="section-heading">
+
+    <div>
+      <h2>Create anything.</h2>
+    </div>
+
+    <p>
+      One workspace for your videos, images, voice,
+      presentations and creative projects.
+    </p>
+
+  </div>
+
+
+  <div class="tool-grid">
+
+    <div class="tool-card" style="--glow:rgba(139,92,246,.18)"
+         onclick="openTool('video')">
+      <div class="tool-icon">🎬</div>
+      <h3>AI Video</h3>
+      <p>Turn prompts and images into cinematic videos and social content.</p>
+      <div class="tool-arrow">↗</div>
+    </div>
+
+
+    <div class="tool-card" style="--glow:rgba(59,130,246,.18)"
+         onclick="openTool('image')">
+      <div class="tool-icon">🖼️</div>
+      <h3>AI Image</h3>
+      <p>Generate, transform and enhance images from simple descriptions.</p>
+      <div class="tool-arrow">↗</div>
+    </div>
+
+
+    <div class="tool-card" style="--glow:rgba(236,72,153,.16)"
+         onclick="openTool('voice')">
+      <div class="tool-icon">🎙️</div>
+      <h3>Voice Studio</h3>
+      <p>Create natural voiceovers and build audio for your projects.</p>
+      <div class="tool-arrow">↗</div>
+    </div>
+
+
+    <div class="tool-card" style="--glow:rgba(34,211,238,.15)"
+         onclick="openTool('presentation')">
+      <div class="tool-icon">📊</div>
+      <h3>Presentations</h3>
+      <p>Turn an idea into structured, beautifully designed slides.</p>
+      <div class="tool-arrow">↗</div>
+    </div>
+
+
+    <div class="tool-card" style="--glow:rgba(52,211,153,.15)"
+         onclick="openTool('document')">
+      <div class="tool-icon">📄</div>
+      <h3>Documents & PDF</h3>
+      <p>Create, rewrite, summarize and work with documents and PDFs.</p>
+      <div class="tool-arrow">↗</div>
+    </div>
+
+
+    <div class="tool-card" style="--glow:rgba(168,85,247,.16)"
+         onclick="openTool('whiteboard')">
+      <div class="tool-icon">🎨</div>
+      <h3>Whiteboard</h3>
+      <p>Think visually with sketches, diagrams, notes and AI workflows.</p>
+      <div class="tool-arrow">↗</div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= ONE IDEA WORKFLOW ================= -->
+
+<section class="section section-block">
+
+  <div class="workflow">
+
+    <div class="section-heading">
 
       <div>
-        <div class="page-title" id="pageTitle">VibeNest</div>
-        <div class="page-subtitle" id="pageSubtitle">
-          Your AI creative workspace
-        </div>
+        <h2>One idea → finished content.</h2>
       </div>
 
-      <div class="top-actions">
-
-        <button class="icon-btn mobile-menu" id="menuBtn">
-          ☰
-        </button>
-
-        <button class="icon-btn" id="notificationBtn">
-          ♢
-        </button>
-
-        <button class="icon-btn" id="themeBtn">
-          ◐
-        </button>
-
-        <div class="avatar">VN</div>
-
-      </div>
-
-    </header>
-
-    <div class="content">
-
-      <!-- ================= HOME ================= -->
-
-      <section class="page active" id="page-home">
-
-        <div class="hero">
-
-          <div class="hero-orb"></div>
-
-          <div class="hero-badge">
-            ✨ AI CREATIVE STUDIO
-          </div>
-
-          <h1>
-            Turn your ideas into
-            <span class="gradient-text">something real.</span>
-          </h1>
-
-          <p>
-            Create videos, Reels, images, voices, presentations,
-            documents and more — from one creative workspace.
-          </p>
-
-          <div class="command">
-
-            <textarea
-              id="mainPrompt"
-              placeholder="Tell VibeNest what you want to create..."
-            ></textarea>
-
-            <div class="command-bottom">
-
-              <div class="command-hints">
-                <button class="hint" data-prompt="Create a cinematic Instagram Reel about a mountain road trip">🎬 Reel</button>
-                <button class="hint" data-prompt="Create a presentation about Artificial Intelligence">📊 Presentation</button>
-                <button class="hint" data-prompt="Create a professional voiceover for my video">🎙️ Voice</button>
-              </div>
-
-              <button class="primary" id="createBtn">
-                Create ✦
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <!-- TOOLS -->
-
-        <div class="section">
-
-          <div class="section-head">
-            <div>
-              <div class="section-title">Create anything</div>
-              <div class="section-description">
-                Your creative tools, connected in one workspace.
-              </div>
-            </div>
-          </div>
-
-          <div class="tool-grid">
-
-            <div class="tool-card" data-page="video" style="--glow:rgba(139,92,246,.2)">
-              <div class="tool-icon">🎬</div>
-              <div class="tool-arrow">↗</div>
-              <h3>Video & Reels</h3>
-              <p>Generate cinematic videos and social content with AI.</p>
-            </div>
-
-            <div class="tool-card" data-page="voice" style="--glow:rgba(34,211,238,.16)">
-              <div class="tool-icon">🎙️</div>
-              <div class="tool-arrow">↗</div>
-              <h3>Voice Studio</h3>
-              <p>Create voiceovers and transform audio for your projects.</p>
-            </div>
-
-            <div class="tool-card" data-page="image" style="--glow:rgba(59,130,246,.18)">
-              <div class="tool-icon">🖼️</div>
-              <div class="tool-arrow">↗</div>
-              <h3>Image Studio</h3>
-              <p>Edit images, remove backgrounds and create visuals.</p>
-            </div>
-
-            <div class="tool-card" data-page="presentation" style="--glow:rgba(168,85,247,.18)">
-              <div class="tool-icon">📊</div>
-              <div class="tool-arrow">↗</div>
-              <h3>Presentation</h3>
-              <p>Turn an idea into beautiful presentations.</p>
-            </div>
-
-            <div class="tool-card" data-page="documents">
-              <div class="tool-icon">📄</div>
-              <div class="tool-arrow">↗</div>
-              <h3>Documents & PDF</h3>
-              <p>Create, edit and prepare documents for sharing.</p>
-            </div>
-
-            <div class="tool-card" data-page="whiteboard">
-              <div class="tool-icon">🧑‍🎨</div>
-              <div class="tool-arrow">↗</div>
-              <h3>Whiteboard</h3>
-              <p>Sketch ideas, diagrams, mind maps and workflows.</p>
-            </div>
-
-            <div class="tool-card" data-page="compress">
-              <div class="tool-icon">📦</div>
-              <div class="tool-arrow">↗</div>
-              <h3>Compress</h3>
-              <p>Reduce video, image and PDF file sizes.</p>
-            </div>
-
-            <div class="tool-card" data-page="ai">
-              <div class="tool-icon">✨</div>
-              <div class="tool-arrow">↗</div>
-              <h3>VibeNest AI</h3>
-              <p>Describe an idea and let VibeNest build the workflow.</p>
-            </div>
-
-          </div>
-
-        </div>
-
-        <!-- PROJECTS -->
-
-        <div class="section">
-
-          <div class="section-head">
-            <div>
-              <div class="section-title">Recent projects</div>
-              <div class="section-description">
-                Your creative work will appear here.
-              </div>
-            </div>
-
-            <button class="hint" data-page="projects">
-              View all
-            </button>
-          </div>
-
-          <div class="project-grid">
-
-            <div class="project-card">
-              <div class="project-preview">🎬</div>
-              <div class="project-info">
-                <div class="project-name">Mountain Reel</div>
-                <div class="project-meta">Video · Recently created</div>
-              </div>
-            </div>
-
-            <div class="project-card">
-              <div class="project-preview">📊</div>
-              <div class="project-info">
-                <div class="project-name">AI Presentation</div>
-                <div class="project-meta">Presentation · Draft</div>
-              </div>
-            </div>
-
-            <div class="project-card">
-              <div class="project-preview">🎙️</div>
-              <div class="project-info">
-                <div class="project-name">Voiceover</div>
-                <div class="project-meta">Audio · Draft</div>
-              </div>
-            </div>
-
-            <div class="project-card">
-              <div class="project-preview">🖼️</div>
-              <div class="project-info">
-                <div class="project-name">Travel Visual</div>
-                <div class="project-meta">Image · Draft</div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- ================= AI ================= -->
-
-      <section class="page" id="page-ai">
-
-        <div class="tool-header">
-          <div>
-            <h1>VibeNest AI ✨</h1>
-            <p>Describe what you want to create. We'll turn it into a workflow.</p>
-          </div>
-        </div>
-
-        <div class="panel panel-padding">
-
-          <div class="control-group">
-            <div class="control-label">
-              <span>Your idea</span>
-            </div>
-
-            <textarea
-              class="textarea"
-              id="aiPrompt"
-              placeholder="Example: Create a 15-second cinematic Instagram Reel about a night drive through the mountains..."
-            ></textarea>
-          </div>
-
-          <div class="control-group">
-
-            <div class="control-label">
-              <span>What are you creating?</span>
-            </div>
-
-            <div class="chips">
-              <button class="chip active">Auto</button>
-              <button class="chip">Video</button>
-              <button class="chip">Reel</button>
-              <button class="chip">Image</button>
-              <button class="chip">Voice</button>
-              <button class="chip">Presentation</button>
-              <button class="chip">Document</button>
-            </div>
-
-          </div>
-
-          <button class="primary" id="aiCreateBtn">
-            Build my creation ✦
-          </button>
-
-        </div>
-
-      </section>
-
-      <!-- ================= VIDEO ================= -->
-
-      <section class="page" id="page-video">
-
-        <div class="tool-header">
-          <div>
-            <h1>Video & Reels</h1>
-            <p>Create cinematic videos and social content.</p>
-          </div>
-
-          <button class="primary" id="videoGenerateTop">
-            Generate Video
-          </button>
-        </div>
-
-        <div class="workspace">
-
-          <div class="panel preview">
-
-            <div class="phone">
-
-              <div class="phone-content">
-                <div class="phone-label">VIBENEST REEL</div>
-                <h3>Your AI video will appear here.</h3>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="panel controls">
-
-            <div class="control-group">
-
-              <div class="control-label">
-                <span>Prompt</span>
-              </div>
-
-              <textarea
-                class="textarea"
-                id="videoPrompt"
-                placeholder="Describe your video..."
-              ></textarea>
-
-            </div>
-
-            <div class="control-group">
-
-              <div class="control-label">
-                <span>Format</span>
-              </div>
-
-              <div class="chips" id="formatChips">
-
-                <button class="chip active" data-format="9:16">
-                  Instagram Reel
-                </button>
-
-                <button class="chip" data-format="16:9">
-                  YouTube
-                </button>
-
-                <button class="chip" data-format="1:1">
-                  Square
-                </button>
-
-              </div>
-
-            </div>
-
-            <div class="control-group">
-
-              <div class="control-label">
-                <span>Duration</span>
-              </div>
-
-              <div class="chips" id="durationChips">
-                <button class="chip active" data-duration="5">5 sec</button>
-                <button class="chip" data-duration="10">10 sec</button>
-                <button class="chip" data-duration="15">15 sec</button>
-              </div>
-
-            </div>
-
-            <div class="control-group">
-
-              <div class="control-label">
-                <span>Style</span>
-              </div>
-
-              <div class="chips" id="styleChips">
-                <button class="chip active">Cinematic</button>
-                <button class="chip">Realistic</button>
-                <button class="chip">Anime</button>
-                <button class="chip">Dreamy</button>
-              </div>
-
-            </div>
-
-            <button class="primary full" id="videoGenerate">
-              ✦ Generate with VibeNest AI
-            </button>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- ================= PLACEHOLDER PAGES ================= -->
-
-      <section class="page" id="page-voice">
-        <div class="tool-header">
-          <div>
-            <h1>Voice Studio 🎙️</h1>
-            <p>Voice generation, voiceover and audio transformation.</p>
-          </div>
-        </div>
-        <div class="coming">
-          <div>
-            <div class="coming-icon">🎙️</div>
-            <h2>Voice Studio is coming</h2>
-            <p>
-              This space will become the VibeNest voice engine,
-              including AI voiceovers and voice transformation.
-            </p>
-            <button class="primary" onclick="showToast('Voice Studio added to the VibeNest roadmap')">
-              Add to project
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <section class="page" id="page-image">
-        <div class="tool-header">
-          <div>
-            <h1>Image Studio 🖼️</h1>
-            <p>Edit, transform and prepare images for your projects.</p>
-          </div>
-        </div>
-        <div class="coming">
-          <div>
-            <div class="coming-icon">🖼️</div>
-            <h2>Image Studio is coming</h2>
-            <p>
-              Background removal, background replacement,
-              editing, resizing and AI image workflows will live here.
-            </p>
-            <button class="primary" onclick="showToast('Image Studio added to the VibeNest roadmap')">
-              Add to project
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <section class="page" id="page-presentation">
-        <div class="tool-header">
-          <div>
-            <h1>Presentation Studio 📊</h1>
-            <p>Turn ideas into structured presentations.</p>
-          </div>
-        </div>
-        <div class="coming">
-          <div>
-            <div class="coming-icon">📊</div>
-            <h2>Presentation Studio is coming</h2>
-            <p>
-              AI outlines, slide generation, templates,
-              diagrams and export will be connected here.
-            </p>
-            <button class="primary" onclick="showToast('Presentation Studio added to the roadmap')">
-              Add to project
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <section class="page" id="page-documents">
-        <div class="tool-header">
-          <div>
-            <h1>Documents & PDF 📄</h1>
-            <p>Create and work with documents and PDFs.</p>
-          </div>
-        </div>
-        <div class="coming">
-          <div>
-            <div class="coming-icon">📄</div>
-            <h2>Document Studio is coming</h2>
-            <p>
-              Document creation, PDF tools, conversion and
-              compression will be connected here.
-            </p>
-            <button class="primary" onclick="showToast('Document Studio added to the roadmap')">
-              Add to project
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <section class="page" id="page-whiteboard">
-        <div class="tool-header">
-          <div>
-            <h1>Whiteboard 🧑‍🎨</h1>
-            <p>Think visually with diagrams, ideas and workflows.</p>
-          </div>
-        </div>
-        <div class="coming">
-          <div>
-            <div class="coming-icon">🧑‍🎨</div>
-            <h2>Infinite Whiteboard</h2>
-            <p>
-              Drawing, shapes, mind maps, flowcharts and AI-assisted
-              diagrams will live here.
-            </p>
-            <button class="primary" onclick="showToast('Whiteboard added to the roadmap')">
-              Add to project
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <section class="page" id="page-compress">
-        <div class="tool-header">
-          <div>
-            <h1>Compress 📦</h1>
-            <p>Reduce file sizes while keeping quality.</p>
-          </div>
-        </div>
-
-        <div class="tool-grid">
-
-          <div class="tool-card" onclick="showToast('Video Compressor coming next')">
-            <div class="tool-icon">🎬</div>
-            <h3>Video Compressor</h3>
-            <p>Compress MP4, MOV and WebM videos.</p>
-          </div>
-
-          <div class="tool-card" onclick="showToast('Image Compressor coming next')">
-            <div class="tool-icon">🖼️</div>
-            <h3>Image Compressor</h3>
-            <p>Compress JPG, PNG and WebP images.</p>
-          </div>
-
-          <div class="tool-card" onclick="showToast('PDF Compressor coming next')">
-            <div class="tool-icon">📄</div>
-            <h3>PDF Compressor</h3>
-            <p>Reduce PDF size while keeping documents readable.</p>
-          </div>
-
-        </div>
-      </section>
-
-      <section class="page" id="page-projects">
-
-        <div class="tool-header">
-          <div>
-            <h1>My Projects 📁</h1>
-            <p>Your VibeNest creations in one place.</p>
-          </div>
-
-          <button class="primary" onclick="goTo('home')">
-            + New project
-          </button>
-        </div>
-
-        <div class="project-grid">
-
-          <div class="project-card">
-            <div class="project-preview">🎬</div>
-            <div class="project-info">
-              <div class="project-name">Mountain Reel</div>
-              <div class="project-meta">Video</div>
-            </div>
-          </div>
-
-          <div class="project-card">
-            <div class="project-preview">📊</div>
-            <div class="project-info">
-              <div class="project-name">AI Presentation</div>
-              <div class="project-meta">Presentation</div>
-            </div>
-          </div>
-
-          <div class="project-card">
-            <div class="project-preview">🖼️</div>
-            <div class="project-info">
-              <div class="project-name">Travel Visual</div>
-              <div class="project-meta">Image</div>
-            </div>
-          </div>
-
-          <div class="project-card">
-            <div class="project-preview">🎙️</div>
-            <div class="project-info">
-              <div class="project-name">Voiceover</div>
-              <div class="project-meta">Audio</div>
-            </div>
-          </div>
-
-        </div>
-
-      </section>
+      <p>
+        VibeNest connects the creative process instead of
+        making you jump between different apps.
+      </p>
 
     </div>
-  </main>
+
+
+    <div class="workflow-track">
+
+      <div class="workflow-step">
+        <div class="step-icon">💡</div>
+        <span>Idea</span>
+      </div>
+
+      <div class="workflow-step">
+        <div class="step-icon">✍️</div>
+        <span>Script</span>
+      </div>
+
+      <div class="workflow-step">
+        <div class="step-icon">🖼️</div>
+        <span>Visuals</span>
+      </div>
+
+      <div class="workflow-step">
+        <div class="step-icon">🎙️</div>
+        <span>Voice</span>
+      </div>
+
+      <div class="workflow-step">
+        <div class="step-icon">✂️</div>
+        <span>Edit</span>
+      </div>
+
+      <div class="workflow-step">
+        <div class="step-icon">🚀</div>
+        <span>Export</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= TEMPLATES ================= -->
+
+<section id="templates" class="section section-block">
+
+  <div class="section-heading">
+
+    <div>
+      <h2>Start with a template.</h2>
+    </div>
+
+    <p>
+      Skip the blank page and start from a format
+      designed for the content you want to create.
+    </p>
+
+  </div>
+
+
+  <div class="template-grid">
+
+    <div class="template" onclick="templatePrompt('cinematic travel Reel')">
+      <div class="template-bg"
+        style="background-image:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=700&q=80')">
+      </div>
+      <div class="template-overlay"></div>
+      <div class="template-info">
+        <h3>Cinematic Travel</h3>
+        <span>Instagram Reel · 9:16</span>
+      </div>
+    </div>
+
+
+    <div class="template" onclick="templatePrompt('motivational Reel')">
+      <div class="template-bg"
+        style="background-image:url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=700&q=80')">
+      </div>
+      <div class="template-overlay"></div>
+      <div class="template-info">
+        <h3>Motivation</h3>
+        <span>Short Video · 9:16</span>
+      </div>
+    </div>
+
+
+    <div class="template" onclick="templatePrompt('modern technology presentation')">
+      <div class="template-bg"
+        style="background-image:url('https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=700&q=80')">
+      </div>
+      <div class="template-overlay"></div>
+      <div class="template-info">
+        <h3>Tech Presentation</h3>
+        <span>Presentation</span>
+      </div>
+    </div>
+
+
+    <div class="template" onclick="templatePrompt('modern product advertisement')">
+      <div class="template-bg"
+        style="background-image:url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=700&q=80')">
+      </div>
+      <div class="template-overlay"></div>
+      <div class="template-info">
+        <h3>Product Ad</h3>
+        <span>Social Advertisement</span>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= MADE WITH VIBENEST ================= -->
+
+<section id="projects" class="section section-block">
+
+  <div class="section-heading">
+
+    <div>
+      <h2>Made with VibeNest.</h2>
+    </div>
+
+    <p>
+      Your creative workspace should feel inspiring
+      before you even start creating.
+    </p>
+
+  </div>
+
+
+  <div class="gallery">
+
+    <div class="gallery-item"
+      style="background-image:url('https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=1000&q=80')">
+      <div class="gallery-label">Cinematic Video</div>
+    </div>
+
+    <div class="gallery-item"
+      style="background-image:url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=700&q=80')">
+      <div class="gallery-label">AI Image</div>
+    </div>
+
+    <div class="gallery-item"
+      style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=700&q=80')">
+      <div class="gallery-label">Presentation</div>
+    </div>
+
+    <div class="gallery-item"
+      style="background-image:url('https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=700&q=80')">
+      <div class="gallery-label">Voice Studio</div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= FINAL CTA ================= -->
+
+<section class="section">
+
+  <div class="final-cta">
+
+    <h2>
+      Have an idea?
+      <span class="gradient-text">Make it real.</span>
+    </h2>
+
+    <p>
+      Describe what you want to create and let VibeNest
+      help turn the idea into something you can actually use.
+    </p>
+
+    <button class="create-btn" onclick="focusPrompt()">
+      Start creating →
+    </button>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<footer>
+  <div>© 2026 VibeNest. Create without limits.</div>
+  <div>AI Creative Studio · Built for creators</div>
+</footer>
+
+
+<!-- ================= COMMAND PALETTE ================= -->
+
+<div class="palette" id="palette" onclick="closePalette(event)">
+
+  <div class="palette-box" onclick="event.stopPropagation()">
+
+    <input
+      id="paletteInput"
+      class="palette-input"
+      placeholder="Search VibeNest..."
+      oninput="filterPalette()"
+    >
+
+    <div id="paletteItems">
+
+      <div class="palette-item" onclick="openTool('video')">
+        🎬 <span>AI Video</span>
+      </div>
+
+      <div class="palette-item" onclick="openTool('image')">
+        🖼️ <span>AI Image</span>
+      </div>
+
+      <div class="palette-item" onclick="openTool('voice')">
+        🎙️ <span>Voice Studio</span>
+      </div>
+
+      <div class="palette-item" onclick="openTool('presentation')">
+        📊 <span>Presentation Maker</span>
+      </div>
+
+      <div class="palette-item" onclick="openTool('document')">
+        📄 <span>Documents & PDF</span>
+      </div>
+
+      <div class="palette-item" onclick="openTool('whiteboard')">
+        🎨 <span>Whiteboard</span>
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
+
 
 <div class="toast" id="toast"></div>
 
+
 <script>
+
 /* =========================================================
-   VIBENEST CORE ENGINE
-   ========================================================= */
+   VIBENEST CORE
+========================================================= */
 
-/*
-  Backend stays separate from this frontend.
+const API_URL =
+  "https://vibenest-api.vaibhavkhotkar2006.workers.dev";
 
-  Your existing Cloudflare Worker can later be connected here:
 
-  const API_URL =
-    "https://vibenest-api.vaibhavkhotkar2006.workers.dev";
-*/
+/* ---------- BASIC UI ---------- */
 
-const VibeNest = {
+function toast(message){
 
-  state: {
-    currentPage: "home",
-    format: "9:16",
-    duration: 5,
-    style: "Cinematic"
-  },
+  const el = document.getElementById("toast");
 
-  pageNames: {
-    home: ["VibeNest", "Your AI creative workspace"],
-    ai: ["VibeNest AI", "Turn ideas into creative workflows"],
-    video: ["Video & Reels", "Create cinematic social content"],
-    voice: ["Voice Studio", "Create and transform audio"],
-    image: ["Image Studio", "Create and edit visuals"],
-    presentation: ["Presentation Studio", "Build beautiful presentations"],
-    documents: ["Documents & PDF", "Work with documents and PDFs"],
-    whiteboard: ["Whiteboard", "Think visually"],
-    compress: ["Compress", "Optimize your files"],
-    projects: ["My Projects", "Your creative workspace"]
-  },
+  el.textContent = message;
+  el.classList.add("show");
 
-  init(){
+  clearTimeout(window.toastTimer);
 
-    this.bindNavigation();
-    this.bindPrompts();
-    this.bindChips();
-    this.bindAI();
-    this.bindMobile();
-    this.bindTopButtons();
-
-  },
-
-  bindNavigation(){
-
-    document.querySelectorAll("[data-page]").forEach(element => {
-
-      element.addEventListener("click", () => {
-
-        const page = element.dataset.page;
-
-        if(page){
-          this.goTo(page);
-        }
-
-      });
-
-    });
-
-  },
-
-  goTo(page){
-
-    if(!document.getElementById(`page-${page}`)){
-      return;
-    }
-
-    this.state.currentPage = page;
-
-    document.querySelectorAll(".page").forEach(p => {
-      p.classList.remove("active");
-    });
-
-    document
-      .getElementById(`page-${page}`)
-      .classList.add("active");
-
-    document.querySelectorAll(".nav-btn").forEach(btn => {
-
-      btn.classList.toggle(
-        "active",
-        btn.dataset.page === page
-      );
-
-    });
-
-    const data = this.pageNames[page] || ["VibeNest",""];
-
-    document.getElementById("pageTitle").textContent = data[0];
-    document.getElementById("pageSubtitle").textContent = data[1];
-
-    document.getElementById("sidebar").classList.remove("open");
-
-    window.scrollTo({
-      top:0,
-      behavior:"smooth"
-    });
-
-  },
-
-  bindPrompts(){
-
-    document.querySelectorAll(".hint[data-prompt]").forEach(button => {
-
-      button.addEventListener("click", () => {
-
-        const prompt = button.dataset.prompt;
-
-        document.getElementById("mainPrompt").value = prompt;
-
-      });
-
-    });
-
-  },
-
-  bindAI(){
-
-    document
-      .getElementById("createBtn")
-      .addEventListener("click", () => {
-
-        const prompt =
-          document.getElementById("mainPrompt").value.trim();
-
-        if(!prompt){
-
-          showToast("Tell VibeNest what you want to create.");
-
-          document.getElementById("mainPrompt").focus();
-
-          return;
-
-        }
-
-        this.routePrompt(prompt);
-
-      });
-
-    document
-      .getElementById("aiCreateBtn")
-      .addEventListener("click", () => {
-
-        const prompt =
-          document.getElementById("aiPrompt").value.trim();
-
-        if(!prompt){
-
-          showToast("Add an idea first.");
-
-          return;
-
-        }
-
-        this.routePrompt(prompt);
-
-      });
-
-  },
-
-  routePrompt(prompt){
-
-    const text = prompt.toLowerCase();
-
-    /*
-      Temporary intelligent routing.
-
-      Later this will be replaced by the real
-      VibeNest AI orchestration endpoint.
-    */
-
-    if(
-      text.includes("reel") ||
-      text.includes("video") ||
-      text.includes("youtube")
-    ){
-
-      document.getElementById("videoPrompt").value = prompt;
-
-      this.goTo("video");
-
-      showToast("Your idea was sent to Video Studio.");
-
-      return;
-    }
-
-    if(
-      text.includes("voice") ||
-      text.includes("voiceover") ||
-      text.includes("narration")
-    ){
-
-      this.goTo("voice");
-
-      showToast("Your idea was sent to Voice Studio.");
-
-      return;
-    }
-
-    if(
-      text.includes("presentation") ||
-      text.includes("ppt") ||
-      text.includes("slides")
-    ){
-
-      this.goTo("presentation");
-
-      showToast("Your idea was sent to Presentation Studio.");
-
-      return;
-    }
-
-    if(
-      text.includes("pdf") ||
-      text.includes("document")
-    ){
-
-      this.goTo("documents");
-
-      showToast("Your idea was sent to Documents.");
-
-      return;
-    }
-
-    if(
-      text.includes("image") ||
-      text.includes("photo") ||
-      text.includes("background")
-    ){
-
-      this.goTo("image");
-
-      showToast("Your idea was sent to Image Studio.");
-
-      return;
-    }
-
-    showToast(
-      "VibeNest AI will understand this request in the next engine update."
-    );
-
-  },
-
-  bindChips(){
-
-    document.querySelectorAll(".chips").forEach(group => {
-
-      group.querySelectorAll(".chip").forEach(chip => {
-
-        chip.addEventListener("click", () => {
-
-          group.querySelectorAll(".chip").forEach(c => {
-            c.classList.remove("active");
-          });
-
-          chip.classList.add("active");
-
-          if(group.id === "formatChips"){
-            this.state.format =
-              chip.dataset.format || "9:16";
-          }
-
-          if(group.id === "durationChips"){
-            this.state.duration =
-              Number(chip.dataset.duration || 5);
-          }
-
-          if(group.id === "styleChips"){
-            this.state.style =
-              chip.textContent.trim();
-          }
-
-        });
-
-      });
-
-    });
-
-  },
-
-  bindMobile(){
-
-    document
-      .getElementById("menuBtn")
-      .addEventListener("click", () => {
-
-        document
-          .getElementById("sidebar")
-          .classList.toggle("open");
-
-      });
-
-  },
-
-  bindTopButtons(){
-
-    document
-      .getElementById("notificationBtn")
-      .addEventListener("click", () => {
-
-        showToast("You're all caught up.");
-
-      });
-
-    document
-      .getElementById("themeBtn")
-      .addEventListener("click", () => {
-
-        showToast("Theme controls will be added to Settings.");
-
-      });
-
-  }
-
-};
-
-
-/* =========================
-   GLOBAL HELPERS
-========================= */
-
-function goTo(page){
-  VibeNest.goTo(page);
+  window.toastTimer = setTimeout(()=>{
+    el.classList.remove("show");
+  },2800);
 }
 
-function showToast(message){
 
-  const toast =
-    document.getElementById("toast");
+function scrollHome(){
 
-  toast.textContent = message;
-  toast.classList.add("show");
-
-  clearTimeout(window.vibeToastTimer);
-
-  window.vibeToastTimer =
-    setTimeout(() => {
-      toast.classList.remove("show");
-    }, 2800);
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
 
 
-/* =========================
-   VIDEO PLACEHOLDER ACTION
-========================= */
+function scrollToId(id){
 
-document
-  .getElementById("videoGenerate")
-  .addEventListener("click", generateVideo);
+  document.getElementById(id)?.scrollIntoView({
+    behavior:"smooth"
+  });
 
-document
-  .getElementById("videoGenerateTop")
-  .addEventListener("click", generateVideo);
+}
 
-function generateVideo(){
 
-  const prompt =
-    document.getElementById("videoPrompt").value.trim();
+/* ---------- PROMPT ---------- */
 
-  if(!prompt){
+function focusPrompt(){
 
-    showToast("Describe the video you want first.");
+  document.getElementById("mainPrompt").focus();
 
-    document
-      .getElementById("videoPrompt")
-      .focus();
+}
 
-    return;
 
-  }
+function useSuggestion(text){
 
-  /*
-    IMPORTANT:
+  document.getElementById("mainPrompt").value = text;
 
-    We intentionally don't fake a successful AI result here.
+  focusPrompt();
 
-    In the next VibeNest Video Engine update,
-    this button will connect to your existing
-    Cloudflare /generate endpoint.
-  */
+}
 
-  showToast(
-    "Video engine ready — connecting your AI generation backend next."
+
+function templatePrompt(type){
+
+  useSuggestion(
+    `Create a ${type} with a premium modern style`
   );
 
 }
 
 
-/* =========================
-   START APP
-========================= */
+function randomIdea(){
 
-VibeNest.init();
+  const ideas = [
+
+    "Create a cinematic Reel about a lonely night drive through the mountains",
+
+    "Generate a futuristic city floating above the clouds",
+
+    "Create a motivational study Reel for students",
+
+    "Create a cinematic travel story about discovering a hidden place",
+
+    "Generate a product advertisement for a futuristic smartphone",
+
+    "Create a mysterious 20-second story with a surprising ending"
+
+  ];
+
+  const idea =
+    ideas[Math.floor(Math.random()*ideas.length)];
+
+  useSuggestion(idea);
+
+}
+
+
+function enhancePrompt(){
+
+  const input =
+    document.getElementById("mainPrompt");
+
+  const value =
+    input.value.trim();
+
+  if(!value){
+
+    input.value =
+      "Create a cinematic video about a person walking through a futuristic city at night.";
+
+    return;
+  }
+
+  input.value =
+    `${value}. Make it cinematic, visually detailed, natural-looking, professionally composed, with realistic lighting, smooth camera movement and strong visual storytelling.`;
+
+}
+
+
+/* ---------- INTELLIGENT ROUTING ---------- */
+
+function detectIntent(prompt){
+
+  const p = prompt.toLowerCase();
+
+  if(
+    p.includes("video") ||
+    p.includes("reel") ||
+    p.includes("short") ||
+    p.includes("cinematic") ||
+    p.includes("animation")
+  ){
+    return "video";
+  }
+
+  if(
+    p.includes("image") ||
+    p.includes("picture") ||
+    p.includes("photo") ||
+    p.includes("poster") ||
+    p.includes("illustration")
+  ){
+    return "image";
+  }
+
+  if(
+    p.includes("voice") ||
+    p.includes("voiceover") ||
+    p.includes("narration") ||
+    p.includes("speech")
+  ){
+    return "voice";
+  }
+
+  if(
+    p.includes("presentation") ||
+    p.includes("slides") ||
+    p.includes("ppt")
+  ){
+    return "presentation";
+  }
+
+  if(
+    p.includes("pdf") ||
+    p.includes("document") ||
+    p.includes("report") ||
+    p.includes("notes")
+  ){
+    return "document";
+  }
+
+  if(
+    p.includes("whiteboard") ||
+    p.includes("flowchart") ||
+    p.includes("diagram")
+  ){
+    return "whiteboard";
+  }
+
+  return "studio";
+}
+
+
+/* ---------- CREATE ---------- */
+
+async function createFromPrompt(){
+
+  const input =
+    document.getElementById("mainPrompt");
+
+  const prompt =
+    input.value.trim();
+
+  if(!prompt){
+
+    toast("Tell VibeNest what you want to create.");
+
+    focusPrompt();
+
+    return;
+  }
+
+  const intent =
+    detectIntent(prompt);
+
+  if(intent !== "video"){
+
+    openTool(intent);
+
+    return;
+  }
+
+  toast("Starting VibeNest video generation...");
+
+  try{
+
+    const response =
+      await fetch(`${API_URL}/generate`,{
+
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+
+          prompt,
+
+          duration:5,
+
+          ratio:"9:16",
+
+          format:"reel",
+
+          style:"cinematic"
+
+        })
+
+      });
+
+
+    const data =
+      await response.json();
+
+    console.log("VibeNest generation:",data);
+
+    if(!response.ok){
+
+      toast(
+        data.error ||
+        "Video generation failed."
+      );
+
+      return;
+    }
+
+    /*
+      We deliberately don't fake a result here.
+
+      Your Worker/provider may return a queue request.
+      The dedicated Video Studio will handle polling
+      and previewing the final result.
+    */
+
+    localStorage.setItem(
+      "vibenest:lastPrompt",
+      prompt
+    );
+
+    localStorage.setItem(
+      "vibenest:lastGeneration",
+      JSON.stringify(data)
+    );
+
+    openTool("video");
+
+    toast("Generation request created.");
+
+  }catch(error){
+
+    console.error(error);
+
+    toast(
+      "Couldn't reach VibeNest AI. Please try again."
+    );
+
+  }
+
+}
+
+
+/* ---------- TOOLS ---------- */
+
+function openTool(tool){
+
+  const names = {
+
+    video:"AI Video Studio",
+
+    image:"AI Image Studio",
+
+    voice:"Voice Studio",
+
+    presentation:"AI Presentation Studio",
+
+    document:"Document & PDF Studio",
+
+    whiteboard:"AI Whiteboard",
+
+    studio:"VibeNest AI Studio"
+
+  };
+
+  /*
+    For now this foundation routes to the correct
+    future workspace. We will replace this with real
+    tool pages one by one.
+  */
+
+  toast(`${names[tool] || "VibeNest Studio"} is opening...`);
+
+  setTimeout(()=>{
+
+    if(tool === "video"){
+
+      window.location.href =
+        "#video";
+
+    }else{
+
+      window.location.href =
+        "#studio";
+
+    }
+
+  },350);
+
+}
+
+
+/* ---------- FILE ---------- */
+
+function attachFile(){
+
+  const input =
+    document.createElement("input");
+
+  input.type = "file";
+
+  input.accept =
+    "image/*,video/*,audio/*,.pdf,.txt,.doc,.docx";
+
+  input.onchange = ()=>{
+
+    if(input.files.length){
+
+      toast(
+        `${input.files[0].name} attached`
+      );
+
+    }
+
+  };
+
+  input.click();
+
+}
+
+
+/* ---------- COMMAND PALETTE ---------- */
+
+function openPalette(){
+
+  document
+    .getElementById("palette")
+    .classList.add("show");
+
+  setTimeout(()=>{
+
+    document
+      .getElementById("paletteInput")
+      .focus();
+
+  },100);
+
+}
+
+
+function closePalette(event){
+
+  if(
+    event.target.id === "palette"
+  ){
+
+    document
+      .getElementById("palette")
+      .classList.remove("show");
+
+  }
+
+}
+
+
+function filterPalette(){
+
+  const query =
+    document
+      .getElementById("paletteInput")
+      .value
+      .toLowerCase();
+
+  document
+    .querySelectorAll(".palette-item")
+    .forEach(item=>{
+
+      item.style.display =
+        item.textContent
+          .toLowerCase()
+          .includes(query)
+          ? "flex"
+          : "none";
+
+    });
+
+}
+
+
+/* ---------- KEYBOARD ---------- */
+
+document.addEventListener("keydown",event=>{
+
+  if(
+    (event.ctrlKey || event.metaKey) &&
+    event.key.toLowerCase() === "k"
+  ){
+
+    event.preventDefault();
+
+    openPalette();
+
+  }
+
+
+  if(event.key === "Escape"){
+
+    document
+      .getElementById("palette")
+      .classList.remove("show");
+
+  }
+
+});
+
+
+/* ---------- RESTORE LAST PROMPT ---------- */
+
+window.addEventListener("load",()=>{
+
+  const previous =
+    localStorage.getItem(
+      "vibenest:lastPrompt"
+    );
+
+  if(previous){
+
+    /*
+      We intentionally don't automatically fill
+      the prompt because the homepage should remain
+      clean. It can be restored later in Projects.
+    */
+
+    console.log(
+      "Previous VibeNest prompt available."
+    );
+
+  }
+
+});
 
 </script>
 
